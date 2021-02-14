@@ -5,7 +5,7 @@
 </head>
 
 <body class="menubar-left menubar-unfold menubar-light theme-primary">
-    <!--============= start main area -->
+<!--============= start main area -->
 
     <!-- APP NAVBAR ==========-->
     <?php $this->load->view("includes/navbar"); ?>
@@ -26,14 +26,12 @@
                 <?php $this->load->view("{$viewFolder}/{$subViewFolder}/content"); ?>
             </section><!-- #dash-content -->
         </div><!-- .wrap -->
+
         <!-- APP FOOTER -->
         <?php $this->load->view("includes/footer"); ?>
         <!-- /#app-footer -->
     </main>
     <!--========== END app main -->
-
-    <!-- SIDE PANEL -->
-    <!-- /#side-panel -->
 
     <?php $this->load->view("includes/include_script"); ?>
 

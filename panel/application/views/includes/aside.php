@@ -52,21 +52,21 @@
     <div class="menubar-scroll">
         <div class="menubar-scroll-inner">
             <ul class="app-menu">
-            
-                <a href="#">
-                    <i class="menu-icon zmdi zmdi-view-web zmdi-hc-lg"></i>
-                    <span class="menu-text">Anasayfa</span>
-                </a>
-            
-                <a href="<?php echo base_url() ?>">
-                    <i class="menu-icon zmdi zmdi-view-dashboard zmdi-hc-lg"></i>
-                    <span class="menu-text">Dashboard</span>
-                </a>
-                
-                <a href="javascript:void(0)">
-                    <i class="menu-icon zmdi zmdi-settings zmdi-hc-lg"></i>
-                    <span class="menu-text">Ayarlar</span>
-                </a>
+
+
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="menu-icon zmdi zmdi-view-dashboard zmdi-hc-lg"></i>
+                        <span class="menu-text">Dashboard</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="menu-icon zmdi zmdi-settings zmdi-hc-lg"></i>
+                        <span class="menu-text">Ayarlar</span>
+                    </a>
+                </li>
 
                 <li class="has-submenu">
                     <a href="javascript:void(0)" class="submenu-toggle">
@@ -75,58 +75,82 @@
                         <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
                     </a>
                     <ul class="submenu">
-                        <li><a href="#"><span class="menu-text">Fotoğraf Galerisi</span></a></li>
+                        <li><a href="#"><span class="menu-text">Resim Galerisi</span></a></li>
                         <li><a href="#"><span class="menu-text">Video Galerisi</span></a></li>
                         <li><a href="#"><span class="menu-text">Dosya Galerisi</span></a></li>
                     </ul>
                 </li>
 
-                <a href="javascript:void(0)">
-                    <i class="menu-icon zmdi zmdi-layers zmdi-hc-lg"></i>
-                    <span class="menu-text">Slider</span>
-                </a>
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="menu-icon zmdi zmdi-layers zmdi-hc-lg"></i>
+                        <span class="menu-text">Slider</span>
+                    </a>
+                </li>
 
-                <a href="<?php echo base_url("product") ?>">
-                    <i class="menu-icon fa fa-cubes"></i>
-                    <span class="menu-text">Ürünler</span>
-                </a>
+                <li>
+                    <a href="<?php echo base_url("product"); ?>">
+                        <i class="menu-icon fa fa-cubes"></i>
+                        <span class="menu-text">Ürünler</span>
+                    </a>
+                </li>
 
-                <a href="javascript:void(0)">
-                    <i class="menu-icon fa fa-newspaper-o"></i>
-                    <span class="menu-text">Haberler</span>
-                </a>
-            
-                <a href="javascript:void(0)">
-                    <i class="menu-icon fa fa-calendar"></i>
-                    <span class="menu-text">Eğitimler</span>
-                </a>
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="menu-icon fa fa-newspaper-o"></i>
+                        <span class="menu-text">Haberler</span>
+                    </a>
+                </li>
 
-                <a href="javascript:void(0)">
-                    <i class="menu-icon zmdi zmdi-check zmdi-hc-lg"></i>
-                    <span class="menu-text">Referanslar</span>
-                </a>
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="menu-icon fa fa-calendar"></i>
+                        <span class="menu-text">Eğitimler</span>
+                    </a>
+                </li>
 
-                <a href="javascript:void(0)">
-                    <i class="menu-icon zmdi zmdi-puzzle-piece zmdi-hc-lg"></i>
-                    <span class="menu-text">Markalar</span>
-                </a>
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="menu-icon zmdi zmdi-check zmdi-hc-lg"></i>
+                        <span class="menu-text">Referanslar</span>
+                    </a>
+                </li>
 
-                <a href="javascript:void(0)">
-                <i class="menu-icon fa fa-user-secret"></i>
-                    <span class="menu-text">Kullanıcılar</span>
-                </a>
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="menu-icon zmdi zmdi-puzzle-piece zmdi-hc-lg"></i>
+                        <span class="menu-text">Markalar</span>
+                    </a>
+                </li>
 
-                <a href="javascript:void(0)">
-                <i class="menu-icon fa fa-users"></i>
-                    <span class="menu-text">Aboneler</span>
-                </a>
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="menu-icon fa fa-user-secret"></i>
+                        <span class="menu-text">Kullanıcılar</span>
+                    </a>
+                </li>
 
-                <a href="javascript:void(0)">
-                    <i class="menu-icon zmdi zmdi-lamp zmdi-hc-lg"></i>
-                    <span class="menu-text">Popup Hizmeti</span>
-                </a>
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="menu-icon fa fa-users"></i>
+                        <span class="menu-text">Aboneler</span>
+                    </a>
+                </li>
 
-                
+
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="menu-icon zmdi zmdi-lamp zmdi-hc-lg"></i>
+                        <span class="menu-text">Popup Hizmeti</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="documentation.html">
+                        <i class="menu-icon zmdi zmdi-view-web zmdi-hc-lg"></i>
+                        <span class="menu-text">Ana Sayfa</span>
+                    </a>
+                </li>
 
             </ul><!-- .app-menu -->
         </div><!-- .menubar-scroll-inner -->
