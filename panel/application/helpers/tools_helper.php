@@ -7,5 +7,9 @@ function convertToSEO($text){
 
     return strtolower(str_replace($turkce, $convert, $text));
 
+}
+
+
+function getFileName(){
 
 }

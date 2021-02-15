@@ -20,4 +20,9 @@
 
 <script src="<?php echo base_url("assets"); ?>/assets/js/sweetalert2.all.js"></script>
 
+<script src="<?php echo base_url("assets"); ?>/assets/js/iziToast.min.js"></script>
+
+<?php $this->load->view("includes/alert"); ?>
+
+
 <!--<script src="--><?php //echo base_url("assets"); ?><!--/assets/js/custom.js"></script>-->

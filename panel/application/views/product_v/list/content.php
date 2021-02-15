@@ -16,10 +16,10 @@
 
             <?php } else { ?>
 
-                <table class="table table-hover table-striped">
+                <table class="table table-hover table-striped table-bordered content-container">
                     <thead>
-                        <th><i class="fa fa-reorder"></i></th>
-                        <th>#id</th>
+                        <th class="order"><i class="fa fa-reorder"></i></th>
+                        <th class="w50">#id</th>
                         <th>Başlık</th>
                         <th>url</th>
                         <th>Açıklama</th>
@@ -31,8 +31,8 @@
                         <?php foreach($items as $item) { ?>
 
                             <tr id="ord-<?php echo $item->id; ?>">
-                                <td><i class="fa fa-reorder"></i></td>
-                                <td>#<?php echo $item->id; ?></td>
+                                <td class="order"><i class="fa fa-reorder"></i></td>
+                                <td class="w50 text-center">#<?php echo $item->id; ?></td>
                                 <td><?php echo $item->title; ?></td>
                                 <td><?php echo $item->url; ?></td>
                                 <td><?php echo $item->description; ?></td>
