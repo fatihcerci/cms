@@ -1,6 +1,6 @@
 <?php
 
-class Courses extends CI_Controller
+class Settings extends CI_Controller
 {
     public $viewFolder = "";
 
@@ -9,9 +9,9 @@ class Courses extends CI_Controller
 
         parent::__construct();
 
-        $this->viewFolder = "courses_v";
+        $this->viewFolder = "settings_v";
 
-        $this->load->model("course_model");
+        $this->load->model("settings_model");
 
         if(!get_active_user()){
             redirect(base_url("login"));
@@ -24,14 +24,16 @@ class Courses extends CI_Controller
         $viewData = new stdClass();
 
         /** Tablodan Verilerin Getirilmesi.. */
-        $items = $this->course_model->get_all(
-            array(), "rank ASC"
-        );
+        $item = $this->settings_model->get();
+
+        if($item)
+            $viewData->subViewFolder = "update";
+        else
+            $viewData->subViewFolder = "no_content";
 
         /** View'e gönderilecek Değişkenlerin Set Edilmesi.. */
         $viewData->viewFolder = $this->viewFolder;
-        $viewData->subViewFolder = "list";
-        $viewData->items = $items;
+        $viewData->item = $item;
 
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
     }
@@ -50,11 +52,12 @@ class Courses extends CI_Controller
 
     public function save(){
 
+
         $this->load->library("form_validation");
 
         // Kurallar yazilir..
 
-        if($_FILES["img_url"]["name"] == ""){
+        if($_FILES["logo"]["name"] == ""){
 
             $alert = array(
                 "title" => "İşlem Başarısız",
@@ -65,17 +68,19 @@ class Courses extends CI_Controller
             // İşlemin Sonucunu Session'a yazma işlemi...
             $this->session->set_flashdata("alert", $alert);
 
-            redirect(base_url("courses/new_form"));
+            redirect(base_url("settings/new_form"));
 
             die();
         }
 
-        $this->form_validation->set_rules("title", "Başlık", "required|trim");
-        $this->form_validation->set_rules("event_date", "Eğitim Tarihi", "required|trim");
+        $this->form_validation->set_rules("company_name", "Şirket Adı", "required|trim");
+        $this->form_validation->set_rules("phone_1", "Telefon 1", "required|trim");
+        $this->form_validation->set_rules("email", "E-posta Adresi", "required|trim|valid_email");
 
         $this->form_validation->set_message(
             array(
-                "required"  => "<b>{field}</b> alanı doldurulmalıdır"
+                "required"     => "<b>{field}</b> alanı doldurulmalıdır",
+                "valid_email"  => "Lütfen geçerli bir <b>{field}</b> giriniz"
             )
         );
 
@@ -86,7 +91,7 @@ class Courses extends CI_Controller
 
             // Upload Süreci...
 
-            $file_name = convertToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
+            $file_name = convertToSEO($this->input->post("company_name")) . "." . pathinfo($_FILES["logo"]["name"], PATHINFO_EXTENSION);
 
             $config["allowed_types"] = "jpg|jpeg|png";
             $config["upload_path"]   = "uploads/$this->viewFolder/";
@@ -94,21 +99,29 @@ class Courses extends CI_Controller
 
             $this->load->library("upload", $config);
 
-            $upload = $this->upload->do_upload("img_url");
+            $upload = $this->upload->do_upload("logo");
 
             if($upload){
 
                 $uploaded_file = $this->upload->data("file_name");
 
-                $insert = $this->course_model->add(
+                $insert = $this->settings_model->add(
                     array(
-                        "title"         => $this->input->post("title"),
-                        "description"   => $this->input->post("description"),
-                        "url"           => convertToSEO($this->input->post("title")),
-                        "img_url"       => $uploaded_file,
-                        "event_date"    => $this->input->post("event_date"),
-                        "rank"          => 0,
-                        "isActive"      => 1,
+                        "company_name"  => $this->input->post("company_name"),
+                        "phone_1"       => $this->input->post("phone_1"),
+                        "phone_2"       => $this->input->post("phone_2"),
+                        "fax_1"         => $this->input->post("fax_1"),
+                        "fax_2"         => $this->input->post("fax_2"),
+                        "address"       => $this->input->post("address"),
+                        "about_us"      => $this->input->post("about_us"),
+                        "mission"       => $this->input->post("mission"),
+                        "vision"        => $this->input->post("vision"),
+                        "email"         => $this->input->post("email"),
+                        "facebook"      => $this->input->post("facebook"),
+                        "twitter"       => $this->input->post("twitter"),
+                        "instagram"     => $this->input->post("instagram"),
+                        "linkedin"      => $this->input->post("linkedin"),
+                        "logo"          => $uploaded_file,
                         "createdAt"     => date("Y-m-d H:i:s")
                     )
                 );
@@ -141,7 +154,7 @@ class Courses extends CI_Controller
 
                 $this->session->set_flashdata("alert", $alert);
 
-                redirect(base_url("courses/new_form"));
+                redirect(base_url("settings/new_form"));
 
                 die();
 
@@ -150,7 +163,7 @@ class Courses extends CI_Controller
             // İşlemin Sonucunu Session'a yazma işlemi...
             $this->session->set_flashdata("alert", $alert);
 
-            redirect(base_url("courses"));
+            redirect(base_url("settings"));
 
         } else {
 
@@ -171,7 +184,7 @@ class Courses extends CI_Controller
         $viewData = new stdClass();
 
         /** Tablodan Verilerin Getirilmesi.. */
-        $item = $this->course_model->get(
+        $item = $this->settings_model->get(
             array(
                 "id"    => $id,
             )
@@ -193,12 +206,14 @@ class Courses extends CI_Controller
 
         // Kurallar yazilir..
 
-        $this->form_validation->set_rules("title", "Başlık", "required|trim");
-        $this->form_validation->set_rules("event_date", "Eğitim Tarihi", "required|trim");
+        $this->form_validation->set_rules("company_name", "Şirket Adı", "required|trim");
+        $this->form_validation->set_rules("phone_1", "Telefon 1", "required|trim");
+        $this->form_validation->set_rules("email", "E-posta Adresi", "required|trim|valid_email");
 
         $this->form_validation->set_message(
             array(
-                "required"  => "<b>{field}</b> alanı doldurulmalıdır"
+                "required"  => "<b>{field}</b> alanı doldurulmalıdır",
+                "valid_email"  => "Lütfen geçerli bir <b>{field}</b> giriniz"
             )
         );
 
@@ -208,9 +223,9 @@ class Courses extends CI_Controller
         if($validate){
 
             // Upload Süreci...
-            if($_FILES["img_url"]["name"] !== "") {
+            if($_FILES["logo"]["name"] !== "") {
 
-                $file_name = convertToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
+                $file_name = convertToSEO($this->input->post("company_name")) . "." . pathinfo($_FILES["logo"]["name"], PATHINFO_EXTENSION);
 
                 $config["allowed_types"] = "jpg|jpeg|png";
                 $config["upload_path"] = "uploads/$this->viewFolder/";
@@ -218,18 +233,29 @@ class Courses extends CI_Controller
 
                 $this->load->library("upload", $config);
 
-                $upload = $this->upload->do_upload("img_url");
+                $upload = $this->upload->do_upload("logo");
 
                 if ($upload) {
 
                     $uploaded_file = $this->upload->data("file_name");
 
                     $data = array(
-                        "title" => $this->input->post("title"),
-                        "description" => $this->input->post("description"),
-                        "event_date"  => $this->input->post("event_date"),
-                        "url" => convertToSEO($this->input->post("title")),
-                        "img_url" => $uploaded_file,
+                        "company_name"  => $this->input->post("company_name"),
+                        "phone_1"       => $this->input->post("phone_1"),
+                        "phone_2"       => $this->input->post("phone_2"),
+                        "fax_1"         => $this->input->post("fax_1"),
+                        "fax_2"         => $this->input->post("fax_2"),
+                        "address"       => $this->input->post("address"),
+                        "about_us"      => $this->input->post("about_us"),
+                        "mission"       => $this->input->post("mission"),
+                        "vision"        => $this->input->post("vision"),
+                        "email"         => $this->input->post("email"),
+                        "facebook"      => $this->input->post("facebook"),
+                        "twitter"       => $this->input->post("twitter"),
+                        "instagram"     => $this->input->post("instagram"),
+                        "linkedin"      => $this->input->post("linkedin"),
+                        "logo"          => $uploaded_file,
+                        "updatedAt"     => date("Y-m-d H:i:s")
                     );
 
                 } else {
@@ -242,7 +268,7 @@ class Courses extends CI_Controller
 
                     $this->session->set_flashdata("alert", $alert);
 
-                    redirect(base_url("courses/update_form/$id"));
+                    redirect(base_url("settings/update_form/$id"));
 
                     die();
 
@@ -251,15 +277,26 @@ class Courses extends CI_Controller
             } else {
 
                 $data = array(
-                    "title" => $this->input->post("title"),
-                    "description" => $this->input->post("description"),
-                    "event_date"  => $this->input->post("event_date"),
-                    "url" => convertToSEO($this->input->post("title")),
+                    "company_name"  => $this->input->post("company_name"),
+                    "phone_1"       => $this->input->post("phone_1"),
+                    "phone_2"       => $this->input->post("phone_2"),
+                    "fax_1"         => $this->input->post("fax_1"),
+                    "fax_2"         => $this->input->post("fax_2"),
+                    "address"       => $this->input->post("address"),
+                    "about_us"      => $this->input->post("about_us"),
+                    "mission"       => $this->input->post("mission"),
+                    "vision"        => $this->input->post("vision"),
+                    "email"         => $this->input->post("email"),
+                    "facebook"      => $this->input->post("facebook"),
+                    "twitter"       => $this->input->post("twitter"),
+                    "instagram"     => $this->input->post("instagram"),
+                    "linkedin"      => $this->input->post("linkedin"),
+                    "updatedAt"     => date("Y-m-d H:i:s")
                 );
 
             }
 
-            $update = $this->course_model->update(array("id" => $id), $data);
+            $update = $this->settings_model->update(array("id" => $id), $data);
 
             // TODO Alert sistemi eklenecek...
             if($update){
@@ -279,10 +316,16 @@ class Courses extends CI_Controller
                 );
             }
 
+
+            // Session Update İşlemi
+
+            $settings = $this->settings_model->get();
+            $this->session->set_userdata("settings", $settings);
+
             // İşlemin Sonucunu Session'a yazma işlemi...
             $this->session->set_flashdata("alert", $alert);
 
-            redirect(base_url("courses"));
+            redirect(base_url("settings"));
 
         } else {
 
@@ -294,7 +337,7 @@ class Courses extends CI_Controller
             $viewData->form_error = true;
 
             /** Tablodan Verilerin Getirilmesi.. */
-            $viewData->item = $this->course_model->get(
+            $viewData->item = $this->settings_model->get(
                 array(
                     "id"    => $id,
                 )
@@ -305,80 +348,5 @@ class Courses extends CI_Controller
 
     }
 
-    public function delete($id){
-
-        $delete = $this->course_model->delete(
-            array(
-                "id"    => $id
-            )
-        );
-
-        // TODO Alert Sistemi Eklenecek...
-        if($delete){
-
-            $alert = array(
-                "title" => "İşlem Başarılı",
-                "text" => "Kayıt başarılı bir şekilde silindi",
-                "type"  => "success"
-            );
-
-        } else {
-
-            $alert = array(
-                "title" => "İşlem Başarılı",
-                "text" => "Kayıt silme sırasında bir problem oluştu",
-                "type"  => "error"
-            );
-
-
-        }
-
-        $this->session->set_flashdata("alert", $alert);
-        redirect(base_url("courses"));
-
-
-    }
-
-    public function isActiveSetter($id){
-
-        if($id){
-
-            $isActive = ($this->input->post("data") === "true") ? 1 : 0;
-
-            $this->course_model->update(
-                array(
-                    "id"    => $id
-                ),
-                array(
-                    "isActive"  => $isActive
-                )
-            );
-        }
-    }
-
-    public function rankSetter(){
-
-
-        $data = $this->input->post("data");
-
-        parse_str($data, $order);
-
-        $items = $order["ord"];
-
-        foreach ($items as $rank => $id){
-
-            $this->course_model->update(
-                array(
-                    "id"        => $id,
-                    "rank !="   => $rank
-                ),
-                array(
-                    "rank"      => $rank
-                )
-            );
-
-        }
-
-    }
 
 }
