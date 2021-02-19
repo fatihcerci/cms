@@ -20,10 +20,9 @@
 
         <a href="<?php echo base_url(); ?>" class="navbar-brand">
             <span class="brand-icon">
-
                 <?php if($settings->logo != "default"){ ?>
                     <img
-                        width="70"
+                        width="30"
                         src="<?php echo get_picture("settings_v",$settings->logo, "150x35"); ?>"
                         alt=""
                         class="img-responsive">
@@ -31,13 +30,12 @@
                 <?php } else {?>
 
                     <img
-                        width="70"
+                        width="30"
                         src="<?php echo base_url("assets/assets/images/index/infinity-logo.png"); ?>"
                         alt=""
                         class="img-responsive">
 
                 <?php } ?>
-
             </span>
             <span class="brand-name">
                 <?php echo $settings->company_name; ?>
