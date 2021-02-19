@@ -25,6 +25,9 @@ th{
 .w300{
     width: 300px;
 }
+.w400{
+    width: 400px;
+}
 .w50{
     width: 50px;
 }
@@ -35,4 +38,12 @@ th{
 
 .video_url_container{
     display: none;
+}
+
+.button-information-container{
+    display: none;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
 }

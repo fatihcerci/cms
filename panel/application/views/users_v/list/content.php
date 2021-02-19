@@ -2,7 +2,9 @@
     <div class="col-md-12">
         <h4 class="m-b-lg">
             Kullanıcı Listesi
+            <?php if(isAdmin()) { ?>
             <a href="<?php echo base_url("users/new_form"); ?>" class="btn btn-outline btn-primary btn-xs pull-right"> <i class="fa fa-plus"></i> Yeni Ekle</a>
+            <?php } ?>
         </h4>
     </div><!-- END column -->
     <div class="col-md-12">
@@ -44,7 +46,7 @@
                                         <?php echo ($item->isActive) ? "checked" : ""; ?>
                                     />
                                 </td>
-                                <td class="text-center w300">
+                                <td class="text-center w400">
                                     <button
                                         data-url="<?php echo base_url("users/delete/$item->id"); ?>"
                                         class="btn btn-sm btn-danger btn-outline remove-btn">

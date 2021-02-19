@@ -12,6 +12,7 @@ class Users extends CI_Controller
         $this->viewFolder = "users_v";
 
         $this->load->model("user_model");
+        $this->load->model("user_role_model");
 
         if(!get_active_user()){
             redirect(base_url("login"));
@@ -23,9 +24,23 @@ class Users extends CI_Controller
 
         $viewData = new stdClass();
 
+        $user = get_active_user();
+
+        if(isAdmin()){
+
+            $where = array();
+
+        } else {
+
+            $where = array(
+                "id"    => $user->id
+            );
+
+        }
+
         /** Tablodan Verilerin Getirilmesi.. */
         $items = $this->user_model->get_all(
-            array()
+            $where
         );
 
         /** View'e gönderilecek Değişkenlerin Set Edilmesi.. */
@@ -39,6 +54,12 @@ class Users extends CI_Controller
     public function new_form(){
 
         $viewData = new stdClass();
+
+        $viewData->user_roles = $this->user_role_model->get_all(
+            array(
+                "isActive"  => 1
+            )
+        );
 
         /** View'e gönderilecek Değişkenlerin Set Edilmesi.. */
         $viewData->viewFolder = $this->viewFolder;
@@ -58,6 +79,7 @@ class Users extends CI_Controller
         $this->form_validation->set_rules("email", "E-posta", "required|trim|valid_email|is_unique[users.email]");
         $this->form_validation->set_rules("password", "Şifre", "required|trim|min_length[6]|max_length[8]");
         $this->form_validation->set_rules("re_password", "Şifre Tekrar", "required|trim|min_length[6]|max_length[8]|matches[password]");
+        $this->form_validation->set_rules("user_role_id", "Kullanıcı Rolü", "required|trim");
 
         $this->form_validation->set_message(
             array(
@@ -79,6 +101,7 @@ class Users extends CI_Controller
                     "full_name"     => $this->input->post("full_name"),
                     "email"         => $this->input->post("email"),
                     "password"      => md5($this->input->post("password")),
+                    "user_role_id"  => $this->input->post("user_role_id"),
                     "isActive"      => 1,
                     "createdAt"     => date("Y-m-d H:i:s")
                 )
@@ -133,6 +156,12 @@ class Users extends CI_Controller
                 "id"    => $id,
             )
         );
+
+        $viewData->user_roles = $this->user_role_model->get_all(
+            array(
+                "isActive"  => 1
+            )
+        );
         
         /** View'e gönderilecek Değişkenlerin Set Edilmesi.. */
         $viewData->viewFolder = $this->viewFolder;
@@ -183,8 +212,8 @@ class Users extends CI_Controller
             $this->form_validation->set_rules("email", "E-posta", "required|trim|valid_email|is_unique[users.email]");
         }
 
-
         $this->form_validation->set_rules("full_name", "Ad Soyad", "required|trim");
+        $this->form_validation->set_rules("user_role_id", "Kullanıcı Rolü", "required|trim");
 
 
         $this->form_validation->set_message(
@@ -207,6 +236,7 @@ class Users extends CI_Controller
                     "user_name"     => $this->input->post("user_name"),
                     "full_name"     => $this->input->post("full_name"),
                     "email"         => $this->input->post("email"),
+                    "user_role_id"  => $this->input->post("user_role_id"),
                 )
             );
 
@@ -246,6 +276,12 @@ class Users extends CI_Controller
             $viewData->item = $this->user_model->get(
                 array(
                     "id"    => $id,
+                )
+            );
+
+            $viewData->user_roles = $this->user_role_model->get_all(
+                array(
+                    "isActive"  => 1
                 )
             );
 
