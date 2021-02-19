@@ -68,18 +68,13 @@
                     </a>
                 </li>
 
-                <li class="has-submenu">
-                    <a href="javascript:void(0)" class="submenu-toggle">
+                <li>
+                    <a href="<?php echo base_url("galleries"); ?>">
                         <i class="menu-icon zmdi zmdi-apps zmdi-hc-lg"></i>
-                        <span class="menu-text">Galeriler</span>
-                        <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
+                        <span class="menu-text">Galeri İşlemleri</span>
                     </a>
-                    <ul class="submenu">
-                        <li><a href="#"><span class="menu-text">Resim Galerisi</span></a></li>
-                        <li><a href="#"><span class="menu-text">Video Galerisi</span></a></li>
-                        <li><a href="#"><span class="menu-text">Dosya Galerisi</span></a></li>
-                    </ul>
                 </li>
+
 
                 <li>
                     <a href="javascript:void(0)">
