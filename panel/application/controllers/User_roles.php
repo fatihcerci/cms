@@ -254,4 +254,62 @@ class User_roles extends CI_Controller
         }
     }
 
+    public function permissions_form($id){
+
+        $viewData = new stdClass();
+
+        /** Tablodan Verilerin Getirilmesi.. */
+        $item = $this->user_role_model->get(
+            array(
+                "id"    => $id,
+            )
+        );
+
+        /** View'e gönderilecek Değişkenlerin Set Edilmesi.. */
+        $viewData->viewFolder = $this->viewFolder;
+        $viewData->subViewFolder = "permissions";
+        $viewData->item = $item;
+
+        $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
+
+
+    }
+
+    public function update_permissions($id){
+
+        $permissions = json_encode($this->input->post("permissions"));
+
+        // Update Süreci...
+        $update = $this->user_role_model->update(
+            array("id" => $id),
+            array(
+                "permissions"      => $permissions
+            )
+        );
+
+        // TODO Alert sistemi eklenecek...
+        if($update){
+
+            $alert = array(
+                "title" => "İşlem Başarılı",
+                "text" => "Yetki Tanımı başarılı bir şekilde güncellendi",
+                "type"  => "success"
+            );
+
+        } else {
+
+            $alert = array(
+                "title" => "İşlem Başarısız",
+                "text" => "Yetki Tanımı Güncelleme sırasında bir problem oluştu",
+                "type"  => "error"
+            );
+        }
+
+        // İşlemin Sonucunu Session'a yazma işlemi...
+        $this->session->set_flashdata("alert", $alert);
+
+        redirect(base_url("user_roles/permissions_form/$id"));
+    }
+
+
 }

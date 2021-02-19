@@ -43,6 +43,50 @@ function isAdmin(){
         return false;
 }
 
+function isAllowedViewModule( $moduleName = ""){
+
+    $t          = &get_instance();
+    $moduleName = ($moduleName == "") ? $t->router->fetch_class() : $moduleName;
+
+    $user = get_active_user();
+    $user_roles = get_user_roles();
+
+    if (isset($user_roles[$user->user_role_id])){
+        $permission = json_decode($user_roles[$user->user_role_id]);
+        if(isset($permission->$moduleName) && isset($permission->$moduleName->read)){
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function get_user_roles(){
+
+    $t = &get_instance();
+    return $t->session->userdata("user_roles");
+}
+
+function setUserRoles(){
+
+    $t = &get_instance();
+
+    $t->load->model("user_role_model");
+
+    $user_roles = $t->user_role_model->get_all(
+        array(
+            "isActive"  => 1
+        )
+    );
+
+    $roles = [];
+    foreach ($user_roles as $role){
+        $roles[$role->id] = $role->permissions;
+    }
+    $t->session->set_userdata("user_roles", $roles);
+
+}
+
 function getControllerList(){
 
     $t = &get_instance();

@@ -34,6 +34,18 @@
                     </div>
 
                     <div class="form-group">
+                        <label>Kullanıcı Rolü</label>
+                        <select name="user_role_id" class="form-control">
+                            <?php foreach($user_roles as $user_role) { ?>
+                                <option value="<?php echo $user_role->id; ?>"><?php echo $user_role->title; ?></option>
+                            <?php } ?>
+                        </select>
+                        <?php if(isset($form_error)){ ?>
+                            <small class="pull-right input-form-error"> <?php echo form_error("user_role_id"); ?></small>
+                        <?php } ?>
+                    </div>
+
+                    <div class="form-group">
                         <label>Şifre</label>
                         <input class="form-control" type="password" placeholder="Şifre" name="password">
                         <?php if(isset($form_error)){ ?>
