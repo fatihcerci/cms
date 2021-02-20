@@ -175,8 +175,15 @@ class Userop extends CI_Controller {
 
                 $this->load->helper("string");
                 $temp_password = random_string();
-
-                $send = send_email($user->email, "Şifremi Unuttum", "CMS'e geçici olarak <b>{$temp_password}</b> şifresiyle giriş yapabilirsiniz");
+                $companyLogo = base_url("logo/companyLogo.png");
+                
+                $resetpasswordhtml = file_get_contents(base_url("resetpassword.html"));
+                $message = str_replace("APP_TEMP_PASSWORD",$temp_password,$resetpasswordhtml);
+                
+                $send = send_email(
+                    $user->email, 
+                    "Şifremi Unuttum", 
+                    $message);
 
                 if($send){
                     echo "E-posta başarılı bir şekilde gonderilmiştir..";
@@ -225,7 +232,7 @@ class Userop extends CI_Controller {
 
                 $alert = array(
                     "title" => "İşlem Başarısız",
-                    "text" => "Böyle bir kullanıcı bulunamadı!!!",
+                    "text" => "Böyle bir kullanıcı kaydı bulunmamaktadır",
                     "type"  => "error"
                 );
 
@@ -239,6 +246,11 @@ class Userop extends CI_Controller {
 
         }
 
+    }
+    
+    public function getResetPasswordMailContent($tempPass) {
+        
+       
     }
 
 

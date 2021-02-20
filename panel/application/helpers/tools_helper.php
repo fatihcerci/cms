@@ -155,18 +155,16 @@ function get_settings(){
     } else {
 
         $settings = $t->settings_model->get();
-
+        
         if(!$settings) {
-
             $settings = new stdClass();
-            $settings->company_name = "kablosuzkedi";
+            $settings->company_name = "LENORA";
             $settings->logo         = "default";
-            
         }
-
         $t->session->set_userdata("settings", $settings);
 
     }
+    $settings->logoFolder = "settings_v";
 
     return $settings;
 
@@ -193,37 +191,37 @@ function get_category_title($category_id = 0){
 }
 
 function upload_picture($file, $uploadPath, $width, $height, $name){
-
+    
     $t = &get_instance();
     $t->load->library("simpleimagelib");
-
-
+    
+    
     if(!is_dir("{$uploadPath}/{$width}x{$height}")){
         mkdir("{$uploadPath}/{$width}x{$height}");
     }
-
+    
     $upload_error = false;
     try {
-
+        
         $simpleImage = $t->simpleimagelib->get_simple_image_instance();
-
+        
         $simpleImage
-            ->fromFile($file)
-            ->thumbnail($width,$height,'center')
-            ->toFile("{$uploadPath}/{$width}x{$height}/$name", null, 75);
-
+        ->fromFile($file)
+        ->thumbnail($width,$height,'center')
+        ->toFile("{$uploadPath}/{$width}x{$height}/$name", null, 75);
+        
     } catch(Exception $err) {
         $error =  $err->getMessage();
         $upload_error = true;
     }
-
+    
     if($upload_error){
         echo $error;
     } else {
         return true;
     }
-
-
+    
+    
 }
 
 
@@ -267,3 +265,97 @@ function get_page_list($page){
 
     return (empty($page)) ? $page_list : $page_list[$page];
 }
+
+function get_version(){
+    
+    $t = &get_instance();
+    
+    $t->load->model("settings_model");
+    
+    $settings = $t->settings_model->get();
+        
+    if(!$settings) {
+        $settings = new stdClass();
+        $settings->company_name = "LENORA";
+        $settings->logo         = "default";
+        $settings->version      = "v0.1";
+    } else if ($settings && empty($settings->version)) {
+        $settings->version      = "v0.1";
+    }
+    
+    
+    return $settings->version;
+}
+
+function get_days_left($startDate) {
+    $gelecek = new DateTime($startDate);
+    $bugun = new DateTime(date('d-m-Y'));
+    $zamanFarki = $gelecek->diff($bugun);
+    $kalanGun = $zamanFarki->format('%a');
+    if (date($gelecekTarih) < date('d-m-Y')){
+        $kalanGun = '-'.$kalanGun;
+    }
+    return $kalanGun;
+}
+
+
+function upload_logo($file, $uploadPath, $name){
+    
+    $t = &get_instance();
+    $t->load->library("simpleimagelib");
+    
+    unlink("{$uploadPath}/{$name}");
+    
+    $upload_error = false;
+    try {
+        
+        $simpleImage = $t->simpleimagelib->get_simple_image_instance();
+        
+        $simpleImage
+        ->fromFile($file)
+        ->toFile("{$uploadPath}/$name", null, 75);
+        
+    } catch(Exception $err) {
+        $error =  $err->getMessage();
+        $upload_error = true;
+    }
+    
+    if($upload_error){
+        echo $error;
+    } else {
+        return true;
+    }
+}
+
+function get_logo($path = "", $picture = ""){
+    
+    if($picture != ""){
+        if(file_exists(FCPATH . "uploads/$path/$picture")){
+            $picture = base_url("uploads/$path/$picture");
+        } else {
+            $picture = base_url("assets/assets/images/default_image.png");
+        }
+        
+    } else {
+        $picture = base_url("assets/assets/images/default_image.png");
+    }
+    return $picture;
+}
+
+function isUserYonetici(){
+    
+    $t          = &get_instance();
+    
+    $user = get_active_user();
+    $user_roles = get_user_roles();
+    
+    if (isset($user_roles[$user->user_role_id])){
+        $permission = json_decode($user_roles[$user->user_role_id]);
+        if(isset($permission->$moduleName) && isset($permission->$moduleName->read)){
+            return true;
+        }
+    }
+    
+    return false;
+}
+

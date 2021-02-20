@@ -48,5 +48,12 @@
             <input class="form-control" placeholder="Diğer fax numaranız (opsiyonel)" name="fax_2">
         </div>
     </div>
+    
+    <div class="row">
+        <div class="form-group col-md-4">
+            <label>Logo Seçimi</label>
+            <input type="file" name="logo" class="form-control">
+        </div>
+    </div>
 
 </div><!-- .tab-pane  -->

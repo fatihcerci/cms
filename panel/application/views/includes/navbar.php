@@ -17,28 +17,23 @@
             <span class="sr-only">Toggle navigation</span>
             <span class="zmdi zmdi-hc-lg zmdi-search"></span>
         </button>
-
+        
         <a href="<?php echo base_url(); ?>" class="navbar-brand">
             <span class="brand-icon">
                 <?php if($settings->logo != "default"){ ?>
                     <img
-                        width="30"
-                        src="<?php echo get_picture("settings_v",$settings->logo, "150x35"); ?>"
-                        alt=""
+                        src="<?php echo get_logo($settings->logoFolder, $settings->logo); ?>"
+                		alt="<?php echo $settings->company_name; ?>"
                         class="img-responsive">
-
                 <?php } else {?>
 
                     <img
-                        width="30"
-                        src="<?php echo base_url("assets/assets/images/index/infinity-logo.png"); ?>"
+                        width="50"
+                        src="<?php echo base_url("assets/assets/images/default_image.png"); ?>"
                         alt=""
                         class="img-responsive">
 
                 <?php } ?>
-            </span>
-            <span class="brand-name">
-                <?php echo $settings->company_name; ?>
             </span>
         </a>
     </div><!-- .navbar-header -->
@@ -62,7 +57,11 @@
                         <i class="zmdi zmdi-hc-lg zmdi-search"></i>
                     </a>
                 </li>
-
+				<li class="nav-item dropdown hidden-float">
+                    <a href="javascript:void(0)" aria-expanded="false">
+                        <?php echo get_version(); ?>
+                    </a>
+                </li>
             </ul>
         </div>
     </div><!-- navbar-container -->

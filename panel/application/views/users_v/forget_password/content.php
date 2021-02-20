@@ -1,8 +1,10 @@
+<?php $settings = get_settings(); ?>
+
 <div class="simple-page-wrap">
     <div class="simple-page-logo animated swing">
         <a href="index.html">
-            <span><i class="fa fa-gg"></i></span>
-            <span>CMS</span>
+            <span><i class="fa fa-user"></i></span>
+            <span><?php echo $settings->company_name ?></span>
         </a>
     </div><!-- logo -->
     <div class="simple-page-form animated flipInY" id="reset-password-form">

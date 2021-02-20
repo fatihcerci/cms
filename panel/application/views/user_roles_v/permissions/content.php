@@ -52,7 +52,7 @@
                     <hr>
 
                     <button type="submit" class="btn btn-primary btn-md btn-outline">Güncelle</button>
-                    <a href="<?php echo base_url("users"); ?>" class="btn btn-md btn-danger btn-outline">İptal</a>
+                    <a href="<?php echo base_url("user_roles"); ?>" class="btn btn-md btn-danger btn-outline">İptal</a>
                 </form>
             </div><!-- .widget-body -->
         </div><!-- .widget -->

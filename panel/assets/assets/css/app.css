@@ -1751,7 +1751,9 @@ body.menubar-top .menubar.dark .app-menu .submenu {
       .navbar-brand .brand-icon .fa {
         font-size: 30px; }
       .navbar-brand .brand-name {
-        display: none; } }
+        display: none; }
+        .navbar-brand .brand-icon {
+        width:100px; } }
 
 .navbar-inverse .navbar-brand,
 .navbar-inverse .navbar-brand:hover,
