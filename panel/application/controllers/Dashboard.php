@@ -32,6 +32,10 @@ class Dashboard extends CI_Controller {
 	    
 	    $employees = $this->dashboard_model->get_employees();
 	    
+	    $duyurular = $this->dashboard_model->get_announcements();
+	    
+	    $dogumGunuYaklasanCalisanlar = $this->dashboard_model->get_dogum_gunu_yaklasan_calisanlar();
+	    
 	    
 	    
 	    $viewData = new stdClass();
@@ -42,6 +46,8 @@ class Dashboard extends CI_Controller {
         $viewData->publishedBlogCount = $published_blog_count;
         $viewData->latestPublishedBlogs = $latestPublishedBlogs;
         $viewData->pendingApprovalBlogs = $pendingApprovalBlogs;
+        $viewData->duyurular = $duyurular;
+        $viewData->dogumGunuYaklasanCalisanlar = $dogumGunuYaklasanCalisanlar;
 
 		$this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
 	}

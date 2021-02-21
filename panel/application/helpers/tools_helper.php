@@ -13,7 +13,10 @@ function convertToSEO($text)
 
 function get_readable_date($date)
 {
-    return strftime('%e %B %Y', strtotime($date));
+    setlocale(LC_ALL, 'tr_TR.UTF-8');
+    date_default_timezone_set("Europe/Istanbul");
+    
+    return strftime('%d/%m/%Y', strtotime($date));
 }
 
 function get_active_user(){
@@ -120,7 +123,6 @@ function send_email($toEmail = "", $subject = "", $message = ""){
     );
 
     $config = array(
-
         "protocol"   => $email_settings->protocol,
         "smtp_host"  => $email_settings->host,
         "smtp_port"  => $email_settings->port,
@@ -342,20 +344,17 @@ function get_logo($path = "", $picture = ""){
     return $picture;
 }
 
-function isUserYonetici(){
+function isYetkili(){
     
-    $t          = &get_instance();
+    $t = &get_instance();
     
-    $user = get_active_user();
-    $user_roles = get_user_roles();
+    $user = $t->session->userdata("user");
     
-    if (isset($user_roles[$user->user_role_id])){
-        $permission = json_decode($user_roles[$user->user_role_id]);
-        if(isset($permission->$moduleName) && isset($permission->$moduleName->read)){
-            return true;
-        }
-    }
+    return true;
     
-    return false;
+    if($user->user_role == "admin" || $user->user_role == "Yönetici")
+        return true;
+    else
+        return false;
 }
 

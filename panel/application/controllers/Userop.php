@@ -175,7 +175,6 @@ class Userop extends CI_Controller {
 
                 $this->load->helper("string");
                 $temp_password = random_string();
-                $companyLogo = base_url("logo/companyLogo.png");
                 
                 $resetpasswordhtml = file_get_contents(base_url("resetpassword.html"));
                 $message = str_replace("APP_TEMP_PASSWORD",$temp_password,$resetpasswordhtml);

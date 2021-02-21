@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-12">
         <h4 class="m-b-lg">
-            <?php echo "<b>$item->user_name</b> kaydının şifresini değiştiriyorsunuz"; ?>
+            <?php echo "<b>$item->full_name</b> kaydının şifresini değiştiriyorsunuz"; ?>
         </h4>
     </div><!-- END column -->
     <div class="col-md-12">

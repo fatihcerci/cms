@@ -143,141 +143,51 @@
 	<div class="col-md-6 col-sm-6">
 		<div class="widget" style="min-height:380px">
 			<header class="widget-header">
-				<h4 class="widget-title">Duyurular</h4>
+				<span class="pull-left big-icon"><i class="fa fa-bullhorn"></i></span>
+				<h4 class="widget-title" style="padding-left:25px;">Duyurular</h4>
 			</header>
 			<hr class="widget-separator"/>
 			<div class="widget-body">
-				<div class="media-group feeds-group">
+				<div class="streamline m-l-lg">
+					<?php foreach($duyurular as $item) { ?>
+					
+    					<div class="sl-item p-b-md">
+    						<div class="sl-avatar avatar avatar-sm avatar-circle">
+    							<img class="img-responsive" src="<?php echo base_url("assets"); ?>/assets/images/221.jpg" alt="avatar"/>
+    						</div><!-- .avatar -->
+    						<div class="sl-content m-l-xl">
+    							<h5 class="m-t-0"><a href="javascript:void(0)" class="m-r-xs theme-color"><?php echo $item['full_name'] ?></a><small class="text-muted fz-sm"><?php echo $item['gecenSure'] ?></small></h5>
+    							<p><?php echo $item['title'] ?></p>
+    						</div>
+    					</div><!-- .sl-item -->
+    				<?php } ?>
 
-					<div class="media-group-item">
-						<div class="media">
-							<div class="media-left">
-								<div class="avatar avatar-sm avatar-circle">
-									<img src="<?php echo base_url("assets"); ?>/assets/images/217.jpg" alt="">
-								</div>
-							</div>
-							<div class="media-body">
-								<h5><a href="javascript:void(0)" class="text-color">Some of the fantastic things people have had to say about Ooooh</a></h5>
-								<small class="text-muted">2 days ago</small>
-							</div>
-						</div>
-					</div><!-- .media-group-item -->
-
-					<div class="media-group-item">
-						<div class="media">
-							<div class="media-left">
-								<div class="avatar avatar-sm avatar-circle">
-									<img src="<?php echo base_url("assets"); ?>/assets/images/218.jpg" alt="">
-								</div>
-							</div>
-							<div class="media-body">
-								<h5><a href="javascript:void(0)" class="text-color">Here are just some of the magazine reviews we have had</a></h5>
-								<small class="text-muted">1 day ago</small>
-							</div>
-						</div>
-					</div><!-- .media-group-item -->
-
-					<div class="media-group-item">
-						<div class="media">
-							<div class="media-left">
-								<div class="avatar avatar-sm avatar-circle">
-									<img src="<?php echo base_url("assets"); ?>/assets/images/219.jpg" alt="">
-								</div>
-							</div>
-							<div class="media-body">
-								<h5><a href="javascript:void(0)" class="text-color">Lorem ipsum dolor amet, consectetur adipisicing elit.</a></h5>
-								<small class="text-muted">2 days ago</small>
-							</div>
-						</div>
-					</div><!-- .media-group-item -->
-
-					<div class="media-group-item">
-						<div class="media">
-							<div class="media-left">
-								<div class="avatar avatar-sm avatar-circle">
-									<img src="<?php echo base_url("assets"); ?>/assets/images/215.jpg" alt="">
-								</div>
-							</div>
-							<div class="media-body">
-								<h5><a href="javascript:void(0)" class="text-color">“It’s just brilliant. I will recommend it to everyone!”</a></h5>
-								<small class="text-muted">2 mins ago</small>
-							</div>
-						</div>
-					</div><!-- .media-group-item -->
-
-					<div class="media-group-item">
-						<div class="media">
-							<div class="media-left">
-								<div class="avatar avatar-sm avatar-circle">
-									<img src="<?php echo base_url("assets"); ?>/assets/images/221.jpg" alt="">
-								</div>
-							</div>
-							<div class="media-body">
-								<h5><a href="javascript:void(0)" class="text-color">John has just started working on the project</a></h5>
-								<small class="text-muted">right now</small>
-							</div>
-						</div>
-					</div><!-- .media-group-item -->
-				</div>
+				</div><!-- .streamline -->
 			</div>
 		</div><!-- .widget -->
 	</div>
 	<div class="col-md-6 col-sm-6">
 		<div class="widget" style="min-height:380px">
 			<header class="widget-header">
-				<h4 class="widget-title">Doğum Günü Yaklaşan Çalışanlar</h4>
+				<span class="pull-left big-icon"><i class="fa fa-birthday-cake"></i></span>
+				<h4 class="widget-title" style="padding-left:25px;">Doğum Günü Yaklaşan Çalışanlar</h4>
 			</header>
 			<hr class="widget-separator"/>
 			<div class="widget-body">
 				<div class="streamline m-l-lg">
-					<div class="sl-item p-b-md">
-						<div class="sl-avatar avatar avatar-sm avatar-circle">
-							<img class="img-responsive" src="<?php echo base_url("assets"); ?>/assets/images/221.jpg" alt="avatar"/>
-						</div><!-- .avatar -->
-						<div class="sl-content m-l-xl">
-							<h5 class="m-t-0"><a href="javascript:void(0)" class="m-r-xs theme-color">John Doe</a><small class="text-muted fz-sm">last month</small></h5>
-							<p>John has just started working on the project</p>
-						</div>
-					</div><!-- .sl-item -->
+					<?php foreach($dogumGunuYaklasanCalisanlar as $item) { ?>
+					
+    					<div class="sl-item p-b-md">
+    						<div class="sl-avatar avatar avatar-sm avatar-circle">
+    							<img class="img-responsive" src="<?php echo base_url("assets"); ?>/assets/images/221.jpg" alt="avatar"/>
+    						</div><!-- .avatar -->
+    						<div class="sl-content m-l-xl">
+    							<h5 class="m-t-0"><a href="javascript:void(0)" class="m-r-xs theme-color"><?php echo $item['full_name'] ?></a><small class="text-muted fz-sm"><?php echo get_readable_date($item['birthDate']) ?></small></h5>
+    							<p><?php echo $item['kalan'] ?></p>
+    						</div>
+    					</div><!-- .sl-item -->
+    				<?php } ?>
 
-					<div class="sl-item p-b-md">
-						<div class="sl-avatar avatar avatar-sm avatar-circle">
-							<img class="img-responsive" src="<?php echo base_url("assets"); ?>/assets/images/214.jpg" alt="avatar"/>
-						</div><!-- .avatar -->
-						<div class="sl-content m-l-xl">
-							<h5 class="m-t-0"><a href="javascript:void(0)" class="m-r-xs theme-color">Jane Doe</a><small class="text-muted fz-sm">last month</small></h5>
-							<p>Jane sent you invitation to attend the party</p>
-						</div>
-					</div><!-- .sl-item -->
-
-					<div class="sl-item p-b-md">
-						<div class="sl-avatar avatar avatar-sm avatar-circle">
-							<img class="img-responsive" src="<?php echo base_url("assets"); ?>/assets/images/217.jpg" alt="avatar"/>
-						</div><!-- .avatar -->
-						<div class="sl-content m-l-xl">
-							<h5 class="m-t-0"><a href="javascript:void(0)" class="m-r-xs theme-color">Sally Mala</a><small class="text-muted fz-sm">last month</small></h5>
-							<p>Sally added you to her circles</p>
-						</div>
-					</div><!-- .sl-item -->
-
-					<div class="sl-item p-b-md">
-						<div class="sl-avatar avatar avatar-sm avatar-circle">
-							<img class="img-responsive" src="<?php echo base_url("assets"); ?>/assets/images/211.jpg" alt="avatar"/>
-						</div><!-- .avatar -->
-						<div class="sl-content m-l-xl">
-							<h5 class="m-t-0"><a href="javascript:void(0)" class="m-r-xs theme-color">Sara Adams</a><small class="text-muted fz-sm">last month</small></h5>
-							<p>Sara has finished her task</p>
-						</div>
-					</div><!-- .sl-item -->
-					<div class="sl-item p-b-md">
-						<div class="sl-avatar avatar avatar-sm avatar-circle">
-							<img class="img-responsive" src="<?php echo base_url("assets"); ?>/assets/images/214.jpg" alt="avatar"/>
-						</div><!-- .avatar -->
-						<div class="sl-content m-l-xl">
-							<h5 class="m-t-0"><a href="javascript:void(0)" class="m-r-xs theme-color">Sandy Doe</a><small class="text-muted fz-sm">last month</small></h5>
-							<p>Sara has finished her task</p>
-						</div>
-					</div><!-- .sl-item -->
 				</div><!-- .streamline -->
 			</div>
 		</div><!-- .widget -->

@@ -67,5 +67,62 @@ class Dashboard_model extends CI_Model
         $query = $this->db->query($sql);
         return $query->result_array();
     }
-
+    
+    public function get_dogum_gunu_yaklasan_calisanlar()
+    {
+        $sql = "SELECT 
+                    a.full_name, 
+                    a.birthDate,
+                    a.kalanGun,
+                    CASE 
+                        WHEN a.kalanGun = 0 THEN 'Bugün doğum günü!'
+                        ELSE CONCAT(a.kalanGun, ' gün kaldı') 
+                    END AS kalan
+                FROM (
+                    SELECT 
+                        full_name, 
+                        birthDate, 
+                        CASE WHEN MONTH(birthDate) < MONTH(CURDATE()) OR (MONTH(birthDate) = MONTH(CURDATE()) AND DAY(birthDate) < DAY(CURDATE()))
+                            THEN DATEDIFF(CAST(CONCAT(YEAR(CURDATE()) + 1, '-', MONTH(birthDate), '-', DAY(birthDate)) AS DATE), CURDATE()) 
+                            ELSE DATEDIFF(CAST(CONCAT(YEAR(CURDATE()), '-', MONTH(birthDate), '-', DAY(birthDate)) AS DATE), CURDATE()) 
+                        END AS kalanGun
+                    from users 
+                    where birthDate is not null and isActive = 1
+                    LIMIT 5
+                ) a
+                ORDER BY a.kalanGun ASC";
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+    
+    public function get_announcements()
+    {
+        $sql = "SELECT 
+                    x.full_name,
+                    x.title,
+                    x.createdAt,
+                    CASE
+                        WHEN x.gun != 0 AND x.saat != 0 AND x.dakika != 0 THEN CONCAT(x.gun, ' gün ', x.saat, ' saat', x.dakika, ' dakika önce')
+                        WHEN x.gun = 0 AND x.saat != 0 AND x.dakika != 0 THEN CONCAT(x.saat, ' saat ', x.dakika, ' dakika önce')
+                        WHEN x.gun = 0 AND x.saat = 0 AND x.dakika != 0 THEN CONCAT(x.dakika, ' dakika önce')
+                    ELSE '1 dakika önce' END as gecenSure
+                FROM
+                (SELECT
+                    u.full_name,
+                    a.title,
+                    TIMESTAMPDIFF(day,a.createdAt, CURRENT_TIMESTAMP()) as gun,
+                    MOD( TIMESTAMPDIFF(hour,a.createdAt, CURRENT_TIMESTAMP()), 24) as saat,
+                    MOD( TIMESTAMPDIFF(minute,a.createdAt, CURRENT_TIMESTAMP()), 60) as dakika,
+                    a.createdAt
+                FROM
+                    announcements a,
+                    users u
+                WHERE a.user_id = u.id AND a.isActive = 1
+                ORDER BY a.createdAt DESC
+                LIMIT 5
+                ) x";
+        
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
 }

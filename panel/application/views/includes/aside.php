@@ -29,7 +29,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="text-color" href="<?php echo base_url("users/update_form/$user->id"); ?>">
+                                    <a class="text-color" href="<?php echo base_url("users/view_profile/$user->id"); ?>">
                                         <span class="m-r-xs"><i class="fa fa-user"></i></span>
                                         <span>Profilim</span>
                                     </a>
@@ -92,7 +92,7 @@
                 <?php } ?>
                 
                 
-                <?php if(isAllowedViewModule("users") || isAllowedViewModule("user_roles")) { ?>
+                <?php if(isAllowedViewModule("users") || isAllowedViewModule("user_roles") || isAllowedViewModule("titles")) { ?>
                     <li class="has-submenu">
                         <a href="javascript:void(0)" class="submenu-toggle">
                             <i class="menu-icon fa fa-users"></i>
@@ -107,6 +107,15 @@
                                     </a>
                                 </li>
                          	<?php } ?>
+                         	
+                         	<?php if(isAllowedViewModule("titles")) {  ?>
+                                <li>
+                                    <a href="<?php echo base_url("titles"); ?>">
+                                        <span class="menu-text">Unvan Tanımları</span>
+                                    </a>
+                                </li>
+                            <?php } ?>
+                            
                         	<?php if(isAllowedViewModule("users")) {  ?>
                                 <li>
                                     <a href="<?php echo base_url("users"); ?>">
@@ -128,6 +137,16 @@
 
                 <?php } ?>
                 
+                <?php if(isAllowedViewModule("announcements")) { ?>
+                    <li>
+                        <a href="<?php echo base_url("announcements"); ?>">
+                            <i class="menu-icon fa fa-bullhorn"></i>
+                            <span class="menu-text">Duyurular</span>
+                        </a>
+                    </li>
+
+                <?php } ?>
+                
 
                 <?php if(isAllowedViewModule("testimonials")) { ?>
 
@@ -139,20 +158,6 @@
                     </li>
 
                 <?php } ?>
-
-
-
-                <?php if(isAllowedViewModule("popups")) { ?>
-
-                    <li>
-                        <a href="<?php echo base_url("popups"); ?>">
-                            <i class="menu-icon zmdi zmdi-lamp zmdi-hc-lg"></i>
-                            <span class="menu-text">Popup Hizmeti</span>
-                        </a>
-                    </li>
-
-                <?php } ?>
-
 
 
                 <li>

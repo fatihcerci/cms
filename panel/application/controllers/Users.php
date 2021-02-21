@@ -13,6 +13,7 @@ class Users extends CI_Controller
 
         $this->load->model("user_model");
         $this->load->model("user_role_model");
+        $this->load->model("title_model");
 
         if(!get_active_user()){
             redirect(base_url("login"));
@@ -27,21 +28,26 @@ class Users extends CI_Controller
         $user = get_active_user();
 
         if(isAdmin()){
-
             $where = array();
-
         } else {
-
             $where = array(
                 "id"    => $user->id
             );
-
         }
 
         /** Tablodan Verilerin Getirilmesi.. */
         $items = $this->user_model->get_all(
             $where
         );
+        
+        foreach($items as $item) {
+            $title = $this->title_model->get(array("id" => $item->user_title_id));
+            if($title) {
+                $item->title = $title->title;
+            } else {
+                $item->title = "";
+            }
+        }
 
         /** View'e gönderilecek Değişkenlerin Set Edilmesi.. */
         $viewData->viewFolder = $this->viewFolder;
@@ -74,11 +80,11 @@ class Users extends CI_Controller
         $this->load->library("form_validation");
 
         // Kurallar yazilir..
-        $this->form_validation->set_rules("user_name", "Kullanıcı Adı", "required|trim|is_unique[users.user_name]");
         $this->form_validation->set_rules("full_name", "Ad Soyad", "required|trim");
         $this->form_validation->set_rules("email", "E-posta", "required|trim|valid_email|is_unique[users.email]");
-        $this->form_validation->set_rules("password", "Şifre", "required|trim|min_length[6]|max_length[8]");
-        $this->form_validation->set_rules("re_password", "Şifre Tekrar", "required|trim|min_length[6]|max_length[8]|matches[password]");
+        $this->form_validation->set_rules("recruitmentDate", "İşe Giriş Tarihi", "required|trim");
+        $this->form_validation->set_rules("birthDate", "Doğum Tarihi", "required|trim");
+        $this->form_validation->set_rules("birthPlace", "Doğum Yeri", "required|trim");
         $this->form_validation->set_rules("user_role_id", "Kullanıcı Rolü", "required|trim");
 
         $this->form_validation->set_message(
@@ -94,30 +100,51 @@ class Users extends CI_Controller
         $validate = $this->form_validation->run();
 
         if($validate){
-
+            
+            $this->load->helper("string");
+            $temp_password = random_string();
+            
+            $recruitmentDate = DateTime::createFromFormat('d/m/Y', $this->input->post("recruitmentDate"));
+            $birthDate = DateTime::createFromFormat('d/m/Y', $this->input->post("birthDate"));
+            
             $insert = $this->user_model->add(
                 array(
-                    "user_name"     => $this->input->post("user_name"),
-                    "full_name"     => $this->input->post("full_name"),
-                    "email"         => $this->input->post("email"),
-                    "password"      => md5($this->input->post("password")),
-                    "user_role_id"  => $this->input->post("user_role_id"),
-                    "isActive"      => 1,
-                    "createdAt"     => date("Y-m-d H:i:s")
+                    "full_name"         => $this->input->post("full_name"),
+                    "email"             => $this->input->post("email"),
+                    "password"          => md5($temp_password),
+                    "recruitmentDate"   => $recruitmentDate->format('Y-m-d'),
+                    "birthDate"         => $birthDate->format('Y-m-d'),
+                    "birthPlace"        => $this->input->post("birthPlace"),
+                    "user_role_id"      => $this->input->post("user_role_id"),
+                    "isActive"          => 1,
+                    "createdAt"         => date("Y-m-d H:i:s")
                 )
             );
 
-            // TODO Alert sistemi eklenecek...
             if($insert){
-
-                $alert = array(
-                    "title" => "İşlem Başarılı",
-                    "text" => "Kayıt başarılı bir şekilde eklendi",
-                    "type"  => "success"
+                $sendpasswordhtml = file_get_contents(base_url("sendpassword.html"));
+                $message = str_replace("APP_TEMP_PASSWORD", $temp_password, $sendpasswordhtml);
+                
+                $send = send_email(
+                    $this->input->post("email"),
+                    "Kullanıcınız Oluşturuldu",
+                    $message
                 );
-
+                
+                if($send){
+                    $alert = array(
+                        "title" => "İşlem Başarılı",
+                        "text" => "Kayıt başarılı bir şekilde eklendi, kullanıcı şifresi e-posta gönderildi.",
+                        "type"  => "success"
+                    );
+                } else {
+                    $alert = array(
+                        "title" => "İşlem Başarısız",
+                        "text" => "E-posta gönderimi sırasında bir problem oluştu",
+                        "type"  => "error"
+                    );
+                }
             } else {
-
                 $alert = array(
                     "title" => "İşlem Başarısız",
                     "text" => "Kayıt Ekleme sırasında bir problem oluştu",
@@ -135,6 +162,12 @@ class Users extends CI_Controller
         } else {
 
             $viewData = new stdClass();
+            
+            $viewData->user_roles = $this->user_role_model->get_all(
+                array(
+                    "isActive"  => 1
+                )
+            );
 
             /** View'e gönderilecek Değişkenlerin Set Edilmesi.. */
             $viewData->viewFolder = $this->viewFolder;
@@ -156,11 +189,23 @@ class Users extends CI_Controller
                 "id"    => $id,
             )
         );
+        
+        $recruitmentDate = DateTime::createFromFormat('Y-m-d H:i:s', $item->recruitmentDate)->format('d/m/Y');
+        $birthDate = DateTime::createFromFormat('Y-m-d H:i:s', $item->birthDate)->format('d/m/Y');
+        
+        $item->recruitmentDate = $recruitmentDate;
+        $item->birthDate = $birthDate;
 
         $viewData->user_roles = $this->user_role_model->get_all(
             array(
                 "isActive"  => 1
             )
+        );
+        
+        $viewData->titles = $this->title_model->get_all(
+            array(
+                "isActive"  => 1
+            ), "rank ASC"
         );
         
         /** View'e gönderilecek Değişkenlerin Set Edilmesi.. */
@@ -174,6 +219,20 @@ class Users extends CI_Controller
     }
 
     public function update_password_form($id){
+        
+        $user = get_active_user();
+        
+        if($user->id != $id && !isYetkili()) {
+            $alert = array(
+                "title" => "İşlem Başarısız",
+                "text" => "Bu işlemi yapmaya yetkiniz bulunmamaktadır",
+                "type"  => "error"
+            );
+            
+            $this->session->set_flashdata("alert", $alert);
+            redirect(base_url("users"));
+            die();
+        }
 
         $viewData = new stdClass();
 
@@ -204,18 +263,17 @@ class Users extends CI_Controller
             )
         );
 
-        if($oldUser->user_name != $this->input->post("user_name")){
-            $this->form_validation->set_rules("user_name", "Kullanıcı Adı", "required|trim|is_unique[users.user_name]");
-        }
 
         if($oldUser->email != $this->input->post("email")){
             $this->form_validation->set_rules("email", "E-posta", "required|trim|valid_email|is_unique[users.email]");
         }
 
         $this->form_validation->set_rules("full_name", "Ad Soyad", "required|trim");
+        $this->form_validation->set_rules("recruitmentDate", "İşe Giriş Tarihi", "required|trim");
+        $this->form_validation->set_rules("birthDate", "Doğum Tarihi", "required|trim");
+        $this->form_validation->set_rules("birthPlace", "Doğum Yeri", "required|trim");
         $this->form_validation->set_rules("user_role_id", "Kullanıcı Rolü", "required|trim");
-
-
+        
         $this->form_validation->set_message(
             array(
                 "required"    => "<b>{field}</b> alanı doldurulmalıdır",
@@ -228,43 +286,43 @@ class Users extends CI_Controller
         $validate = $this->form_validation->run();
 
         if($validate){
-
             // Upload Süreci...
+            
+            $recruitmentDate = DateTime::createFromFormat('d/m/Y', $this->input->post("recruitmentDate"));
+            $birthDate = DateTime::createFromFormat('d/m/Y', $this->input->post("birthDate"));
+            
+            
             $update = $this->user_model->update(
                 array("id" => $id),
                 array(
-                    "user_name"     => $this->input->post("user_name"),
-                    "full_name"     => $this->input->post("full_name"),
-                    "email"         => $this->input->post("email"),
-                    "user_role_id"  => $this->input->post("user_role_id"),
+                    "full_name"             => $this->input->post("full_name"),
+                    "email"                 => $this->input->post("email"),
+                    "recruitmentDate"       => $recruitmentDate->format('Y-m-d'),
+                    "birthDate"             => $birthDate->format('Y-m-d'),
+                    "birthPlace"            => $this->input->post("birthPlace"),
+                    "user_role_id"          => $this->input->post("user_role_id"),
+                    "user_title_id"         => $this->input->post("user_title_id"),
                 )
             );
-
             // TODO Alert sistemi eklenecek...
             if($update){
-
                 $alert = array(
                     "title" => "İşlem Başarılı",
                     "text" => "Kayıt başarılı bir şekilde güncellendi",
                     "type"  => "success"
                 );
-
             } else {
-
                 $alert = array(
                     "title" => "İşlem Başarısız",
                     "text" => "Kayıt Güncelleme sırasında bir problem oluştu",
                     "type"  => "error"
                 );
             }
-
             // İşlemin Sonucunu Session'a yazma işlemi...
             $this->session->set_flashdata("alert", $alert);
 
             redirect(base_url("users"));
-
         } else {
-
             $viewData = new stdClass();
 
             /** View'e gönderilecek Değişkenlerin Set Edilmesi.. */
@@ -283,6 +341,13 @@ class Users extends CI_Controller
                 array(
                     "isActive"  => 1
                 )
+            );
+            
+            $viewData->titles = $this->title_model->get_all(
+                array(
+                    "isActive"  => 1
+                ),
+                "rank ASC"
             );
 
             $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
@@ -410,6 +475,49 @@ class Users extends CI_Controller
                 )
             );
         }
+    }
+    
+    public function view_profile($id){
+        
+        $user = get_active_user();
+        
+        if($user && $user->id != $id) {
+            
+            redirect(base_url("users/view_profile/$user->id"));
+            die();
+        }
+        
+        
+        /** Tablodan Verilerin Getirilmesi.. */
+        $item = $this->user_model->get(
+            array(
+                "id"    => $id,
+            )
+        );
+        
+        if($item){
+            $title = $this->title_model->get(array("id" => $item->user_title_id));
+            if($title) {
+                $item->title = $title->title;
+            } else {
+                $item->title = "";
+            }
+        }
+        
+        $viewData = new stdClass();
+        
+        $viewData->user_roles = $this->user_role_model->get_all(
+            array(
+                "isActive"  => 1
+            )
+        );
+        
+        /** View'e gönderilecek Değişkenlerin Set Edilmesi.. */
+        $viewData->viewFolder = $this->viewFolder;
+        $viewData->subViewFolder = "view";
+        $viewData->item = $item;
+        
+        $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
     }
 
 }

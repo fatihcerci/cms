@@ -13,11 +13,12 @@
             <span class="zmdi zmdi-hc-lg zmdi-more"></span>
         </button>
 
-        <button type="button" class="navbar-toggle navbar-toggle-right collapsed" data-toggle="collapse" data-target="#navbar-search" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="zmdi zmdi-hc-lg zmdi-search"></span>
-        </button>
-        
+		<li class="navbar-toggle navbar-toggle-right collapsed" style = "list-style-type: none;" aria-expanded="false">
+            <a href="<?php echo base_url("logout"); ?>">
+                <i class="fa fa-power-off" style="color: #fff;"></i>
+            </a>
+        </li>
+                
         <a href="<?php echo base_url(); ?>" class="navbar-brand">
             <span class="brand-icon">
                 <?php if($settings->logo != "default"){ ?>
@@ -26,7 +27,6 @@
                 		alt="<?php echo $settings->company_name; ?>"
                         class="img-responsive">
                 <?php } else {?>
-
                     <img
                         width="50"
                         src="<?php echo base_url("assets/assets/images/default_image.png"); ?>"
@@ -52,12 +52,12 @@
             </ul>
 
             <ul class="nav navbar-toolbar navbar-toolbar-right navbar-right">
-                <li class="nav-item dropdown hidden-float">
-                    <a href="javascript:void(0)" data-toggle="collapse" data-target="#navbar-search" aria-expanded="false">
-                        <i class="zmdi zmdi-hc-lg zmdi-search"></i>
+                <li class="nav-item hidden-float">
+                    <a href="<?php echo base_url("logout"); ?>" aria-expanded="false">
+                        <i class="fa fa-power-off"></i>
                     </a>
                 </li>
-				<li class="nav-item dropdown hidden-float">
+				<li class="nav-item hidden-float">
                     <a href="javascript:void(0)" aria-expanded="false">
                         <?php echo get_version(); ?>
                     </a>

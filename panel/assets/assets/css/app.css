@@ -1746,7 +1746,7 @@ body.menubar-top .menubar.dark .app-menu .submenu {
   @media (max-width: 767px) {
     .navbar-brand {
       position: absolute;
-      left: 50%;
+      left: 43%;
       margin-left: -36px; }
       .navbar-brand .brand-icon .fa {
         font-size: 30px; }
