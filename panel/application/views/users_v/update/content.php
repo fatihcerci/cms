@@ -51,7 +51,7 @@
                     
                     <div class="form-group">
                         <label>Unvanı</label>
-                        <select name="user_title_id" class="form-control" <?php if(!$isYetkili) {?> disabled <?php }?> value="<?php if(isset($item->user_title_id)) $item->user_title_id ?>>
+                        <select name="user_title_id" class="form-control" style="border-color:#ddd;" <?php if(!$isYetkili) {?> disabled <?php }?>>
                         	<option value=null>---</option>
                             <?php foreach($titles as $title) { ?>
                                 <option value="<?php echo $title->id; ?>" <?php if($item->user_title_id == $title->id) { ?> selected="selected" <?php } ?> ><?php echo $title->title; ?> </option>
@@ -64,7 +64,7 @@
 					
                     <div class="form-group">
                         <label>Kullanıcı Rolü</label>
-                        <select name="user_role_id" class="form-control" <?php if(!$isYetkili) {?> disabled <?php }?> value="<?php if(isset($item->user_role_id)) $item->user_role_id ?>">
+                        <select name="user_role_id" class="form-control" style="border-color:#ddd;" <?php if(!$isYetkili) {?> disabled <?php }?>>
                             <?php foreach($user_roles as $user_role) { ?>
                                 <option value="<?php echo $user_role->id; ?>" <?php if($item->user_role_id == $user_role->id) { ?> selected="selected" <?php } ?>><?php echo $user_role->title; ?></option>
                             <?php } ?>
