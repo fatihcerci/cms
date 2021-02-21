@@ -44,7 +44,8 @@ class Dashboard_model extends CI_Model
     {
         $sql = "select 
                     u.full_name as full_name, 
-                    CONCAT(DATEDIFF(CURDATE(), b.publishDate), ' gün önce') as gecenGun,
+                    CASE WHEN DATEDIFF(CURDATE(), b.publishDate) = 0 THEN 'Bugün' 
+                    ELSE CONCAT(DATEDIFF(CURDATE(), b.publishDate), ' gün önce') END as gecenGun,
                     b.title 
                 from blogs b, users u 
                 where b.user_id = u.id and b.isActive = 1 and b.publishDate is not null
@@ -58,7 +59,8 @@ class Dashboard_model extends CI_Model
     {
         $sql = "select
                     u.full_name as full_name,
-                    CONCAT(DATEDIFF(CURDATE(), b.createdAt), ' gün önce') as gecenGun,
+                    case when DATEDIFF(CURDATE(), b.createdAt) = 0 then 'Bugün'
+                    else CONCAT(DATEDIFF(CURDATE(), b.createdAt), ' gün önce') end as gecenGun,
                     b.title
                 from blogs b, users u
                 where b.user_id = u.id and b.isActive = 0 and b.publishDate is null
