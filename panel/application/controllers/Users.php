@@ -27,7 +27,7 @@ class Users extends CI_Controller
 
         $user = get_active_user();
 
-        if(isAdmin()){
+        if(isYetkili()){
             $where = array();
         } else {
             $where = array(
@@ -65,6 +65,12 @@ class Users extends CI_Controller
             array(
                 "isActive"  => 1
             )
+        );
+        
+        $viewData->titles = $this->title_model->get_all(
+            array(
+                "isActive"  => 1
+            ), "rank ASC"
         );
 
         /** View'e gönderilecek Değişkenlerin Set Edilmesi.. */
@@ -116,6 +122,7 @@ class Users extends CI_Controller
                     "birthDate"         => $birthDate->format('Y-m-d'),
                     "birthPlace"        => $this->input->post("birthPlace"),
                     "user_role_id"      => $this->input->post("user_role_id"),
+                    "user_title_id"      => $this->input->post("user_title_id"),
                     "isActive"          => 1,
                     "createdAt"         => date("Y-m-d H:i:s")
                 )

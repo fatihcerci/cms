@@ -34,7 +34,7 @@
                             <tr id="ord-<?php echo $item->id; ?>">
                                 <td class="order"><i class="fa fa-reorder"></i></td>
                                 <td class="w50 text-center">#<?php echo $item->id; ?></td>
-                                <td class="w200"><?php echo $item->userName; ?></td>
+                                <td class="w200 text-center"><?php echo $item->userName; ?></td>
                                 <td><?php echo $item->title; ?></td>
                                 <td class="w200 text-center"><?php echo get_readable_date($item->publishDate); ?></td>
                                 <td class="text-center w100">

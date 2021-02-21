@@ -125,4 +125,16 @@ class Dashboard_model extends CI_Model
         $query = $this->db->query($sql);
         return $query->result_array();
     }
+    
+    public function get_testimonials_count()
+    {
+        $this->db->select('*');
+        $this->db->from('testimonials');
+        $this->db->where(array(
+            "isActive"    => 1,
+        ));
+        
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
 }

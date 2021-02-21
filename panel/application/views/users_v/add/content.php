@@ -55,6 +55,7 @@
                     <div class="form-group">
                         <label>Unvanı</label>
                         <select name="user_title_id" class="form-control" <?php if(!$isYetkili) {?> disabled <?php }?>>
+                        	<option value=null>---</option>
                             <?php foreach($titles as $title) { ?>
                                 <option value="<?php echo $title->id; ?>"><?php echo $title->title; ?></option>
                             <?php } ?>

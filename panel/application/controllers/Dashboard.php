@@ -17,20 +17,22 @@ class Dashboard extends CI_Controller {
         if(!get_active_user()){
             redirect(base_url("login"));
         }
-
     }
 
     public function index()
 	{
 
+	    /********** Kullanici Yetkilerinin Session'a Aktarilmasi ************/
+	    setUserRoles();
+	    /*********************************************************************/
+	    
 	    $employee_count = $this->dashboard_model->get_employee_count();
 	    $published_blog_count = $this->dashboard_model->get_published_blog_count();
+	    $testimonials_count = $this->dashboard_model->get_testimonials_count();
 	    
 	    $latestPublishedBlogs = $this->dashboard_model->get_published_blogs();
 	    
 	    $pendingApprovalBlogs = $this->dashboard_model->get_pending_approval_blogs();
-	    
-	    $employees = $this->dashboard_model->get_employees();
 	    
 	    $duyurular = $this->dashboard_model->get_announcements();
 	    
@@ -41,14 +43,18 @@ class Dashboard extends CI_Controller {
 	    $viewData = new stdClass();
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = "list";
+        
         $viewData->employeeCount = $employee_count;
-        $viewData->employees = $employees;
         $viewData->publishedBlogCount = $published_blog_count;
+        $viewData->testimonialsCount = $testimonials_count;
+        
         $viewData->latestPublishedBlogs = $latestPublishedBlogs;
         $viewData->pendingApprovalBlogs = $pendingApprovalBlogs;
+        
         $viewData->duyurular = $duyurular;
         $viewData->dogumGunuYaklasanCalisanlar = $dogumGunuYaklasanCalisanlar;
 
 		$this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
 	}
 }
+

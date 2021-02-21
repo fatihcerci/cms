@@ -79,7 +79,7 @@ class Userop extends CI_Controller {
             if($user){
 
                 $alert = array(
-                    "title" => "İşlem Başarılı",
+                    "title" => "Giriş Başarılı",
                     "text" => "$user->full_name hoşgeldiniz",
                     "type"  => "success"
                 );

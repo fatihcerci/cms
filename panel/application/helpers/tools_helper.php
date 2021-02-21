@@ -13,10 +13,13 @@ function convertToSEO($text)
 
 function get_readable_date($date)
 {
-    setlocale(LC_ALL, 'tr_TR.UTF-8');
-    date_default_timezone_set("Europe/Istanbul");
-    
-    return strftime('%d/%m/%Y', strtotime($date));
+    if(isset($date)) {
+        setlocale(LC_ALL, 'tr_TR.UTF-8');
+        date_default_timezone_set("Europe/Istanbul");
+        
+        return strftime('%d/%m/%Y', strtotime($date));
+    }
+    return "";
 }
 
 function get_active_user(){
@@ -350,9 +353,7 @@ function isYetkili(){
     
     $user = $t->session->userdata("user");
     
-    return true;
-    
-    if($user->user_role == "admin" || $user->user_role == "Yönetici")
+    if($user->user_role_id == 1)
         return true;
     else
         return false;

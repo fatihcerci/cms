@@ -57,7 +57,7 @@
 		<div class="widget stats-widget">
 			<div class="widget-body clearfix">
 				<div class="pull-left">
-					<h3 class="widget-title text-success"><span class="counter" data-plugin="counterUp">378</span></h3>
+					<h3 class="widget-title text-success"><span class="counter" data-plugin="counterUp"><?php echo $testimonialsCount ?></span></h3>
 					<small class="text-color">Toplam Ziyaretçi Notu Sayısı</small>
 				</div>
 				<span class="pull-right big-icon watermark"><i class="fa fa-envelope"></i></span>

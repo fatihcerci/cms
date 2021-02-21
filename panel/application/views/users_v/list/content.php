@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <h4 class="m-b-lg">
             Kullanıcı Listesi
-            <?php if(isAdmin()) { ?>
+            <?php if(isYetkili()) { ?>
             <a href="<?php echo base_url("users/new_form"); ?>" class="btn btn-outline btn-primary btn-xs pull-right"> <i class="fa fa-plus"></i> Yeni Ekle</a>
             <?php } ?>
         </h4>
