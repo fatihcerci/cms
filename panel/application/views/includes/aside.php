@@ -79,7 +79,7 @@
                                     </a>
                                 </li>
                             <?php } ?>
-                            <?php if(isAllowedViewModule("settings")) {  ?>
+                            <?php if(isAllowedViewModule("emailsettings")) {  ?>
                                 <li>
                                     <a href="<?php echo base_url("emailsettings"); ?>">
                                         <span class="menu-text">E-Posta Ayarları</span>
