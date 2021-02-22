@@ -32,6 +32,7 @@ class Dashboard extends CI_Controller {
 	    
 	    $latestPublishedBlogs = $this->dashboard_model->get_published_blogs();
 	    
+	    $pendingApprovalBlogsCount = $this->dashboard_model->get_pending_approval_blogs_count();
 	    $pendingApprovalBlogs = $this->dashboard_model->get_pending_approval_blogs();
 	    
 	    $duyurular = $this->dashboard_model->get_announcements();
@@ -49,6 +50,7 @@ class Dashboard extends CI_Controller {
         $viewData->testimonialsCount = $testimonials_count;
         
         $viewData->latestPublishedBlogs = $latestPublishedBlogs;
+        $viewData->pendingApprovalBlogsCount = $pendingApprovalBlogsCount;
         $viewData->pendingApprovalBlogs = $pendingApprovalBlogs;
         
         $viewData->duyurular = $duyurular;

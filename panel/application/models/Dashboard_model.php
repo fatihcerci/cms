@@ -70,6 +70,21 @@ class Dashboard_model extends CI_Model
         return $query->result_array();
     }
     
+    public function get_pending_approval_blogs_count()
+    {
+        $sql = "select
+                    u.full_name as full_name,
+                    case when DATEDIFF(CURDATE(), b.createdAt) = 0 then 'Bugün'
+                    else CONCAT(DATEDIFF(CURDATE(), b.createdAt), ' gün önce') end as gecenGun,
+                    b.title
+                from blogs b, users u
+                where b.user_id = u.id and b.isActive = 0 and b.publishDate is null
+                order by b.createdAt ASC
+                LIMIT 5";
+        $query = $this->db->query($sql);
+        return $query->num_rows();
+    }
+    
     public function get_dogum_gunu_yaklasan_calisanlar()
     {
         $sql = "SELECT 
