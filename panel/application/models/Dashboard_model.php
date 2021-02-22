@@ -104,6 +104,7 @@ class Dashboard_model extends CI_Model
                     x.title,
                     x.createdAt,
                     CASE
+                        WHEN x.gun > 0 THEN CONCAT(x.gun, ' gün önce')
                         WHEN x.gun != 0 AND x.saat != 0 AND x.dakika != 0 THEN CONCAT(x.gun, ' gün ', x.saat, ' saat', x.dakika, ' dakika önce')
                         WHEN x.gun = 0 AND x.saat != 0 AND x.dakika != 0 THEN CONCAT(x.saat, ' saat ', x.dakika, ' dakika önce')
                         WHEN x.gun = 0 AND x.saat = 0 AND x.dakika != 0 THEN CONCAT(x.dakika, ' dakika önce')
