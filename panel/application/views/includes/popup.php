@@ -47,20 +47,21 @@ if($duyuru_popup_cookie != "true") { ?>
         <div class="modal-content">
           <!--Header-->
           <div class="modal-header">
-            <h4 class="modal-title w-100" id="myModalLabel"><?php echo $announcement->title ?></h4>
+            <h4 class="modal-title w-100 text-center" id="myModalLabel"><?php echo $announcement->title ?></h4>
           </div>
           <!--Body-->
           <div class="modal-body">
             <?php echo $announcement->description ?>
           </div>
           <!--Footer-->
-          <div class="modal-footer">
+          <div class="modal-footer text-center">
+          	<button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
             <button data-popup-id="duyuru-<?php echo $announcement->id ?>" 
             		data-url="<?php echo base_url("duyuru-bir-daha-gosterme") ?>"  
             		data-csrf-key="<?php echo $this->security->get_csrf_token_name(); ?>" 
             		data-csrf-value="<?php echo $this->security->get_csrf_hash(); ?>" 
             		
-            		type="button" class="btn btn-danger duyuruBirDahaGostermeBtn" data-dismiss="modal">Bir daha gösterme</button>
+            		type="button" class="btn btn-primary duyuruBirDahaGostermeBtn" data-dismiss="modal">Bir daha gösterme</button>
           </div>
         </div>
         <!--/.Content-->
@@ -90,7 +91,7 @@ if($duyuru_popup_cookie != "true") { ?>
 			$data[csrf_key] = csrf_value;
 			
 			$.post($url, $data, function(){
-				$('#dogumGunuPopup').modal('show');
+// 				$('#dogumGunuPopup').modal('show');
 			});
 		});
 		
