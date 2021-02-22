@@ -141,7 +141,7 @@
 
 <div class="row">
 	<div class="col-md-6 col-sm-6">
-		<div class="widget" style="min-height:423px">
+		<div class="widget" style="min-height:380px">
 			<header class="widget-header">
 				<span class="pull-left big-icon"><i class="fa fa-bullhorn"></i></span>
 				<h4 class="widget-title" style="padding-left:25px;">Duyurular</h4>
@@ -167,7 +167,7 @@
 		</div><!-- .widget -->
 	</div>
 	<div class="col-md-6 col-sm-6">
-		<div class="widget" style="min-height:423px">
+		<div class="widget" style="min-height:395px">
 			<header class="widget-header">
 				<span class="pull-left big-icon"><i class="fa fa-birthday-cake"></i></span>
 				<h4 class="widget-title" style="padding-left:25px;">Doğum Günü Yaklaşan Çalışanlar</h4>
