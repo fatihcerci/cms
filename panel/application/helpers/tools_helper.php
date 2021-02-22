@@ -359,3 +359,12 @@ function isYetkili(){
         return false;
 }
 
+
+function get_last_announcement() {
+    $t = &get_instance();
+    
+    $t->load->model("announcement_model");
+    $last_announcement = $t->announcement_model->get_last_announcement();
+    
+    return $last_announcement;
+}

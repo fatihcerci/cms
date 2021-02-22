@@ -35,5 +35,18 @@ class Announcement_model extends CI_Model
     {
         return $this->db->where($where)->delete($this->tableName);
     }
+    
+    public function get_last_announcement($where = array()) {
+        $sql = "select 
+                    a.id,
+                    a.title,
+                    a.description, 
+                    a.createdAt,
+                    u.full_name
+                from announcements a, users u 
+                where a.user_id = u.id and a.isActive=1 order by a.createdAt desc LIMIT 1";
+        $query = $this->db->query($sql);
+        return $query->row();
+    }
 
 }

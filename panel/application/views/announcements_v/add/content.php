@@ -17,9 +17,9 @@
                         <?php } ?>
                     </div>
 
-                    <div class="form-group">
+                	<div class="form-group">
                         <label>Açıklama</label>
-                        <textarea class="form-control" name="description" placeholder="" cols="30" rows="10"></textarea>
+                        <textarea name="description" class="m-0" data-plugin="summernote" data-options="{height: 250}"></textarea>
                         <?php if(isset($form_error)){ ?>
                             <small class="pull-right input-form-error"> <?php echo form_error("description"); ?></small>
                         <?php } ?>

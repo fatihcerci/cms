@@ -30,10 +30,11 @@
         <!-- APP FOOTER -->
         <?php $this->load->view("includes/footer"); ?>
         <!-- /#app-footer -->
+        
     </main>
     <!--========== END app main -->
 
     <?php $this->load->view("includes/include_script"); ?>
-
+    
 </body>
 </html>

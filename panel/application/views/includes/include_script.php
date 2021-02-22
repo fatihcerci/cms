@@ -24,5 +24,5 @@
 
 <?php $this->load->view("includes/alert"); ?>
 
-
+<?php $this->load->view("includes/popup"); ?>
 <!--<script src="--><?php //echo base_url("assets"); ?><!--/assets/js/custom.js"></script>-->

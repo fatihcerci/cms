@@ -16,10 +16,10 @@
                             <small class="pull-right input-form-error"> <?php echo form_error("title"); ?></small>
                         <?php } ?>
                     </div>
-
+                    
                     <div class="form-group">
                         <label>Açıklama</label>
-                        <textarea class="form-control" name="description" placeholder="" cols="30" rows="10"><?php echo $item->description; ?></textarea>
+                        <textarea name="description" class="m-0" data-plugin="summernote" data-options="{height: 250}"><?php echo $item->description; ?></textarea>
                         <?php if(isset($form_error)){ ?>
                             <small class="pull-right input-form-error"> <?php echo form_error("description"); ?></small>
                         <?php } ?>

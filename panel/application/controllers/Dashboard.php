@@ -58,5 +58,11 @@ class Dashboard extends CI_Controller {
 
 		$this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
 	}
+	
+	public function duyuru_bir_daha_gosterme() 
+	{
+	    $popup_id = $this->input->post("popup_id");
+	    set_cookie($popup_id, "true", 60 * 60 * 24 * 365);
+	}
 }
 
