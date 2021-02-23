@@ -46,9 +46,13 @@ if($duyuru_popup_cookie != "true") { ?>
         <!--Content-->
         <div class="modal-content">
           <!--Header-->
-          <div class="modal-header">
-            <h4 class="modal-title w-100 text-center" id="myModalLabel"><?php echo $announcement->title ?></h4>
-          </div>
+<!--           <div class="modal-header"> -->
+          	<div class="panel panel-danger">
+    			<div class="panel-heading" style="padding: 12px; !important">
+            	<h4 class="modal-title w-100 text-center" id="myModalLabel"><?php echo $announcement->title ?></h4>
+            	</div>
+            </div>
+<!--           </div> -->
           <!--Body-->
           <div class="modal-body">
             <?php echo $announcement->description ?>

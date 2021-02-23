@@ -27,7 +27,7 @@ class Announcements extends CI_Controller
 
         /** Tablodan Verilerin Getirilmesi.. */
         $items = $this->announcement_model->get_all(
-            array(), "rank ASC"
+            array(), "createdAt DESC"
         );
         
         foreach($items as $item) {

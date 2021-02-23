@@ -1,3 +1,46 @@
+<style>
+a.notif {
+    position: relative;
+    display: block;
+    height: 50px;
+    width: 50px;
+    text-decoration: none;
+}
+.num {
+    position: absolute;
+    right: 9px;
+    top: 12px;
+    border-radius: 100px;
+    min-width: 10px;
+    padding: 2px 5px;
+    font-size: 10px;
+    font-weight: bold;
+    color: #fff;
+    line-height: 1;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-align: center;
+    background-color: #ff5b5b;
+}
+
+@media (max-width: 767px) {
+  .num {
+    right: -20px;
+    top: -6px;
+  }
+  a.notif {
+    width: 5px;
+    color: #fff;
+  } 
+  
+}
+  
+ 
+
+    
+</style>
+
+
 <?php $settings = get_settings(); ?>
 
 <nav id="app-navbar" class="navbar navbar-inverse navbar-fixed-top primary">
@@ -12,13 +55,13 @@
             <span class="sr-only">Toggle navigation</span>
             <span class="zmdi zmdi-hc-lg zmdi-more"></span>
         </button>
-
+        
 		<li class="navbar-toggle navbar-toggle-right collapsed" style = "list-style-type: none;" aria-expanded="false">
             <a href="<?php echo base_url("logout"); ?>">
                 <i class="fa fa-power-off" style="color: #fff;"></i>
             </a>
         </li>
-                
+        
         <a href="<?php echo base_url(); ?>" class="navbar-brand">
             <span class="brand-icon">
                 <?php if($settings->logo != "default"){ ?>
@@ -52,6 +95,36 @@
             </ul>
 
             <ul class="nav navbar-toolbar navbar-toolbar-right navbar-right">
+<!--             	Bildirimler -->
+            	<li class="dropdown nav-item hidden-float">
+<!--                 	<a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> -->
+<!--                 		<span class="badge">19</span> -->
+<!--                 		<i class="zmdi zmdi-hc-lg zmdi-notifications"></i> -->
+<!--                 	</a> -->
+					<a  href="javascript:void(0)" class="dropdown-toggle notif" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+						<i class="zmdi zmdi-hc-lg zmdi-notifications"></i>
+						<span class="num">1</span>
+					</a>
+					
+					
+                	<div class="media-group dropdown-menu animated flipInY">
+                    	<a href="javascript:void(0)" class="media-group-item">
+                        	<div class="media">
+                           		<div class="media-left">
+                              		<div class="avatar avatar-xs avatar-circle">
+                                		<img src="<?php echo base_url("assets"); ?>/assets/images/221.jpg" alt="">
+                                		<i class="status status-online"></i>
+                              		</div>
+                            	</div>
+                            	<div class="media-body">
+                              		<h5 class="media-heading">Fatih Çerçi</h5>
+                              		<small class="media-meta"><b>CodeIgniter ile CMS portal yapımı</b> başlıklı bir blog paylaştı</small>
+                            	</div>
+                          	</div>
+                        </a><!-- .media-group-item -->
+                  	</div>
+                </li>
+                
                 <li class="nav-item hidden-float">
                     <a href="<?php echo base_url("logout"); ?>" aria-expanded="false">
                         <i class="fa fa-power-off"></i>

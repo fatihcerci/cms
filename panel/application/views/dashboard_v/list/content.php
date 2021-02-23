@@ -88,53 +88,53 @@
 <div class="row">
 	<div class="col-md-6 col-sm-6">
 		<div class="widget" style="min-height:423px">
-			<footer class="widget-footer bg-success">
-			</footer>
-			<header class="widget-header">
-				<h4 class="widget-title">En Son Yayınlanan Bloglar</h4>
-			</header>
-			<hr class="widget-separator"/>
-			<div class="widget-body">
-				<div class="streamline m-l-lg">
-					<?php foreach($latestPublishedBlogs as $item) { ?>
-    					<div class="sl-item p-b-md">
-    						<div class="sl-avatar avatar avatar-sm avatar-circle">
-    							<img class="img-responsive" src="<?php echo base_url("assets"); ?>/assets/images/221.jpg" alt="avatar"/>
-    						</div><!-- .avatar -->
-    						<div class="sl-content m-l-xl">
-    							<h5 class="m-t-0"><a href="javascript:void(0)" class="m-r-xs theme-color"><?php echo $item['full_name'] ?></a><small class="text-muted fz-sm"><?php echo $item['gecenGun'] ?></small></h5>
-    							<p><?php echo $item['title'] ?></p>
-    						</div>
-    					</div><!-- .sl-item -->
-					<?php } ?>
-				</div><!-- .streamline -->
-			</div>
+			<div class="panel panel-success">
+				<div class="panel-heading" style="padding:12px !important;">
+					<h4 class="panel-title" style="text-transform:none !important">En Son Yayınlanan Bloglar</h4>
+				</div>
+
+    			<div class="widget-body">
+    				<div class="streamline m-l-lg">
+    					<?php foreach($latestPublishedBlogs as $item) { ?>
+        					<div class="sl-item p-b-md">
+        						<div class="sl-avatar avatar avatar-sm avatar-circle">
+        							<img class="img-responsive" src="<?php echo base_url("assets"); ?>/assets/images/221.jpg" alt="avatar"/>
+        						</div><!-- .avatar -->
+        						<div class="sl-content m-l-xl">
+        							<h5 class="m-t-0"><a href="javascript:void(0)" class="m-r-xs theme-color"><?php echo $item['full_name'] ?></a><small class="text-muted fz-sm"><?php echo $item['gecenGun'] ?></small></h5>
+        							<p><?php echo $item['title'] ?></p>
+        						</div>
+        					</div><!-- .sl-item -->
+    					<?php } ?>
+    				</div><!-- .streamline -->
+    			</div>
+    		</div>
 		</div><!-- .widget -->
 	</div>
 	
 	<div class="col-md-6 col-sm-6">
-		<div class="widget" style="min-height:423px">
-			<footer class="widget-footer bg-warning">
-			</footer>
-			<header class="widget-header">
-				<h4 class="widget-title">Onay Bekleyen Bloglar (<?php echo $pendingApprovalBlogsCount ?>)</h4>
-			</header>
-			<hr class="widget-separator"/>
-			<div class="widget-body">
-				<div class="streamline m-l-lg">
-					<?php foreach($pendingApprovalBlogs as $item) { ?>
-    					<div class="sl-item p-b-md">
-    						<div class="sl-avatar avatar avatar-sm avatar-circle">
-    							<img class="img-responsive" src="<?php echo base_url("assets"); ?>/assets/images/221.jpg" alt="avatar"/>
-    						</div><!-- .avatar -->
-    						<div class="sl-content m-l-xl">
-    							<h5 class="m-t-0"><a href="javascript:void(0)" class="m-r-xs theme-color"><?php echo $item['full_name'] ?></a><small class="text-muted fz-sm"><?php echo $item['gecenGun'] ?></small></h5>
-    							<p><?php echo $item['title'] ?></p>
-    						</div>
-    					</div><!-- .sl-item -->
-					<?php } ?>
-				</div><!-- .streamline -->
-			</div>
+		<div class="widget" style="min-height:423px">			
+			<div class="panel panel-warning">
+				<div class="panel-heading" style="padding:12px !important;">
+					<h4 class="panel-title" style="text-transform:none !important">Onay Bekleyen Bloglar (<?php echo $pendingApprovalBlogsCount ?>)</h4>
+				</div>
+    			
+    			<div class="widget-body">
+    				<div class="streamline m-l-lg">
+    					<?php foreach($pendingApprovalBlogs as $item) { ?>
+        					<div class="sl-item p-b-md">
+        						<div class="sl-avatar avatar avatar-sm avatar-circle">
+        							<img class="img-responsive" src="<?php echo base_url("assets"); ?>/assets/images/221.jpg" alt="avatar"/>
+        						</div><!-- .avatar -->
+        						<div class="sl-content m-l-xl">
+        							<h5 class="m-t-0"><a href="javascript:void(0)" class="m-r-xs theme-color"><?php echo $item['full_name'] ?></a><small class="text-muted fz-sm"><?php echo $item['gecenGun'] ?></small></h5>
+        							<p><?php echo $item['title'] ?></p>
+        						</div>
+        					</div><!-- .sl-item -->
+    					<?php } ?>
+    				</div><!-- .streamline -->
+    			</div>
+    		</div>
 		</div><!-- .widget -->
 	</div>
 </div><!-- .row -->
@@ -142,54 +142,64 @@
 <div class="row">
 	<div class="col-md-6 col-sm-6">
 		<div class="widget" style="min-height:380px">
-			<header class="widget-header">
-				<span class="pull-left big-icon"><i class="fa fa-bullhorn"></i></span>
-				<h4 class="widget-title" style="padding-left:25px;">Duyurular</h4>
-			</header>
-			<hr class="widget-separator"/>
-			<div class="widget-body">
-				<div class="streamline m-l-lg">
-					<?php foreach($duyurular as $item) { ?>
-					
-    					<div class="sl-item p-b-md">
-    						<div class="sl-avatar avatar avatar-sm avatar-circle">
-    							<img class="img-responsive" src="<?php echo base_url("assets"); ?>/assets/images/221.jpg" alt="avatar"/>
-    						</div><!-- .avatar -->
-    						<div class="sl-content m-l-xl">
-    							<h5 class="m-t-0"><a href="javascript:void(0)" class="m-r-xs theme-color"><?php echo $item['full_name'] ?></a><small class="text-muted fz-sm"><?php echo $item['gecenSure'] ?></small></h5>
-    							<p><?php echo $item['title'] ?></p>
-    						</div>
-    					</div><!-- .sl-item -->
-    				<?php } ?>
 
-				</div><!-- .streamline -->
-			</div>
+				<div class="panel panel-danger">
+				<div class="panel-heading" style="padding:12px !important;">
+					<span class="pull-left big-icon"><i class="fa fa-bullhorn"></i></span>
+					<h4 class="panel-title" style="padding-left:25px;text-transform:none !important;">Duyurular</h4>
+				</div>
+
+
+    			<div class="widget-body">
+    				<div class="streamline m-l-lg">
+    					<?php foreach($duyurular as $item) { ?>
+    					
+        					<div class="sl-item p-b-md">
+        						<div class="sl-avatar avatar avatar-sm avatar-circle">
+        							<img class="img-responsive" src="<?php echo base_url("assets"); ?>/assets/images/221.jpg" alt="avatar"/>
+        						</div><!-- .avatar -->
+        						<div class="sl-content m-l-xl">
+        							<h5 class="m-t-0"><a href="javascript:void(0)" class="m-r-xs theme-color"><?php echo $item['full_name'] ?></a><small class="text-muted fz-sm"><?php echo $item['gecenSure'] ?></small></h5>
+        							<p><?php echo $item['title'] ?></p>
+        						</div>
+        					</div><!-- .sl-item -->
+        				<?php } ?>
+    
+    				</div><!-- .streamline -->
+    			</div>
+    		</div>
 		</div><!-- .widget -->
 	</div>
 	<div class="col-md-6 col-sm-6">
 		<div class="widget" style="min-height:395px">
-			<header class="widget-header">
-				<span class="pull-left big-icon"><i class="fa fa-birthday-cake"></i></span>
-				<h4 class="widget-title" style="padding-left:25px;">Doğum Günü Yaklaşan Çalışanlar</h4>
-			</header>
-			<hr class="widget-separator"/>
-			<div class="widget-body">
-				<div class="streamline m-l-lg">
-					<?php foreach($dogumGunuYaklasanCalisanlar as $item) { ?>
-					
-    					<div class="sl-item p-b-md">
-    						<div class="sl-avatar avatar avatar-sm avatar-circle">
-    							<img class="img-responsive" src="<?php echo base_url("assets"); ?>/assets/images/221.jpg" alt="avatar"/>
-    						</div><!-- .avatar -->
-    						<div class="sl-content m-l-xl">
-    							<h5 class="m-t-0"><a href="javascript:void(0)" class="m-r-xs theme-color"><?php echo $item['full_name'] ?></a><small class="text-muted fz-sm"><?php echo get_readable_date($item['birthDate']) ?></small></h5>
-    							<p><?php echo $item['kalan'] ?></p>
-    						</div>
-    					</div><!-- .sl-item -->
-    				<?php } ?>
 
-				</div><!-- .streamline -->
-			</div>
+			
+			<div class="panel panel-primary">
+    			<div class="panel-heading" style="padding:12px !important;">
+				<span class="pull-left big-icon"><i class="fa fa-birthday-cake"></i></span>
+    				<h4 class="panel-title" style="padding-left:25px;text-transform:none !important;">Doğum Günü Yaklaşan Çalışanlar</h4>
+    			</div>
+				
+<!-- 			<hr class="widget-separator"/> -->
+
+    			<div class="widget-body">
+    				<div class="streamline m-l-lg">
+    					<?php foreach($dogumGunuYaklasanCalisanlar as $item) { ?>
+    					
+        					<div class="sl-item p-b-md">
+        						<div class="sl-avatar avatar avatar-sm avatar-circle">
+        							<img class="img-responsive" src="<?php echo base_url("assets"); ?>/assets/images/221.jpg" alt="avatar"/>
+        						</div><!-- .avatar -->
+        						<div class="sl-content m-l-xl">
+        							<h5 class="m-t-0"><a href="javascript:void(0)" class="m-r-xs theme-color"><?php echo $item['full_name'] ?></a><small class="text-muted fz-sm"><?php echo get_readable_date($item['birthDate']) ?></small></h5>
+        							<p><?php echo $item['kalan'] ?></p>
+        						</div>
+        					</div><!-- .sl-item -->
+        				<?php } ?>
+    
+    				</div><!-- .streamline -->
+    			</div>
+    		</div>
 		</div><!-- .widget -->
 	</div>
 </div><!-- .row -->

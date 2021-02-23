@@ -363,8 +363,10 @@ function isYetkili(){
 function get_last_announcement() {
     $t = &get_instance();
     
+    $user = $t->session->userdata("user");
     $t->load->model("announcement_model");
-    $last_announcement = $t->announcement_model->get_last_announcement();
+    
+    $last_announcement = $t->announcement_model->get_last_announcement($user->id);
     
     return $last_announcement;
 }
