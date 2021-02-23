@@ -87,7 +87,7 @@
 
 <div class="row">
 	<div class="col-md-6 col-sm-6">
-		<div class="widget" style="min-height:423px">
+		<div class="widget" style="min-height:380px;">
 			<div class="panel panel-success">
 				<div class="panel-heading" style="padding:12px !important;">
 					<h4 class="panel-title" style="text-transform:none !important">En Son Yayınlanan Bloglar</h4>
@@ -113,8 +113,8 @@
 	</div>
 	
 	<div class="col-md-6 col-sm-6">
-		<div class="widget" style="min-height:423px">			
-			<div class="panel panel-warning">
+		<div class="widget" style="min-height:380px;">			
+			<div class="panel panel-warning" style="min-height:380px;">
 				<div class="panel-heading" style="padding:12px !important;">
 					<h4 class="panel-title" style="text-transform:none !important">Onay Bekleyen Bloglar (<?php echo $pendingApprovalBlogsCount ?>)</h4>
 				</div>
@@ -143,7 +143,7 @@
 	<div class="col-md-6 col-sm-6">
 		<div class="widget" style="min-height:380px">
 
-			<div class="panel panel-danger">
+			<div class="panel panel-danger" style="min-height:380px;">
 				<div class="panel-heading" style="padding:12px !important;">
 					<span class="pull-left big-icon"><i class="fa fa-bullhorn"></i></span>
 					<h4 class="panel-title" style="padding-left:25px;text-transform:none !important;">Duyurular</h4>
@@ -172,9 +172,8 @@
 	</div>
 	<div class="col-md-6 col-sm-6">
 		<div class="widget" style="min-height:380px">
-
 			
-			<div class="panel panel-primary">
+			<div class="panel panel-primary" style="min-height:380px;">
     			<div class="panel-heading" style="padding:12px !important;">
 				<span class="pull-left big-icon"><i class="fa fa-birthday-cake"></i></span>
     				<h4 class="panel-title" style="padding-left:25px;text-transform:none !important;">Doğum Günü Yaklaşan Çalışanlar</h4>
