@@ -35,14 +35,18 @@ a.notif {
 }
   
 .navbar-toolbar > li > .dropdown-menu {
-    width: 300px !important;
+    width: 450px !important;
 }
 
     
 </style>
 
 
-<?php $settings = get_settings(); ?>
+<?php 
+    $settings = get_settings();
+    $noticationsCount = get_notifications_count();
+    $notifications = get_notifications();
+?>
 
 <nav id="app-navbar" class="navbar navbar-inverse navbar-fixed-top primary">
     <!-- navbar header -->
@@ -102,26 +106,60 @@ a.notif {
 <!--                 		<span class="badge">19</span> -->
 <!--                 		<i class="zmdi zmdi-hc-lg zmdi-notifications"></i> -->
 <!--                 	</a> -->
-					<a  href="javascript:void(0)" class="dropdown-toggle notif" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-						<i class="zmdi zmdi-hc-lg zmdi-notifications"></i>
-						<span class="num">6</span>
+					<a href="#" 
+						type="button"
+    					data-url="bildirimler-goruldu" 
+    					data-csrf-key="<?php echo $this->security->get_csrf_token_name(); ?>" 
+                		data-csrf-value="<?php echo $this->security->get_csrf_hash(); ?>" 
+                		class="dropdown-toggle notif notifbtn" 
+                		id="#notifbtn"
+                		data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+						
+						<i class="zmdi zmdi-hc-lg zmdi-notifications "></i>
+						
+						<?php if($noticationsCount > 0) { ?>
+						
+							<span class="num"><?php echo $noticationsCount ?></span>
+							
+						<?php } ?>
 					</a>
 					
 					
                 	<div class="media-group dropdown-menu animated flipInY">
-                    	<a href="<?php echo base_url("/blogs"); ?>" class="media-group-item">
-                        	<div class="media">
-                           		<div class="media-left">
-                              		<div class="avatar avatar-md avatar-circle" style="margin-top: 6px;">
-                                		<img src="<?php echo base_url("assets"); ?>/assets/images/218.jpg" alt="">
-                              		</div>
-                            	</div>
-                            	<div class="media-body">
-                              		<h5 class="media-heading">Fatih Çerçi</h5>
-                              		<small class="media-meta"><b>CodeIgniter ile CMS portal yapımı</b> başlıklı bir blog paylaştı</small>
-                            	</div>
-                          	</div>
-                        </a><!-- .media-group-item -->
+                	
+                    	<?php if(!$notifications) { ?>
+                    		<a href="<?php echo base_url("/blogs"); ?>" class="media-group-item">
+                            	<div class="media">
+                               		<div class="media-left">
+                                  		
+                                	</div>
+                                	<div class="media-body" style="padding:8px; color:red; ">
+                                  		<i class="fa fa-warning"></i> <small class="media-meta"><b>Yeni bildiriminiz bulunmamaktadır</b></small>
+                                  		
+                                	</div>
+                              	</div>
+                            </a><!-- .media-group-item -->
+                        <?php } ?>
+                            
+                            
+                       
+                    	<?php foreach($notifications as $item) { ?>
+                        	<a href="<?php echo base_url($item['url']) ?>" class="media-group-item" <?php if($item['goruldu']==1) { ?> style="opacity:0.5" <?php } ?> >
+                            	<div class="media">
+                               		<div class="media-left">
+                                  		<div class="avatar avatar-md avatar-circle" style="margin-top: 6px;">
+                                    		<img src="<?php echo base_url("assets"); ?>/assets/images/218.jpg" alt="">
+                                  		</div>
+                                	</div>
+                                	<div class="media-body">
+                                  		<h5 class="media-heading"><?php echo $item['full_name'] ?></h5>
+                                  		<small class="media-meta"><?php echo $item['description'] ?></small>
+                                	</div>
+                                	<small class="text-muted fz-sm pull-right" style="font-size:11px !important"><?php echo $item['gecenSure'] ?></small>
+                              	</div>
+                            </a><!-- .media-group-item -->
+                    	<?php } ?>
+                    	
                   	</div>
                 </li>
                 
@@ -139,3 +177,31 @@ a.notif {
         </div>
     </div><!-- navbar-container -->
 </nav>
+
+<script src="<?php echo base_url("assets"); ?>/libs/bower/jquery/dist/jquery.js"></script>
+<script src="<?php echo base_url("assets"); ?>/libs/bower/jquery-ui/jquery-ui.min.js"></script>
+
+
+	
+<script>
+	$(document).ready(function(){
+		$(".notifbtn").on("click",function(){
+    		
+    		var $url = $(this).data("url");
+    		
+    		var $data = {
+    			url : $url
+    		};
+    		
+    		var csrf_key = $(this).data("csrf-key");
+    		var csrf_value = $(this).data("csrf-value");
+    
+    		$data[csrf_key] = csrf_value;
+    		
+    		$.post($url, $data, function(){
+    			
+    		});
+    
+    	});
+	}) 
+</script>

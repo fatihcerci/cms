@@ -367,6 +367,25 @@ function get_last_announcement() {
     $t->load->model("announcement_model");
     
     $last_announcement = $t->announcement_model->get_last_announcement($user->id);
-    
     return $last_announcement;
+}
+
+function get_notifications_count() {
+    $t = &get_instance();
+    
+    $user = $t->session->userdata("user");
+    $t->load->model("notification_model");
+    
+    $notificationsCount = $t->notification_model->get_notifications_count($user->id);
+    return $notificationsCount;
+}
+
+function get_notifications() {
+    $t = &get_instance();
+    
+    $user = $t->session->userdata("user");
+    $t->load->model("notification_model");
+    
+    $notifications = $t->notification_model->get_notifications($user->id);
+    return $notifications;
 }

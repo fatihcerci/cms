@@ -36,7 +36,8 @@ class Announcement_model extends CI_Model
         return $this->db->where($where)->delete($this->tableName);
     }
     
-    public function get_last_announcement($user_id) {
+    public function get_last_announcement($user_id) 
+    {
         $sql = "select 
                     a.id,
                     a.title,

@@ -12,6 +12,9 @@ class Dashboard extends CI_Controller {
 
         $this->viewFolder = "dashboard_v";
         $this->load->model("dashboard_model");
+        $this->load->model("user_model");
+        $this->load->model("notification_model");
+        $this->this = &get_instance();
 //        $this->user = get_active_user();
 
         if(!get_active_user()){
@@ -63,6 +66,14 @@ class Dashboard extends CI_Controller {
 	{
 	    $popup_id = $this->input->post("popup_id");
 	    set_cookie($popup_id, "true", 60 * 60 * 24 * 365);
+	}
+	
+	public function bildirimler_goruldu()
+	{
+	    $user = $this->this->session->userdata("user");
+	    $insert = $this->notification_model->insert_user_seen_notifications($user->id);
+	    
+	    
 	}
 }
 

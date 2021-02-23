@@ -13,6 +13,7 @@ class Blogs extends CI_Controller
 
         $this->load->model("blog_model");
         $this->load->model("user_model");
+        $this->load->model("notification_model");
         $this->this = &get_instance();
 
         if(!get_active_user()){
@@ -126,6 +127,16 @@ class Blogs extends CI_Controller
                         "title" => "İşlem Başarılı",
                         "text" => "Kayıt başarılı bir şekilde eklendi",
                         "type"  => "success"
+                    );
+                    
+                    $notif_desc = "<b>" . $this->input->post("title") . "</b> başlıklı bir blog paylaştı";
+                    $insertNotification = $this->notification_model->add(
+                        array(
+                            "description"   => $notif_desc,
+                            "url"           => convertToSEO($this->input->post("title")),
+                            "createdAt"     => date("Y-m-d H:i:s"),
+                            "user_id"       => $user->id
+                        )
                     );
 
                 } else {

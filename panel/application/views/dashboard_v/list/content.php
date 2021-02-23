@@ -88,7 +88,7 @@
 <div class="row">
 	<div class="col-md-6 col-sm-6">
 		<div class="widget" style="min-height:380px;">
-			<div class="panel panel-success">
+			<div class="panel panel-success" style="min-height:380px;">
 				<div class="panel-heading" style="padding:12px !important;">
 					<h4 class="panel-title" style="text-transform:none !important">En Son Yayınlanan Bloglar</h4>
 				</div>
