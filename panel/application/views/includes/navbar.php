@@ -8,11 +8,10 @@ a.notif {
 }
 .num {
     position: absolute;
-    right: 9px;
-    top: 12px;
+    top: 14px;
     border-radius: 100px;
     min-width: 10px;
-    padding: 2px 5px;
+    padding: 2px 3px;
     font-size: 10px;
     font-weight: bold;
     color: #fff;
@@ -105,7 +104,7 @@ a.notif {
 <!--                 	</a> -->
 					<a  href="javascript:void(0)" class="dropdown-toggle notif" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 						<i class="zmdi zmdi-hc-lg zmdi-notifications"></i>
-						<span class="num">1</span>
+						<span class="num">6</span>
 					</a>
 					
 					
@@ -114,7 +113,7 @@ a.notif {
                         	<div class="media">
                            		<div class="media-left">
                               		<div class="avatar avatar-md avatar-circle" style="margin-top: 6px;">
-                                		<img src="<?php echo base_url("assets"); ?>/assets/images/221.jpg" alt="">
+                                		<img src="<?php echo base_url("assets"); ?>/assets/images/218.jpg" alt="">
                               		</div>
                             	</div>
                             	<div class="media-body">

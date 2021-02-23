@@ -98,7 +98,7 @@
     					<?php foreach($latestPublishedBlogs as $item) { ?>
         					<div class="sl-item p-b-md">
         						<div class="sl-avatar avatar avatar-sm avatar-circle">
-        							<img class="img-responsive" src="<?php echo base_url("assets"); ?>/assets/images/221.jpg" alt="avatar"/>
+        							<img class="img-responsive" src="<?php echo base_url("assets"); ?>/assets/images/209.jpg" alt="avatar"/>
         						</div><!-- .avatar -->
         						<div class="sl-content m-l-xl">
         							<h5 class="m-t-0"><a href="javascript:void(0)" class="m-r-xs theme-color"><?php echo $item['full_name'] ?></a><small class="text-muted fz-sm"><?php echo $item['gecenGun'] ?></small></h5>
@@ -124,7 +124,7 @@
     					<?php foreach($pendingApprovalBlogs as $item) { ?>
         					<div class="sl-item p-b-md">
         						<div class="sl-avatar avatar avatar-sm avatar-circle">
-        							<img class="img-responsive" src="<?php echo base_url("assets"); ?>/assets/images/221.jpg" alt="avatar"/>
+        							<img class="img-responsive" src="<?php echo base_url("assets"); ?>/assets/images/212.jpg" alt="avatar"/>
         						</div><!-- .avatar -->
         						<div class="sl-content m-l-xl">
         							<h5 class="m-t-0"><a href="javascript:void(0)" class="m-r-xs theme-color"><?php echo $item['full_name'] ?></a><small class="text-muted fz-sm"><?php echo $item['gecenGun'] ?></small></h5>
@@ -186,7 +186,7 @@
     					
         					<div class="sl-item p-b-md">
         						<div class="sl-avatar avatar avatar-sm avatar-circle">
-        							<img class="img-responsive" src="<?php echo base_url("assets"); ?>/assets/images/221.jpg" alt="avatar"/>
+        							<img class="img-responsive" src="<?php echo base_url("assets"); ?>/assets/images/218.jpg" alt="avatar"/>
         						</div><!-- .avatar -->
         						<div class="sl-content m-l-xl">
         							<h5 class="m-t-0"><a href="javascript:void(0)" class="m-r-xs theme-color"><?php echo $item['full_name'] ?></a><small class="text-muted fz-sm"><?php echo get_readable_date($item['birthDate']) ?></small></h5>
