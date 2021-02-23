@@ -35,7 +35,9 @@ a.notif {
   
 }
   
- 
+.navbar-toolbar > li > .dropdown-menu {
+    width: 300px !important;
+}
 
     
 </style>
@@ -108,12 +110,11 @@ a.notif {
 					
 					
                 	<div class="media-group dropdown-menu animated flipInY">
-                    	<a href="javascript:void(0)" class="media-group-item">
+                    	<a href="<?php echo base_url("/blogs"); ?>" class="media-group-item">
                         	<div class="media">
                            		<div class="media-left">
-                              		<div class="avatar avatar-xs avatar-circle">
+                              		<div class="avatar avatar-md avatar-circle" style="margin-top: 6px;">
                                 		<img src="<?php echo base_url("assets"); ?>/assets/images/221.jpg" alt="">
-                                		<i class="status status-online"></i>
                               		</div>
                             	</div>
                             	<div class="media-body">

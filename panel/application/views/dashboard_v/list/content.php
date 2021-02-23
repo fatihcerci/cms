@@ -143,7 +143,7 @@
 	<div class="col-md-6 col-sm-6">
 		<div class="widget" style="min-height:380px">
 
-				<div class="panel panel-danger">
+			<div class="panel panel-danger">
 				<div class="panel-heading" style="padding:12px !important;">
 					<span class="pull-left big-icon"><i class="fa fa-bullhorn"></i></span>
 					<h4 class="panel-title" style="padding-left:25px;text-transform:none !important;">Duyurular</h4>
@@ -171,7 +171,7 @@
 		</div><!-- .widget -->
 	</div>
 	<div class="col-md-6 col-sm-6">
-		<div class="widget" style="min-height:395px">
+		<div class="widget" style="min-height:380px">
 
 			
 			<div class="panel panel-primary">
@@ -180,8 +180,6 @@
     				<h4 class="panel-title" style="padding-left:25px;text-transform:none !important;">Doğum Günü Yaklaşan Çalışanlar</h4>
     			</div>
 				
-<!-- 			<hr class="widget-separator"/> -->
-
     			<div class="widget-body">
     				<div class="streamline m-l-lg">
     					<?php foreach($dogumGunuYaklasanCalisanlar as $item) { ?>
