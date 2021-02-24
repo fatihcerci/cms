@@ -45,7 +45,6 @@ a.notif {
 <?php 
     $settings = get_settings();
     $notificationsCount = get_notifications_count();
-    $notifications = get_notifications();
 ?>
 
 <nav id="app-navbar" class="navbar navbar-inverse navbar-fixed-top primary">

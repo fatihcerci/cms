@@ -380,12 +380,3 @@ function get_notifications_count() {
     return $notificationsCount;
 }
 
-function get_notifications() {
-    $t = &get_instance();
-    
-    $user = $t->session->userdata("user");
-    $t->load->model("notification_model");
-    
-    $notifications = $t->notification_model->get_notifications($user->id);
-    return $notifications;
-}
