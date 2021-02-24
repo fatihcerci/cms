@@ -363,6 +363,29 @@ class Blogs extends CI_Controller
                     "publishDate" => $publishDate
                 )
             );
+            
+            $user = $this->this->session->userdata("user");
+            $blog = $this->blog_model->get(array("id" => $id));
+
+            
+            if($user->id != $blog->user_id) {
+                if($isActive == 1) {
+                    $notif_desc = "<b>" . $blog->title . "</b> başlıklı blogunuz yayına alındı";
+                } else {
+                    $notif_desc = "<b>" . $blog->title . "</b> başlıklı blogunuz yayından kaldırıldı";
+                }
+                
+                $insertNotification = $this->notification_model->add(
+                    array(
+                        "description"   => $notif_desc,
+                        "url"           => convertToSEO($this->input->post("title")),
+                        "createdAt"     => date("Y-m-d H:i:s"),
+                        "user_id"       => $user->id,
+                        "to_user_id"    => $blog->user_id
+                    )
+                );
+            }
+            
         }
     }
 

@@ -65,11 +65,11 @@ class Notification_model extends CI_Model
                 FROM
                     notifications n,
                     users u
-                WHERE n.user_id = u.id and n.user_id != ?
+                WHERE n.user_id = u.id and n.user_id != ? and (n.to_user_id is null or n.to_user_id = ?)
                 ORDER BY n.createdAt DESC
                 LIMIT 5
                 ) x";
-        $query = $this->db->query($sql, array($user_id));
+        $query = $this->db->query($sql, array($user_id, $user_id));
         return $query->result_array();
     }
     
@@ -87,8 +87,8 @@ class Notification_model extends CI_Model
                 FROM
                     notifications n,
                     users u
-                WHERE n.user_id = u.id and n.user_id != ? and n.id not in (select notification_id from user_seen_notifications where user_id = ?)";
-        $query = $this->db->query($sql, array($user_id, $user_id));
+                WHERE n.user_id = u.id and n.user_id != ? and (n.to_user_id is null or n.to_user_id = ?) and n.id not in (select notification_id from user_seen_notifications where user_id = ?)";
+        $query = $this->db->query($sql, array($user_id, $user_id, $user_id));
         return $query->num_rows();
     }
     

@@ -44,7 +44,7 @@ a.notif {
 
 <?php 
     $settings = get_settings();
-    $noticationsCount = get_notifications_count();
+    $notificationsCount = get_notifications_count();
     $notifications = get_notifications();
 ?>
 
@@ -86,7 +86,7 @@ a.notif {
         </a>
     </div><!-- .navbar-header -->
 
-    <div class="navbar-container container-fluid">
+    <div class="navbar-container container-fluid>
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <ul class="nav navbar-toolbar navbar-toolbar-left navbar-left">
                 <li class="hidden-float hidden-menubar-top">
@@ -101,7 +101,7 @@ a.notif {
 
             <ul class="nav navbar-toolbar navbar-toolbar-right navbar-right">
 <!--             	Bildirimler -->
-            	<li class="dropdown nav-item hidden-float">
+            	<li class="dropdown nav-item hidden-float" id="notif" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 <!--                 	<a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> -->
 <!--                 		<span class="badge">19</span> -->
 <!--                 		<i class="zmdi zmdi-hc-lg zmdi-notifications"></i> -->
@@ -112,62 +112,31 @@ a.notif {
     					data-csrf-key="<?php echo $this->security->get_csrf_token_name(); ?>" 
                 		data-csrf-value="<?php echo $this->security->get_csrf_hash(); ?>" 
                 		class="dropdown-toggle notif notifbtn" 
-                		id="#notifbtn"
-                		data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                		id="notifbtn"
+                		data-toggle="dropdown" 
+                		role="button" 
+                		aria-haspopup="true" 
+                		aria-expanded="false">
 						
 						<i class="zmdi zmdi-hc-lg zmdi-notifications "></i>
 						
-						<?php if($noticationsCount > 0) { ?>
 						
-							<span class="num"><?php echo $noticationsCount ?></span>
+						<span class="num" id="num" <?php if($notificationsCount == 0) { ?> style = "opacity:0" <?php }  ?> ><?php echo $notificationsCount ?></span>
 							
-						<?php } ?>
 					</a>
 					
-					
-                	<div class="media-group dropdown-menu animated flipInY">
-                	
-                    	<?php if(!$notifications) { ?>
-                    		<a href="<?php echo base_url("/blogs"); ?>" class="media-group-item">
-                            	<div class="media">
-                               		<div class="media-left">
-                                  		
-                                	</div>
-                                	<div class="media-body" style="padding:8px; color:red; ">
-                                  		<i class="fa fa-warning"></i> <small class="media-meta"><b>Yeni bildiriminiz bulunmamaktadır</b></small>
-                                  		
-                                	</div>
-                              	</div>
-                            </a><!-- .media-group-item -->
-                        <?php } ?>
-                            
-                            
-                       
-                    	<?php foreach($notifications as $item) { ?>
-                        	<a href="<?php echo base_url($item['url']) ?>" class="media-group-item" <?php if($item['goruldu']==1) { ?> style="opacity:0.5" <?php } ?> >
-                            	<div class="media">
-                               		<div class="media-left">
-                                  		<div class="avatar avatar-md avatar-circle" style="margin-top: 6px;">
-                                    		<img src="<?php echo base_url("assets"); ?>/assets/images/218.jpg" alt="">
-                                  		</div>
-                                	</div>
-                                	<div class="media-body">
-                                  		<h5 class="media-heading"><?php echo $item['full_name'] ?></h5>
-                                  		<small class="media-meta"><?php echo $item['description'] ?></small>
-                                	</div>
-                                	<small class="text-muted fz-sm pull-right" style="font-size:11px !important"><?php echo $item['gecenSure'] ?></small>
-                              	</div>
-                            </a><!-- .media-group-item -->
-                    	<?php } ?>
+					<div class="media-group dropdown-menu animated flipInY notification_bar">
+						<?php $this->load->view("includes/notification_bar"); ?>
+					</div>
                     	
-                  	</div>
-                </li>
-                
+            	</li>
+            	
                 <li class="nav-item hidden-float">
                     <a href="<?php echo base_url("logout"); ?>" aria-expanded="false">
                         <i class="fa fa-power-off"></i>
                     </a>
                 </li>
+                
 				<li class="nav-item hidden-float">
                     <a href="javascript:void(0)" aria-expanded="false">
                         <?php echo get_version(); ?>
@@ -185,8 +154,14 @@ a.notif {
 	
 <script>
 	$(document).ready(function(){
+		
+		var notifBtnClicked = false;
+		
 		$(".notifbtn").on("click",function(){
-    		
+// 			$('#notif').modal('show');
+			
+			$("#num").attr("style", "opacity:0");
+			
     		var $url = $(this).data("url");
     		
     		var $data = {
@@ -201,7 +176,78 @@ a.notif {
     		$.post($url, $data, function(){
     			
     		});
+    		
+    		debugger;
+    		$url = "get-bildirim";
+    		jQuery.ajax({
+                url: $url,
+                type: 'POST',
+                data: $data,
+                error:function(data){
+                    console.error(data);
+                },
+                success: function(data) {
+                	console.log(data);
+                	debugger;
+                	if(data) {
+                		$(".notification_bar").html(data);
+                	}
+                }
+            });
     
     	});
+    	
+    	function setNotificationsCount() {
+    		$url = "get-bildirim-count";
+    		var $data = {
+    			url : $url,
+    			functionname: "get_bildirim_count",
+    			locationView : $(this)[0].location.href
+    		};
+    		jQuery.ajax({
+                url: $url,
+                type: 'POST',
+                data: $data,
+                error:function(data){
+                    console.error(data);
+                },
+                success: function(data) {
+                	debugger;
+                	
+                	if(data && data > 0) {
+                		$("#num").attr("style", "opacity:1");
+                		$("#num").html(data);
+                		
+                		debugger;
+                		for(var i=0; i<5; i++) {
+                			if(i<data) {
+                				$("#media"+i).attr("style", "opacity:1");
+                			} else {
+                				$("#media"+i).attr("style", "opacity:0.5");
+                			}
+                			
+                		}
+                		$url = "get-bildirim";
+                		jQuery.ajax({
+                            url: $url,
+                            type: 'POST',
+                            data: $data,
+                            error:function(data){
+                                console.error(data);
+                            },
+                            success: function(data) {
+                            	console.log(data);
+                            	debugger;
+                            	if(data) {
+                            		$(".notification_bar").html(data);
+                            	}
+                            }
+                        });
+                	}
+                }
+            });
+            setTimeout(setNotificationsCount, 5000);
+        }
+        setNotificationsCount();
 	}) 
 </script>

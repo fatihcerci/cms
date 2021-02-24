@@ -58,6 +58,9 @@ class Dashboard extends CI_Controller {
         
         $viewData->duyurular = $duyurular;
         $viewData->dogumGunuYaklasanCalisanlar = $dogumGunuYaklasanCalisanlar;
+        
+        $user = $this->this->session->userdata("user");
+        $viewData->notifications = $this->notification_model->get_notifications($user->id);
 
 		$this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
 	}
@@ -72,8 +75,26 @@ class Dashboard extends CI_Controller {
 	{
 	    $user = $this->this->session->userdata("user");
 	    $insert = $this->notification_model->insert_user_seen_notifications($user->id);
+	}
+	
+	public function get_bildirim_count()
+	{
+	    $user = $this->this->session->userdata("user");
+	    $bildirimCount = $this->notification_model->get_notifications_count($user->id);
+	    echo $bildirimCount;
+	}
+	
+	public function get_notifications()
+	{
+	    $user = $this->this->session->userdata("user");
+	    $notifications = $this->notification_model->get_notifications($user->id);
 	    
+	    $viewData = new stdClass();
+	    $viewData->notifications = $notifications;
 	    
+	    $render_html = $this->load->view("includes/notification_bar", $viewData, true);
+	    
+	    echo $render_html;
 	}
 }
 
