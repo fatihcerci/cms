@@ -1,5 +1,5 @@
 <?php 
-    $announcement = get_last_announcement(); 
+    $announcement = get_last_announcement();
 ?>
 <!-- Central Modal Large -->
 <div class="modal fade" id="dogumGunuPopup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

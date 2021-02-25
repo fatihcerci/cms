@@ -1,44 +1,42 @@
 <style>
-a.notif {
-    position: relative;
-    display: block;
-    height: 50px;
-    width: 50px;
-    text-decoration: none;
-}
-.num {
-    position: absolute;
-    top: 14px;
-    border-radius: 100px;
-    min-width: 10px;
-    padding: 2px 3px;
-    font-size: 10px;
-    font-weight: bold;
-    color: #fff;
-    line-height: 1;
-    vertical-align: middle;
-    white-space: nowrap;
-    text-align: center;
-    background-color: #ff5b5b;
-}
-
-@media (max-width: 767px) {
-  .num {
-    right: -20px;
-    top: -6px;
-  }
-  a.notif {
-    width: 5px;
-    color: #fff;
-  } 
-  
-}
-  
-.navbar-toolbar > li > .dropdown-menu {
-    width: 450px !important;
-}
-
+    a.notif {
+        position: relative;
+        display: block;
+        height: 50px;
+        width: 50px;
+        text-decoration: none;
+    }
+    .num {
+        position: absolute;
+        top: 14px;
+        border-radius: 100px;
+        min-width: 10px;
+        padding: 2px 3px;
+        font-size: 10px;
+        font-weight: bold;
+        color: #fff;
+        line-height: 1;
+        vertical-align: middle;
+        white-space: nowrap;
+        text-align: center;
+        background-color: #ff5b5b;
+    }
     
+    @media (max-width: 767px) {
+      .num {
+        right: -20px;
+        top: -6px;
+      }
+      a.notif {
+        width: 5px;
+        color: #fff;
+      } 
+      
+    }
+      
+    .navbar-toolbar > li > .dropdown-menu {
+        width: 450px !important;
+    }
 </style>
 
 
@@ -58,7 +56,7 @@ a.notif {
     
     
 <?php foreach($notifications as $key => $item) { ?>
-	<a href="<?php echo base_url('notifications/view_all_notifications') ?>" class="media-group-item" id="media<?php echo $key ?>" <?php if($item['goruldu']==1) { ?> style="opacity:0.5" <?php } ?> >
+	<a href="#" id="notifbtnall" type="button" role="button" class="media-group-item notifbtnall" id="media<?php echo $key ?>" <?php if($item['goruldu']==1) { ?> style="opacity:0.5" <?php } ?> >
     	<div class="media">
        		<div class="media-left">
           		<div class="avatar avatar-md avatar-circle" style="margin-top: 6px;">
@@ -73,4 +71,3 @@ a.notif {
       	</div>
     </a><!-- .media-group-item -->
 <?php } ?>
-	

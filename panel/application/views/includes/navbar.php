@@ -1,44 +1,42 @@
 <style>
-a.notif {
-    position: relative;
-    display: block;
-    height: 50px;
-    width: 50px;
-    text-decoration: none;
-}
-.num {
-    position: absolute;
-    top: 14px;
-    border-radius: 100px;
-    min-width: 10px;
-    padding: 2px 3px;
-    font-size: 10px;
-    font-weight: bold;
-    color: #fff;
-    line-height: 1;
-    vertical-align: middle;
-    white-space: nowrap;
-    text-align: center;
-    background-color: #ff5b5b;
-}
-
-@media (max-width: 767px) {
-  .num {
-    right: -20px;
-    top: -6px;
-  }
-  a.notif {
-    width: 5px;
-    color: #fff;
-  } 
-  
-}
-  
-.navbar-toolbar > li > .dropdown-menu {
-    width: 450px !important;
-}
-
+    a.notif {
+        position: relative;
+        display: block;
+        height: 50px;
+        width: 50px;
+        text-decoration: none;
+    }
+    .num {
+        position: absolute;
+        top: 14px;
+        border-radius: 100px;
+        min-width: 10px;
+        padding: 2px 3px;
+        font-size: 10px;
+        font-weight: bold;
+        color: #fff;
+        line-height: 1;
+        vertical-align: middle;
+        white-space: nowrap;
+        text-align: center;
+        background-color: #ff5b5b;
+    }
     
+    @media (max-width: 767px) {
+      .num {
+        right: -20px;
+        top: -6px;
+      }
+      a.notif {
+        width: 5px;
+        color: #fff;
+      } 
+      
+    }
+      
+    .navbar-toolbar > li > .dropdown-menu {
+        width: 450px !important;
+    }
 </style>
 
 
@@ -146,6 +144,8 @@ a.notif {
     </div><!-- navbar-container -->
 </nav>
 
+<?php $this->load->view("includes/notifications_popup"); ?>
+
 <script src="<?php echo base_url("assets"); ?>/libs/bower/jquery/dist/jquery.js"></script>
 <script src="<?php echo base_url("assets"); ?>/libs/bower/jquery-ui/jquery-ui.min.js"></script>
 
@@ -155,9 +155,15 @@ a.notif {
 	$(document).ready(function(){
 		
 		var notifBtnClicked = false;
-		
+
+		$(".notifbtnall").on("click",function(){
+    		alert("notifbtnall");
+    		$('#notificationsPopup').modal('show');
+    	});
+
 		$(".notifbtn").on("click",function(){
 // 			$('#notif').modal('show');
+			$('#notificationsPopup').modal('show');
 
 			$("#num").attr("style", "opacity:0");
 			
