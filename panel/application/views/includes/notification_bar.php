@@ -35,7 +35,14 @@
     }
       
     .navbar-toolbar > li > .dropdown-menu {
-        width: 450px !important;
+        width: 500px !important;
+    }
+    
+    .media-group-item {
+        padding: 2px 10px;
+    }
+    .navbar-toolbar > li > .dropdown-menu {
+        padding-top:5px;
     }
 </style>
 
@@ -66,8 +73,9 @@
         	<div class="media-body">
           		<h5 class="media-heading"><?php echo $item['full_name'] ?></h5>
           		<small class="media-meta"><?php echo $item['description'] ?></small>
+          		<small class="text-muted fz-sm pull-right" style="font-size:11px !important"><?php echo $item['gecenSure'] ?></small>
         	</div>
-        	<small class="text-muted fz-sm pull-right" style="font-size:11px !important"><?php echo $item['gecenSure'] ?></small>
+        	
       	</div>
     </a><!-- .media-group-item -->
 <?php } ?>
