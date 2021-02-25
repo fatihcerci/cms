@@ -132,7 +132,8 @@ class Notification_model extends CI_Model
                     users u
                 WHERE n.user_id = u.id and n.user_id != ? and (n.to_user_id is null or n.to_user_id = ?)
                 ORDER BY n.createdAt DESC
-                LIMIT 12) x";
+                LIMIT 20
+                ) x";
         $query = $this->db->query($sql, array($user_id, $user_id));
         return $query->result_array();
     }

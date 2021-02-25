@@ -63,7 +63,7 @@
     
     
 <?php foreach($notifications as $key => $item) { ?>
-	<a href="#" id="notifbtnall" type="button" role="button" class="media-group-item notifbtnall" id="media<?php echo $key ?>" <?php if($item['goruldu']==1) { ?> style="opacity:0.5" <?php } ?> >
+	<a href="#" type="button" role="button" class="media-group-item" id="media<?php echo $key ?>" <?php if($item['goruldu']==1) { ?> style="opacity:0.5" <?php } ?> >
     	<div class="media">
        		<div class="media-left">
           		<div class="avatar avatar-md avatar-circle" style="margin-top: 6px;">
@@ -79,3 +79,12 @@
       	</div>
     </a><!-- .media-group-item -->
 <?php } ?>
+	<a href="#" type="button" role="button" style="padding:10px" onclick="notiftumu()" class="media-group-item text-center notiftumu">Tümünü Gör</a>
+	
+	
+
+<script>
+	function notiftumu() {
+		$('#notificationsPopup').modal('show');
+	}
+</script>	
