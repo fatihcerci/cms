@@ -201,7 +201,6 @@ class Blogs extends CI_Controller
 
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
 
-
     }
 
     public function update($id){

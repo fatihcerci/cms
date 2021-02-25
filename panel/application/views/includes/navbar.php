@@ -158,10 +158,10 @@ a.notif {
 		
 		$(".notifbtn").on("click",function(){
 // 			$('#notif').modal('show');
-			
+
 			$("#num").attr("style", "opacity:0");
 			
-    		var $url = $(this).data("url");
+    		var $url = "<?php echo base_url("bildirimler-goruldu"); ?>";
     		
     		var $data = {
     			url : $url
@@ -171,15 +171,9 @@ a.notif {
     		var csrf_value = $(this).data("csrf-value");
     
     		$data[csrf_key] = csrf_value;
-    		
-    		$.post($url, $data, function(){
-    			
-    		});
-    		
-    		debugger;
-    		$url = "get-bildirim";
+
     		jQuery.ajax({
-                url: $url,
+                url: "<?php echo base_url("get-bildirim"); ?>",
                 type: 'POST',
                 data: $data,
                 error:function(data){
@@ -187,17 +181,19 @@ a.notif {
                 },
                 success: function(data) {
                 	console.log(data);
-                	debugger;
                 	if(data) {
                 		$(".notification_bar").html(data);
                 	}
+
+                	$.post($url, $data, function(){
+            			
+            		});
                 }
             });
-    
     	});
-    	
+
     	function setNotificationsCount() {
-    		$url = "get-bildirim-count";
+    		$url = "<?php echo base_url("get-bildirim-count"); ?>";
     		var $data = {
     			url : $url,
     			functionname: "get_bildirim_count",
@@ -211,13 +207,9 @@ a.notif {
                     console.error(data);
                 },
                 success: function(data) {
-                	debugger;
-                	
                 	if(data && data > 0) {
                 		$("#num").attr("style", "opacity:1");
                 		$("#num").html(data);
-                		
-                		debugger;
                 		for(var i=0; i<5; i++) {
                 			if(i<data) {
                 				$("#media"+i).attr("style", "opacity:1");
@@ -226,9 +218,8 @@ a.notif {
                 			}
                 			
                 		}
-                		$url = "get-bildirim";
                 		jQuery.ajax({
-                            url: $url,
+                            url: "<?php echo base_url("get-bildirim"); ?>",
                             type: 'POST',
                             data: $data,
                             error:function(data){
@@ -236,7 +227,6 @@ a.notif {
                             },
                             success: function(data) {
                             	console.log(data);
-                            	debugger;
                             	if(data) {
                             		$(".notification_bar").html(data);
                             	}

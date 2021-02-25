@@ -47,7 +47,7 @@ class Notification_model extends CI_Model
                         WHEN x.gun > 0 THEN CONCAT(x.gun, ' gün önce')
                         WHEN x.saat > 0 THEN  CONCAT(x.saat, ' saat önce')
                         WHEN x.gun = 0 AND x.saat = 0 AND x.dakika != 0 THEN CONCAT(x.dakika, ' dakika önce')
-                    ELSE '1 dakika önce' END as gecenSure,
+                    ELSE '1 dakika içinde' END as gecenSure,
                     x.goruldu
                 FROM
                 (SELECT
@@ -101,4 +101,39 @@ class Notification_model extends CI_Model
         return $this->db->query($sql, array($user_id, $timeToSee, $user_id, $user_id));
     }
 
+    public function get_all_notifications($user_id)
+    {
+        $sql = "SELECT
+                    x.id,
+                    x.description,
+                    x.url,
+                    x.full_name,
+                    CASE
+                        WHEN x.gun > 0 THEN CONCAT(x.gun, ' gün önce')
+                        WHEN x.saat > 0 THEN  CONCAT(x.saat, ' saat önce')
+                        WHEN x.gun = 0 AND x.saat = 0 AND x.dakika != 0 THEN CONCAT(x.dakika, ' dakika önce')
+                    ELSE '1 dakika içinde' END as gecenSure,
+                    x.goruldu
+                FROM
+                (SELECT
+                    n.id,
+                    n.description,
+                    n.url,
+                    u.full_name,
+                    TIMESTAMPDIFF(day,n.createdAt, CURRENT_TIMESTAMP()) as gun,
+                    MOD( TIMESTAMPDIFF(hour,n.createdAt, CURRENT_TIMESTAMP()), 24) as saat,
+                    MOD( TIMESTAMPDIFF(minute,n.createdAt, CURRENT_TIMESTAMP()), 60) as dakika,
+                    n.createdAt,
+                    CASE
+                        WHEN (select notification_id from user_seen_notifications where notification_id = n.id) IS NOT NULL THEN 1
+                        ELSE 0 END AS goruldu
+                FROM
+                    notifications n,
+                    users u
+                WHERE n.user_id = u.id and n.user_id != ? and (n.to_user_id is null or n.to_user_id = ?)
+                ORDER BY n.createdAt DESC
+                ) x";
+        $query = $this->db->query($sql, array($user_id, $user_id));
+        return $query->result_array();
+    }
 }

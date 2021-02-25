@@ -36,6 +36,11 @@
  
     
 <?php 
+
+if($announcement) {
+    
+    
+
 $duyuru_id = "duyuru-".$announcement->id;
 $duyuru_popup_cookie = get_cookie($duyuru_id);
 
@@ -71,7 +76,7 @@ if($duyuru_popup_cookie != "true") { ?>
         <!--/.Content-->
         </div>
     </div>
-<?php } ?>
+<?php } } ?>
     
     
 

@@ -127,17 +127,6 @@
                     </li>
                 <?php } ?> 
                 
-    			<?php if(isAllowedViewModule("galleries")) { ?>
-
-                    <li>
-                        <a href="<?php echo base_url("galleries"); ?>">
-                            <i class="menu-icon zmdi zmdi-apps zmdi-hc-lg"></i>
-                            <span class="menu-text">Galeri İşlemleri</span>
-                        </a>
-                    </li>
-
-                <?php } ?>
-                
              	<?php if(isAllowedViewModule("blogs")) { ?>
                     <li>
                         <a href="<?php echo base_url("blogs"); ?>">

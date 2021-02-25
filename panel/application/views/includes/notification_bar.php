@@ -43,7 +43,7 @@ a.notif {
 
 
 <?php if(!$notifications) { ?>
-	<a href="<?php echo base_url("/blogs"); ?>" class="media-group-item">
+	<a href="#" class="media-group-item">
     	<div class="media">
        		<div class="media-left">
           		
@@ -58,7 +58,7 @@ a.notif {
     
     
 <?php foreach($notifications as $key => $item) { ?>
-	<a href="<?php echo base_url($item['url']) ?>" class="media-group-item" id="media<?php echo $key ?>" <?php if($item['goruldu']==1) { ?> style="opacity:0.5" <?php } ?> >
+	<a href="<?php echo base_url('notifications/view_all_notifications') ?>" class="media-group-item" id="media<?php echo $key ?>" <?php if($item['goruldu']==1) { ?> style="opacity:0.5" <?php } ?> >
     	<div class="media">
        		<div class="media-left">
           		<div class="avatar avatar-md avatar-circle" style="margin-top: 6px;">
