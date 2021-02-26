@@ -1,0 +1,139 @@
+
+.content ul ul ul {
+    list-style-type: none !important;
+}
+
+.content ul ul {
+    list-style-type: none !important;
+
+}
+
+.json-viewer {
+    color: #000;
+    padding-left: 20px;
+}
+
+.json-viewer ul {
+    list-style-type: none;
+    margin: 0;
+    margin: 0 0 0 1px;
+    border-left: 1px dotted #ccc;
+    padding-left: 2em;
+}
+
+.json-viewer .hide {
+    display: none;
+}
+
+.json-viewer ul li .type-string,
+.json-viewer ul li .type-date {
+    color: #0B7500;
+}
+
+.json-viewer ul li .type-boolean {
+    color: #1A01CC;
+    font-weight: bold;
+}
+
+.json-viewer ul li .type-number {
+    color: #1A01CC;
+}
+
+.json-viewer ul li .type-null {
+    color: red;
+}
+
+.json-viewer a.list-link {
+    color: #000;
+    text-decoration: none;
+    position: relative;
+}
+
+.json-viewer a.list-link:before {
+    color: #aaa;
+    content: "\25BC";
+    position: absolute;
+    display: inline-block;
+    width: 1em;
+    left: -1em;
+}
+
+.json-viewer a.list-link.collapsed:before {
+    content: "\25B6";
+}
+
+.json-viewer a.list-link.empty:before {
+    content: "";
+}
+
+.json-viewer .items-ph {
+    color: #aaa;
+    padding: 0 1em;
+}
+
+.json-viewer .items-ph:hover {
+    text-decoration: underline;
+}
+
+.highlight {
+    background: yellow;
+}
+
+.bd-notification {
+    background-color: whitesmoke;
+    border-radius: 3px;
+    padding: 1.25rem 0;
+    position: relative;
+    text-align: center;
+}
+
+.bd-notification.is-warning {
+    background-color: #ffd83d;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+
+.compareDiv {
+    overflow-x: auto;
+    height: 725px;
+    padding: 0.75rem;
+    margin: 0.25rem;
+    outline: 1px solid #ccc;
+}
+
+.bottomTopCompareDiv {
+    height: 450px;
+    overflow-y: auto;
+    padding: 0.75rem;
+    margin: 0.25rem;
+    outline: 1px solid #ccc;
+    width: 98%;
+}
+
+.bottomCompareDiv {
+    overflow-x: auto;
+    height: 250px;
+    padding: 0.75rem;
+    margin: 0.25rem;
+    outline: 1px solid #ccc;
+}
+
+.button {
+    line-height: 24px;
+    padding: 0 18px;
+    text-align: center;
+    font-size: 11px;
+    border: none;
+    cursor: pointer;
+    margin: 0 0 0 4px;
+}
+
+.is-main {
+    background-color: #131b38;
+    color: #cad0e2;
+}
+
+.button:hover {
+    background-color: #483d8b;
+    color: #FFF;
+}
