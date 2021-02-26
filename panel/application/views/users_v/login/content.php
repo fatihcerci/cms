@@ -2,12 +2,9 @@
 
 <div class="simple-page-wrap">
     <div class="simple-page-logo animated swing">
-        <a href="<?php base_url() ?> ">
-            
-        </a>
     </div><!-- logo -->
     <div class="simple-page-form animated flipInY" id="login-form">
-    	<a href="<?php base_url() ?> ">
+    	<a href="<?php echo base_url("dashboard") ?> ">
              <?php if($settings->logo != "default"){ ?>
                     <img
                         src="<?php echo get_logo($settings->logoFolder, $settings->logo); ?>"

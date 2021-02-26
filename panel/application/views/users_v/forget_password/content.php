@@ -2,13 +2,18 @@
 
 <div class="simple-page-wrap">
     <div class="simple-page-logo animated swing">
-        <a href="index.html">
-            <span><i class="fa fa-user"></i></span>
-            <span><?php echo $settings->company_name ?></span>
-        </a>
     </div><!-- logo -->
     <div class="simple-page-form animated flipInY" id="reset-password-form">
-        <h4 class="form-title m-b-xl text-center">Şifrenizi mi unuttunuz ?</h4>
+    	<a href="<?php echo base_url("dashboard") ?> ">
+             <?php if($settings->logo != "default"){ ?>
+                    <img
+                        src="<?php echo get_logo($settings->logoFolder, $settings->logo); ?>"
+                		alt="<?php echo $settings->company_name; ?>"
+                        class="img-responsive"
+                        style="margin-left:16px">
+             <?php } ?>
+        </a>
+        <h4 class="form-title m-b-xl text-center" style="margin-top:50px">Şifrenizi mi unuttunuz ?</h4>
 
         <form action="<?php echo base_url("reset-password"); ?>" method="post">
             <div class="form-group">
