@@ -5,7 +5,7 @@
     <?php $this->load->view("{$viewFolder}/{$subViewFolder}/page_style"); ?>
 </head>
 
-<body class="simple-page">
+<body class="simple-page" style="overflow-x: hidden !important;">
 <!--============= start main area -->
 
     <!-- APP MAIN ==========-->

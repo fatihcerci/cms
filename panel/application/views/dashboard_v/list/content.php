@@ -90,7 +90,8 @@
 		<div class="widget" style="min-height:380px;">
 			<div class="panel panel-success" style="min-height:380px;">
 				<div class="panel-heading" style="padding:12px !important;">
-					<h4 class="panel-title" style="text-transform:none !important">En Son Yayınlanan Bloglar</h4>
+					<span class="pull-left big-icon"><i class="fa fa-check"></i></span>
+					<h4 class="panel-title" style="padding-left:25px;text-transform:none !important">En Son Yayınlanan Bloglar</h4>
 				</div>
 
     			<div class="widget-body">
@@ -116,7 +117,8 @@
 		<div class="widget" style="min-height:380px;">			
 			<div class="panel panel-warning" style="min-height:380px;">
 				<div class="panel-heading" style="padding:12px !important;">
-					<h4 class="panel-title" style="text-transform:none !important">Onay Bekleyen Bloglar (<?php echo $pendingApprovalBlogsCount ?>)</h4>
+					<span class="pull-left big-icon"><i class="fa fa-hourglass-start"></i></span>
+					<h4 class="panel-title" style="padding-left:25px;text-transform:none !important">Onay Bekleyen Bloglar (<?php echo $pendingApprovalBlogsCount ?>)</h4>
 				</div>
     			
     			<div class="widget-body">
