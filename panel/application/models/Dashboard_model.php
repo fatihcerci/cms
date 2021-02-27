@@ -43,6 +43,7 @@ class Dashboard_model extends CI_Model
     public function get_published_blogs()
     {
         $sql = "select 
+                    b.id,
                     u.full_name as full_name, 
                     CASE WHEN DATEDIFF(CURDATE(), b.publishDate) = 0 THEN 'Bugün' 
                     ELSE CONCAT(DATEDIFF(CURDATE(), b.publishDate), ' gün önce') END as gecenGun,
@@ -58,6 +59,7 @@ class Dashboard_model extends CI_Model
     public function get_pending_approval_blogs()
     {
         $sql = "select
+                    b.id,
                     u.full_name as full_name,
                     case when DATEDIFF(CURDATE(), b.createdAt) = 0 then 'Bugün'
                     else CONCAT(DATEDIFF(CURDATE(), b.createdAt), ' gün önce') end as gecenGun,

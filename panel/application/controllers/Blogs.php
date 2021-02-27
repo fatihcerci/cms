@@ -413,4 +413,86 @@ class Blogs extends CI_Controller
 
     }
 
+    
+    public function removePublish($id){
+        
+        if($id){
+            
+            $isActive = 0;
+            $publishDate = null;
+            
+            $this->blog_model->update(
+                array(
+                    "id"    => $id
+                ),
+                array(
+                    "isActive"  => $isActive,
+                    "publishDate" => $publishDate
+                )
+            );
+            
+            $user = $this->this->session->userdata("user");
+            $blog = $this->blog_model->get(array("id" => $id));
+            
+            if($user->id != $blog->user_id) {
+                if($isActive == 1) {
+                    $notif_desc = "<b>" . $blog->title . "</b> başlıklı blogunuz yayına alındı";
+                } else {
+                    $notif_desc = "<b>" . $blog->title . "</b> başlıklı blogunuz yayından kaldırıldı";
+                }
+                
+                $insertNotification = $this->notification_model->add(
+                    array(
+                        "description"   => $notif_desc,
+                        "url"           => convertToSEO($this->input->post("title")),
+                        "createdAt"     => date("Y-m-d H:i:s"),
+                        "user_id"       => $user->id,
+                        "to_user_id"    => $blog->user_id
+                    )
+                );
+            }
+        }
+        
+        redirect(base_url("dashboard"));
+    }
+    
+    public function publish($id){
+        if($id){
+            
+            $isActive = 1;
+            $publishDate = date("Y-m-d H:i:s");
+            
+            $this->blog_model->update(
+                array(
+                    "id"    => $id
+                ),
+                array(
+                    "isActive"  => $isActive,
+                    "publishDate" => $publishDate
+                )
+            );
+            
+            $user = $this->this->session->userdata("user");
+            $blog = $this->blog_model->get(array("id" => $id));
+            
+            if($user->id != $blog->user_id) {
+                if($isActive == 1) {
+                    $notif_desc = "<b>" . $blog->title . "</b> başlıklı blogunuz yayına alındı";
+                } else {
+                    $notif_desc = "<b>" . $blog->title . "</b> başlıklı blogunuz yayından kaldırıldı";
+                }
+                
+                $insertNotification = $this->notification_model->add(
+                    array(
+                        "description"   => $notif_desc,
+                        "url"           => convertToSEO($this->input->post("title")),
+                        "createdAt"     => date("Y-m-d H:i:s"),
+                        "user_id"       => $user->id,
+                        "to_user_id"    => $blog->user_id
+                    )
+                    );
+            }
+        }
+        redirect(base_url("dashboard"));
+    }
 }
