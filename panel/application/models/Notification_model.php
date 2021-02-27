@@ -60,7 +60,7 @@ class Notification_model extends CI_Model
                     MOD( TIMESTAMPDIFF(minute,n.createdAt, CURRENT_TIMESTAMP()), 60) as dakika,
                     n.createdAt,
                     CASE
-                        WHEN (select notification_id from user_seen_notifications where notification_id = n.id) IS NOT NULL THEN 1
+                        WHEN (select notification_id from user_seen_notifications where notification_id = n.id and user_id = ?) IS NOT NULL THEN 1
                         ELSE 0 END AS goruldu
                 FROM
                     notifications n,
@@ -69,7 +69,7 @@ class Notification_model extends CI_Model
                 ORDER BY n.createdAt DESC
                 LIMIT 5
                 ) x";
-        $query = $this->db->query($sql, array($user_id, $user_id));
+        $query = $this->db->query($sql, array($user_id, $user_id, $user_id));
         return $query->result_array();
     }
     
@@ -125,7 +125,7 @@ class Notification_model extends CI_Model
                     MOD( TIMESTAMPDIFF(minute,n.createdAt, CURRENT_TIMESTAMP()), 60) as dakika,
                     n.createdAt,
                     CASE
-                        WHEN (select notification_id from user_seen_notifications where notification_id = n.id) IS NOT NULL THEN 1
+                        WHEN (select notification_id from user_seen_notifications where notification_id = n.id and user_id = ?) IS NOT NULL THEN 1
                         ELSE 0 END AS goruldu
                 FROM
                     notifications n,
@@ -134,7 +134,7 @@ class Notification_model extends CI_Model
                 ORDER BY n.createdAt DESC
                 LIMIT 20
                 ) x";
-        $query = $this->db->query($sql, array($user_id, $user_id));
+        $query = $this->db->query($sql, array($user_id, $user_id, $user_id));
         return $query->result_array();
     }
 }

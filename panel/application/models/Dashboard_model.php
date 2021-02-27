@@ -112,7 +112,7 @@ class Dashboard_model extends CI_Model
         return $query->result_array();
     }
     
-    public function get_announcements()
+    public function get_announcements($user_id, $user_project_id)
     {
         $sql = "SELECT 
                     x.full_name,
@@ -135,12 +135,12 @@ class Dashboard_model extends CI_Model
                 FROM
                     announcements a,
                     users u
-                WHERE a.user_id = u.id AND a.isActive = 1
+                WHERE a.isActive=1 and a.user_id = u.id and a.user_id != ? and (a.project_id = 0 or a.project_id = ?)
                 ORDER BY a.createdAt DESC
                 LIMIT 5
                 ) x";
         
-        $query = $this->db->query($sql);
+        $query = $this->db->query($sql, array($user_id, $user_project_id));
         return $query->result_array();
     }
     

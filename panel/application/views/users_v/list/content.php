@@ -22,6 +22,7 @@
                     <thead>
                         <th class="w50">#id</th>
                         <th>Ad Soyad</th>
+                        <th>Proje</th>
                         <th>Unvan</th>
                         <th>E-posta</th>
                         <th>İşe Giriş Tarihi</th>
@@ -35,6 +36,7 @@
                             <tr>
                                 <td class="w50 text-center">#<?php echo $item->id; ?></td>
                                 <td class="text-center"><?php echo $item->full_name; ?></td>
+                                <td class="text-center"><?php echo $item->project; ?></td>
                                 <td class="text-center"><?php echo $item->title; ?></td>
                                 <td class="text-center"><?php echo $item->email; ?></td>
                                 <td class="text-center"><?php echo get_readable_date($item->recruitmentDate); ?></td>

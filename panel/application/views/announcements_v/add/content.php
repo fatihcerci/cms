@@ -24,6 +24,19 @@
                             <small class="pull-right input-form-error"> <?php echo form_error("description"); ?></small>
                         <?php } ?>
                     </div>
+                    
+                    <div class="form-group">
+                        <label>Duyuru Yapılacak Proje</label>
+                        <select name="project_id" class="form-control" style="border-color:#ddd;" <?php if(!$isYetkili) {?> disabled <?php }?>>
+                        	<option value=null>---</option>
+                            <?php foreach($projects as $project) { ?>
+                                <option value="<?php echo $project->id; ?>"><?php echo $project->title; ?></option>
+                            <?php } ?>
+                        </select>
+                        <?php if(isset($form_error)){ ?>
+                            <small class="pull-right input-form-error"> <?php echo form_error("project_id"); ?></small>
+                        <?php } ?>
+                    </div>
 
                     <button type="submit" class="btn btn-primary btn-md btn-outline">Kaydet</button>
                     <a href="<?php echo base_url("announcements"); ?>" class="btn btn-md btn-danger btn-outline">İptal</a>

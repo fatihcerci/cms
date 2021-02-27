@@ -366,7 +366,7 @@ function get_last_announcement() {
     $user = $t->session->userdata("user");
     $t->load->model("announcement_model");
     
-    $last_announcement = $t->announcement_model->get_last_announcement($user->id);
+    $last_announcement = $t->announcement_model->get_last_announcement($user->id, $user->user_project_id);
     return $last_announcement;
 }
 

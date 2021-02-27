@@ -1,6 +1,6 @@
 <?php
 
-class Announcements extends CI_Controller
+class Projects extends CI_Controller
 {
     public $viewFolder = "";
 
@@ -9,12 +9,9 @@ class Announcements extends CI_Controller
 
         parent::__construct();
 
-        $this->viewFolder = "announcements_v";
+        $this->viewFolder = "projects_v";
 
-        $this->load->model("announcement_model");
-        $this->load->model("user_model");
         $this->load->model("project_model");
-        $this->this = &get_instance();
 
         if(!get_active_user()){
             redirect(base_url("login"));
@@ -27,24 +24,9 @@ class Announcements extends CI_Controller
         $viewData = new stdClass();
 
         /** Tablodan Verilerin Getirilmesi.. */
-        $items = $this->announcement_model->get_all(
-            array(), "createdAt DESC"
+        $items = $this->project_model->get_all(
+            array(), "rank ASC"
         );
-        
-        foreach($items as $item) {
-            $user = $this->user_model->get(array("id" => $item->user_id));
-            if($user) {
-                $item->userName = $user->full_name;
-            } else {
-                $item->userName = "";
-            }
-            $project = $this->project_model->get(array("id" => $item->project_id));
-            if($project) {
-                $item->project = $project->title;
-            } else {
-                $item->project = "";
-            }
-        }
 
         /** View'e gönderilecek Değişkenlerin Set Edilmesi.. */
         $viewData->viewFolder = $this->viewFolder;
@@ -57,12 +39,6 @@ class Announcements extends CI_Controller
     public function new_form(){
 
         $viewData = new stdClass();
-        
-        $viewData->projects = $this->project_model->get_all(
-            array(
-                "isActive"  => 1
-            ), "rank ASC"
-        );
 
         /** View'e gönderilecek Değişkenlerin Set Edilmesi.. */
         $viewData->viewFolder = $this->viewFolder;
@@ -79,7 +55,6 @@ class Announcements extends CI_Controller
         // Kurallar yazilir..
 
         $this->form_validation->set_rules("title", "Başlık", "required|trim");
-        $this->form_validation->set_rules("description", "Açıklama", "required|trim");
 
         $this->form_validation->set_message(
             array(
@@ -92,19 +67,18 @@ class Announcements extends CI_Controller
 
         if($validate){
 
-            $user = $this->this->session->userdata("user");
-            
-            $insert = $this->announcement_model->add(
+            $insert = $this->project_model->add(
                 array(
                     "title"         => $this->input->post("title"),
                     "description"   => $this->input->post("description"),
+                    "url"           => convertToSEO($this->input->post("title")),
+                    "rank"          => 0,
                     "isActive"      => 1,
-                    "createdAt"     => date("Y-m-d H:i:s"),
-                    "user_id"       => $user->id,
-                    "project_id"    => $this->input->post("project_id")
+                    "createdAt"     => date("Y-m-d H:i:s")
                 )
             );
 
+            // TODO Alert sistemi eklenecek...
             if($insert){
 
                 $alert = array(
@@ -122,10 +96,11 @@ class Announcements extends CI_Controller
                 );
             }
 
+
             // İşlemin Sonucunu Session'a yazma işlemi...
             $this->session->set_flashdata("alert", $alert);
 
-            redirect(base_url("announcements"));
+            redirect(base_url("projects"));
 
         } else {
 
@@ -146,16 +121,10 @@ class Announcements extends CI_Controller
         $viewData = new stdClass();
 
         /** Tablodan Verilerin Getirilmesi.. */
-        $item = $this->announcement_model->get(
+        $item = $this->project_model->get(
             array(
                 "id"    => $id,
             )
-        );
-        
-        $viewData->projects = $this->project_model->get_all(
-            array(
-                "isActive"  => 1
-            ), "rank ASC"
         );
         
         /** View'e gönderilecek Değişkenlerin Set Edilmesi.. */
@@ -165,9 +134,7 @@ class Announcements extends CI_Controller
 
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
 
-
     }
-
 
     public function update($id){
 
@@ -176,7 +143,6 @@ class Announcements extends CI_Controller
         // Kurallar yazilir..
 
         $this->form_validation->set_rules("title", "Başlık", "required|trim");
-        $this->form_validation->set_rules("description", "Açıklama", "required|trim");
 
         $this->form_validation->set_message(
             array(
@@ -190,12 +156,12 @@ class Announcements extends CI_Controller
         if($validate){
 
             $data = array(
-                "title"         => $this->input->post("title"),
-                "description"   => $this->input->post("description"),
-                "project_id"   => $this->input->post("project_id")
+                "title" => $this->input->post("title"),
+                "description" => $this->input->post("description"),
+                "url" => convertToSEO($this->input->post("title")),
             );
 
-            $update = $this->announcement_model->update(array("id" => $id), $data);
+            $update = $this->project_model->update(array("id" => $id), $data);
 
             // TODO Alert sistemi eklenecek...
             if($update){
@@ -218,7 +184,7 @@ class Announcements extends CI_Controller
             // İşlemin Sonucunu Session'a yazma işlemi...
             $this->session->set_flashdata("alert", $alert);
 
-            redirect(base_url("announcements"));
+            redirect(base_url("projects"));
 
         } else {
 
@@ -230,16 +196,10 @@ class Announcements extends CI_Controller
             $viewData->form_error = true;
 
             /** Tablodan Verilerin Getirilmesi.. */
-            $viewData->item = $this->announcement_model->get(
+            $viewData->item = $this->project_model->get(
                 array(
                     "id"    => $id,
                 )
-            );
-            
-            $viewData->projects = $this->project_model->get_all(
-                array(
-                    "isActive"  => 1
-                ), "rank ASC"
             );
 
             $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
@@ -249,7 +209,7 @@ class Announcements extends CI_Controller
 
     public function delete($id){
 
-        $delete = $this->announcement_model->delete(
+        $delete = $this->project_model->delete(
             array(
                 "id"    => $id
             )
@@ -276,8 +236,7 @@ class Announcements extends CI_Controller
         }
 
         $this->session->set_flashdata("alert", $alert);
-        redirect(base_url("announcements"));
-
+        redirect(base_url("projects"));
 
     }
 
@@ -287,7 +246,7 @@ class Announcements extends CI_Controller
 
             $isActive = ($this->input->post("data") === "true") ? 1 : 0;
 
-            $this->announcement_model->update(
+            $this->project_model->update(
                 array(
                     "id"    => $id
                 ),
@@ -299,8 +258,6 @@ class Announcements extends CI_Controller
     }
 
     public function rankSetter(){
-
-
         $data = $this->input->post("data");
 
         parse_str($data, $order);
@@ -309,7 +266,7 @@ class Announcements extends CI_Controller
 
         foreach ($items as $rank => $id){
 
-            $this->announcement_model->update(
+            $this->project_model->update(
                 array(
                     "id"        => $id,
                     "rank !="   => $rank
@@ -320,7 +277,6 @@ class Announcements extends CI_Controller
             );
 
         }
-
     }
 
 }

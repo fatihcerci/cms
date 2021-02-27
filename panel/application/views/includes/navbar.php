@@ -185,7 +185,6 @@
                     console.error(data);
                 },
                 success: function(data) {
-                	console.log(data);
                 	if(data) {
                 		$(".notification_bar").html(data);
                 	}

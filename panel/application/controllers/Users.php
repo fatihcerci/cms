@@ -14,6 +14,7 @@ class Users extends CI_Controller
         $this->load->model("user_model");
         $this->load->model("user_role_model");
         $this->load->model("title_model");
+        $this->load->model("project_model");
 
         if(!get_active_user()){
             redirect(base_url("login"));
@@ -47,6 +48,12 @@ class Users extends CI_Controller
             } else {
                 $item->title = "";
             }
+            $project = $this->project_model->get(array("id" => $item->user_project_id));
+            if($project) {
+                $item->project = $project->title;
+            } else {
+                $item->project = "";
+            }
         }
 
         /** View'e gönderilecek Değişkenlerin Set Edilmesi.. */
@@ -72,6 +79,12 @@ class Users extends CI_Controller
                 "isActive"  => 1
             ), "rank ASC"
         );
+        
+        $viewData->projects = $this->project_model->get_all(
+            array(
+                "isActive"  => 1
+            ), "rank ASC"
+        );
 
         /** View'e gönderilecek Değişkenlerin Set Edilmesi.. */
         $viewData->viewFolder = $this->viewFolder;
@@ -92,6 +105,8 @@ class Users extends CI_Controller
         $this->form_validation->set_rules("birthDate", "Doğum Tarihi", "required|trim");
         $this->form_validation->set_rules("birthPlace", "Doğum Yeri", "required|trim");
         $this->form_validation->set_rules("user_role_id", "Kullanıcı Rolü", "required|trim");
+        $this->form_validation->set_rules("user_title_id", "Unvan", "required|trim");
+        $this->form_validation->set_rules("user_project_id", "Proje", "required|trim");
 
         $this->form_validation->set_message(
             array(
@@ -123,6 +138,7 @@ class Users extends CI_Controller
                     "birthPlace"        => $this->input->post("birthPlace"),
                     "user_role_id"      => $this->input->post("user_role_id"),
                     "user_title_id"      => $this->input->post("user_title_id"),
+                    "user_project_id"      => $this->input->post("user_project_id"),
                     "isActive"          => 1,
                     "createdAt"         => date("Y-m-d H:i:s")
                 )
@@ -175,6 +191,17 @@ class Users extends CI_Controller
                     "isActive"  => 1
                 )
             );
+            $viewData->titles = $this->title_model->get_all(
+                array(
+                    "isActive"  => 1
+                ), "rank ASC"
+            );
+            
+            $viewData->projects = $this->project_model->get_all(
+                array(
+                    "isActive"  => 1
+                ), "rank ASC"
+            );
 
             /** View'e gönderilecek Değişkenlerin Set Edilmesi.. */
             $viewData->viewFolder = $this->viewFolder;
@@ -210,6 +237,13 @@ class Users extends CI_Controller
         );
         
         $viewData->titles = $this->title_model->get_all(
+            array(
+                "isActive"  => 1
+            ), "rank ASC"
+        );
+        
+        
+        $viewData->projects = $this->project_model->get_all(
             array(
                 "isActive"  => 1
             ), "rank ASC"
@@ -280,6 +314,8 @@ class Users extends CI_Controller
         $this->form_validation->set_rules("birthDate", "Doğum Tarihi", "required|trim");
         $this->form_validation->set_rules("birthPlace", "Doğum Yeri", "required|trim");
         $this->form_validation->set_rules("user_role_id", "Kullanıcı Rolü", "required|trim");
+        $this->form_validation->set_rules("user_title_id", "Unvan", "required|trim");
+        $this->form_validation->set_rules("user_project_id", "Proje", "required|trim");
         
         $this->form_validation->set_message(
             array(
@@ -309,6 +345,7 @@ class Users extends CI_Controller
                     "birthPlace"            => $this->input->post("birthPlace"),
                     "user_role_id"          => $this->input->post("user_role_id"),
                     "user_title_id"         => $this->input->post("user_title_id"),
+                    "user_project_id"         => $this->input->post("user_project_id")
                 )
             );
             // TODO Alert sistemi eklenecek...
@@ -356,6 +393,12 @@ class Users extends CI_Controller
                 ),
                 "rank ASC"
             );
+            
+            $viewData->projects = $this->project_model->get_all(
+                array(
+                    "isActive"  => 1
+                ), "rank ASC"
+            );
 
             $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
         }
@@ -391,15 +434,35 @@ class Users extends CI_Controller
 
             // TODO Alert sistemi eklenecek...
             if($update){
-
-                $alert = array(
-                    "title" => "İşlem Başarılı",
-                    "text" => "Şifreniz başarılı bir şekilde güncellendi",
-                    "type"  => "success"
+                $user = $this->user_model->get(
+                    array(
+                        "id"    => $id,
+                    )
                 );
 
+                $updatepasswordhtml = file_get_contents(base_url("updatepassword.html"));
+                $message = str_replace("APP_TEMP_PASSWORD", $this->input->post("password"), $updatepasswordhtml);
+                
+                $send = send_email(
+                    $user->email,
+                    "Şifreniz Güncellendi",
+                    $message
+                );
+                
+                if($send){
+                    $alert = array(
+                        "title" => "İşlem Başarılı",
+                        "text" => "Şifre başarılı bir şekilde güncellendi, kullanıcı şifresi e-posta adresine gönderildi.",
+                        "type"  => "success"
+                    );
+                } else {
+                    $alert = array(
+                        "title" => "İşlem Başarısız",
+                        "text" => "E-posta gönderimi sırasında bir problem oluştu",
+                        "type"  => "error"
+                    );
+                }
             } else {
-
                 $alert = array(
                     "title" => "İşlem Başarısız",
                     "text" => "Şifre Güncelleme sırasında bir problem oluştu",
@@ -508,6 +571,12 @@ class Users extends CI_Controller
                 $item->title = $title->title;
             } else {
                 $item->title = "";
+            }
+            $project = $this->project_model->get(array("id" => $item->user_project_id));
+            if($project) {
+                $item->project = $project->title;
+            } else {
+                $item->project = "";
             }
         }
         

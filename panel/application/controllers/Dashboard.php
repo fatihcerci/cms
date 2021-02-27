@@ -38,7 +38,8 @@ class Dashboard extends CI_Controller {
 	    $pendingApprovalBlogsCount = $this->dashboard_model->get_pending_approval_blogs_count();
 	    $pendingApprovalBlogs = $this->dashboard_model->get_pending_approval_blogs();
 	    
-	    $duyurular = $this->dashboard_model->get_announcements();
+	    $user = $this->this->session->userdata("user");
+	    $duyurular = $this->dashboard_model->get_announcements($user->id, $user->user_project_id);
 	    
 	    $dogumGunuYaklasanCalisanlar = $this->dashboard_model->get_dogum_gunu_yaklasan_calisanlar();
 	    

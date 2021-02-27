@@ -50,6 +50,19 @@
                     </div>
                     
                     <div class="form-group">
+                        <label>Proje</label>
+                        <select name="user_project_id" class="form-control" style="border-color:#ddd;" <?php if(!$isYetkili) {?> disabled <?php }?>>
+                        	<option value=null>---</option>
+                            <?php foreach($projects as $project) { ?>
+                                <option value="<?php echo $project->id; ?>" <?php if($item->user_project_id == $project->id) { ?> selected="selected" <?php } ?> ><?php echo $project->title; ?> </option>
+                            <?php } ?>
+                        </select>
+                        <?php if(isset($form_error)){ ?>
+                            <small class="pull-right input-form-error"> <?php echo form_error("user_project_id"); ?></small>
+                        <?php } ?>
+                    </div>
+                    
+                    <div class="form-group">
                         <label>Unvanı</label>
                         <select name="user_title_id" class="form-control" style="border-color:#ddd;" <?php if(!$isYetkili) {?> disabled <?php }?>>
                         	<option value=null>---</option>

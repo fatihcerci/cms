@@ -92,11 +92,11 @@
                 <?php } ?>
                 
                 
-                <?php if(isAllowedViewModule("users") || isAllowedViewModule("user_roles") || isAllowedViewModule("titles")) { ?>
+                <?php if(isAllowedViewModule("users") || isAllowedViewModule("user_roles") || isAllowedViewModule("titles") || isAllowedViewModule("projects")) { ?>
                     <li class="has-submenu">
                         <a href="javascript:void(0)" class="submenu-toggle">
                             <i class="menu-icon fa fa-users"></i>
-                            <span class="menu-text">Kullanıcı İşlemleri</span>
+                            <span class="menu-text">Organizasyon İşlemleri</span>
                             <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
                         </a>
                         <ul class="submenu">
@@ -112,6 +112,14 @@
                                 <li>
                                     <a href="<?php echo base_url("titles"); ?>">
                                         <span class="menu-text">Unvan Tanımları</span>
+                                    </a>
+                                </li>
+                            <?php } ?>
+                            
+                            <?php if(isAllowedViewModule("projects")) {  ?>
+                                <li>
+                                    <a href="<?php echo base_url("projects"); ?>">
+                                        <span class="menu-text">Proje Tanımları</span>
                                     </a>
                                 </li>
                             <?php } ?>
