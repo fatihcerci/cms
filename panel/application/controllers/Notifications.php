@@ -36,7 +36,7 @@ class Notifications extends CI_Controller {
 
 		$this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
 	}
-	
+
 	public function view_all_notifications(){
 	    $viewData = new stdClass();
 	    

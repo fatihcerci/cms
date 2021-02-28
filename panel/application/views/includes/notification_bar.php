@@ -79,7 +79,7 @@
       	</div>
     </a><!-- .media-group-item -->
 <?php } ?>
-	<a href="#" type="button" role="button" style="padding:10px" onclick="notiftumu()" class="media-group-item text-center notiftumu">Tümünü Gör</a>
+	<a href="#" type="button" role="button" style="padding:10px" onclick="notiftumu()" class="media-group-item text-center notiftumu">Daha Fazla Gör</a>
 	
 	
 

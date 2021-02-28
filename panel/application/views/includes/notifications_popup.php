@@ -17,7 +17,7 @@
 
 <?php 
 
-$user_all_notifications = get_all_notifications();
+$user_all_notifications = get_more_notifications();
 
 if($user_all_notifications) { ?>
     
@@ -36,7 +36,7 @@ if($user_all_notifications) { ?>
           <!--Body-->
             <div class="modal-body">
                 <?php foreach($user_all_notifications as $key => $item) { ?>
-                    <a href="<?php echo base_url('notifications/view_all_notifications') ?>" class="media-group-item" id="media<?php echo $key ?>">
+                    <a href="#" class="media-group-item" id="media<?php echo $key ?>">
                     	<div class="media">
                        		<div class="media-left">
                           		<div class="avatar avatar-md avatar-circle" style="margin-top: 6px;">
@@ -52,6 +52,7 @@ if($user_all_notifications) { ?>
                       	</div>
                     </a><!-- .media-group-item -->
                 <?php } ?>
+                <a href="<?php echo base_url('notifications/view_all_notifications') ?>" type="button" role="button" style="padding:10px" class="media-group-item text-center notiftumu">Tümünü Gör</a>
             </div>
         </div>
         <!--/.Content-->
