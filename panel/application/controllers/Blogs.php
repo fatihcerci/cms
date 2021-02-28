@@ -451,7 +451,9 @@ class Blogs extends CI_Controller
                         "url"           => convertToSEO($this->input->post("title")),
                         "createdAt"     => date("Y-m-d H:i:s"),
                         "user_id"       => $user->id,
-                        "to_user_id"    => $blog->user_id
+                        "to_user_id"    => $blog->user_id,
+                        "about"         => "blogs",
+                        "about_id"      => $id
                     )
                 );
             }
@@ -492,9 +494,11 @@ class Blogs extends CI_Controller
                         "url"           => convertToSEO($this->input->post("title")),
                         "createdAt"     => date("Y-m-d H:i:s"),
                         "user_id"       => $user->id,
-                        "to_user_id"    => $blog->user_id
+                        "to_user_id"    => $blog->user_id,
+                        "about"         => "blogs",
+                        "about_id"      => $id
                     )
-                    );
+                );
             }
         }
         redirect(base_url("dashboard"));
