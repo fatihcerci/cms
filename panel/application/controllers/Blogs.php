@@ -137,7 +137,7 @@ class Blogs extends CI_Controller
                             "createdAt"     => date("Y-m-d H:i:s"),
                             "user_id"       => $user->id,
                             "about"         => "blogs",
-                            "about_id"      => $insert->id
+                            "about_id"      => $insert
                         )
                     );
 

@@ -28,7 +28,7 @@
                     <div class="form-group">
                         <label>Duyuru Yapılacak Proje</label>
                         <select name="project_id" class="form-control" style="border-color:#ddd;" <?php if(!$isYetkili) {?> disabled <?php }?>>
-                        	<option value=null>---</option>
+                        	<option value=0>---</option>
                             <?php foreach($projects as $project) { ?>
                                 <option value="<?php echo $project->id; ?>"><?php echo $project->title; ?></option>
                             <?php } ?>

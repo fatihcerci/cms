@@ -24,7 +24,10 @@ class Blog_model extends CI_Model
 
     public function add($data = array())
     {
-        return $this->db->insert($this->tableName, $data);
+        $this->db->insert($this->tableName, $data);
+        $insert_id = $this->db->insert_id();
+        
+        return  $insert_id;
     }
 
     public function update($where = array(), $data = array())
