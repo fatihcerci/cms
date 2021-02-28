@@ -551,13 +551,6 @@ class Users extends CI_Controller
         
         $user = get_active_user();
         
-        if($user && $user->id != $id) {
-            
-            redirect(base_url("users/view_profile/$user->id"));
-            die();
-        }
-        
-        
         /** Tablodan Verilerin Getirilmesi.. */
         $item = $this->user_model->get(
             array(
@@ -592,6 +585,39 @@ class Users extends CI_Controller
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = "view";
         $viewData->item = $item;
+        
+        $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
+    }
+    
+    public function view_all_active_users(){
+        $viewData = new stdClass();
+        
+        /** Tablodan Verilerin Getirilmesi.. */
+        $users = $this->user_model->get_all_users(
+            array(
+                "isActive"  => 1
+            )
+        );
+        
+        foreach($users as $user) {
+            $title = $this->title_model->get(array("id" => $user->user_title_id));
+            if($title) {
+                $user->title = $title->title;
+            } else {
+                $user->title = "";
+            }
+            $project = $this->project_model->get(array("id" => $user->user_project_id));
+            if($project) {
+                $user->project = $project->title;
+            } else {
+                $user->project = "";
+            }
+        }
+        
+        /** View'e gönderilecek Değişkenlerin Set Edilmesi.. */
+        $viewData->viewFolder = $this->viewFolder;
+        $viewData->subViewFolder = "view_users";
+        $viewData->users = $users;
         
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
     }

@@ -36,5 +36,8 @@ class User_model extends CI_Model
     {
         return $this->db->where($where)->delete($this->tableName);
     }
-
+    public function get_all_users($where = array(), $order = "full_name ASC")
+    {
+        return $this->db->where($where)->order_by($order)->get($this->tableName)->result();
+    }
 }

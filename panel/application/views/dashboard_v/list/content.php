@@ -43,7 +43,7 @@
 					<h3 class="widget-title text-primary"><span class="counter" data-plugin="counterUp"><?php echo $employeeCount ?></span></h3>
 					<small class="text-color">Toplam Çalışan Sayısı</small>
 				</div>
-				<span class="pull-right big-icon watermark"><i class="fa fa-users"></i></span>
+				<span class="pull-right big-icon watermark"><a href="<?php echo base_url("users/view_all_active_users"); ?>"><i class="fa fa-users"></i></a></span>
 			</div>
 			<footer class="widget-footer bg-primary">
 			</footer>
@@ -98,8 +98,8 @@
 
 <div class="row">
 	<div class="col-md-6 col-sm-6">
-		<div class="widget" style="min-height:380px;">
-			<div class="panel panel-success" style="min-height:380px;">
+		<div class="widget" style="min-height:421px;">
+			<div class="panel panel-success" style="min-height:421px;">
 				<div class="panel-heading" style="padding:12px !important;">
 					<span class="pull-left big-icon"><i class="fa fa-check"></i></span>
 					<h4 class="panel-title" style="padding-left:25px;text-transform:none !important">En Son Yayınlanan Bloglar</h4>
@@ -143,8 +143,8 @@
 	</div>
 	
 	<div class="col-md-6 col-sm-6">
-		<div class="widget" style="min-height:380px;">			
-			<div class="panel panel-warning" style="min-height:380px;">
+		<div class="widget" style="min-height:421px;">			
+			<div class="panel panel-warning" style="min-height:421px;">
 				<div class="panel-heading" style="padding:12px !important;">
 					<span class="pull-left big-icon"><i class="fa fa-hourglass-start"></i></span>
 					<h4 class="panel-title" style="padding-left:25px;text-transform:none !important">Onay Bekleyen Bloglar (<?php echo $pendingApprovalBlogsCount ?>)</h4>
@@ -191,8 +191,8 @@
 
 <div class="row">
 	<div class="col-md-6 col-sm-6">
-		<div class="widget" style="min-height:380px">
-			<div class="panel panel-danger" style="min-height:380px;">
+		<div class="widget" style="min-height:421px;">
+			<div class="panel panel-danger" style="min-height:421px;">
 				<div class="panel-heading" style="padding:12px !important;">
 					<span class="pull-left big-icon"><i class="fa fa-bullhorn"></i></span>
 					<h4 class="panel-title" style="padding-left:25px;text-transform:none !important;">Duyurular</h4>
@@ -228,9 +228,9 @@
 		</div><!-- .widget -->
 	</div>
 	<div class="col-md-6 col-sm-6">
-		<div class="widget" style="min-height:380px">
+		<div class="widget" style="min-height:421px;">
 			
-			<div class="panel panel-primary" style="min-height:380px;">
+			<div class="panel panel-primary" style="min-height:421px;">
     			<div class="panel-heading" style="padding:12px !important;">
 				<span class="pull-left big-icon"><i class="fa fa-birthday-cake"></i></span>
     				<h4 class="panel-title" style="padding-left:25px;text-transform:none !important;">Doğum Günü Yaklaşan Çalışanlar</h4>
