@@ -168,13 +168,13 @@
                                                 style="margin-top: 10px; margin-left:5px;">
                                                 <i class="fa fa-check"></i>
                                             </button>
-                                            <button
-                                                data-url="<?php echo base_url("blogs/viewBlog/".$item['id']); ?>"
-                                                class="btn btn-sm btn-primary btn-outline viewBlogBtn pull-right"
-                                                style="margin-top: 10px;">
-                                                <i class="fa fa-search"></i>
-                                        	</button>
                                         <?php }?>
+                                        <button
+                                            data-url="<?php echo base_url("blogs/viewBlog/".$item['id']); ?>"
+                                            class="btn btn-sm btn-primary btn-outline viewBlogBtn pull-right"
+                                            style="margin-top: 10px;">
+                                            <i class="fa fa-search"></i>
+                                    	</button>
                                     </h5> 
                                     
                               		<small class="media-meta"><?php echo $item['title'] ?></small>
