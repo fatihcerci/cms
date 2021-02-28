@@ -156,10 +156,6 @@
 		
 		var notifBtnClicked = false;
 
-		$(".notiftumu").on("click",function(){
-    		alert("notifbtnall");
-    	});
-
 		$(".notifbtn").on("click",function(){
 // 			$('#notif').modal('show');
 // 			$('#notificationsPopup').modal('show');

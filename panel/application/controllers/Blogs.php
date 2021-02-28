@@ -495,4 +495,30 @@ class Blogs extends CI_Controller
         }
         redirect(base_url("dashboard"));
     }
+    
+    public function viewBlog($id) {
+        if($id){
+            $blog = $this->blog_model->get(
+                array(
+                    "id"    => $id
+                )
+            );
+            
+            if($blog) {
+                $user = $this->user_model->get(array("id" => $blog->user_id));
+                if($user) {
+                    $blog->userName = $user->full_name;
+                } else {
+                    $blog->userName = "";
+                }
+            }
+            
+            $viewData = new stdClass();
+            $viewData->blog = $blog;
+            
+            $render_html = $this->load->view("includes/blog_popup", $viewData, true);
+            
+            echo $render_html;
+        }
+    }
 }

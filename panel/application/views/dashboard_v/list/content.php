@@ -120,10 +120,16 @@
                                       		<button
                                                 data-url="<?php echo base_url("blogs/removePublish/".$item['id']); ?>"
                                                 class="btn btn-sm btn-danger btn-outline removePublishBtn pull-right"
-                                                style="margin-top: 10px;">
+                                                style="margin-top: 10px; margin-left:5px;">
                                                 <i class="fa fa-remove"></i>
                                             </button> 
                                         <?php }?>
+                                        <button
+                                                data-url="<?php echo base_url("blogs/viewBlog/".$item['id']); ?>"
+                                                class="btn btn-sm btn-primary btn-outline viewBlogBtn pull-right"
+                                                style="margin-top: 10px;">
+                                                <i class="fa fa-search"></i>
+                                        </button>
                               		</h5> 
                               		<small class="media-meta"><?php echo $item['title'] ?></small>
                               		
@@ -159,9 +165,15 @@
                                       		<button
                                                 data-url="<?php echo base_url("blogs/publish/".$item['id']); ?>"
                                                 class="btn btn-sm btn-success btn-outline publishBtn pull-right"
-                                                style="margin-top: 10px;">
+                                                style="margin-top: 10px; margin-left:5px;">
                                                 <i class="fa fa-check"></i>
                                             </button>
+                                            <button
+                                                data-url="<?php echo base_url("blogs/viewBlog/".$item['id']); ?>"
+                                                class="btn btn-sm btn-primary btn-outline viewBlogBtn pull-right"
+                                                style="margin-top: 10px;">
+                                                <i class="fa fa-search"></i>
+                                        	</button>
                                         <?php }?>
                                     </h5> 
                                     
@@ -180,32 +192,39 @@
 <div class="row">
 	<div class="col-md-6 col-sm-6">
 		<div class="widget" style="min-height:380px">
-
 			<div class="panel panel-danger" style="min-height:380px;">
 				<div class="panel-heading" style="padding:12px !important;">
 					<span class="pull-left big-icon"><i class="fa fa-bullhorn"></i></span>
 					<h4 class="panel-title" style="padding-left:25px;text-transform:none !important;">Duyurular</h4>
 				</div>
-
-
-    			<div class="widget-body">
-    				<div class="streamline m-l-lg">
-    					<?php foreach($duyurular as $item) { ?>
-    					
-        					<div class="sl-item p-b-md">
-        						<div class="sl-avatar avatar avatar-sm avatar-circle">
-        							<img class="img-responsive" src="<?php echo base_url("assets"); ?>/assets/images/221.jpg" alt="avatar"/>
-        						</div><!-- .avatar -->
-        						<div class="sl-content m-l-xl">
-        							<h5 class="m-t-0"><a href="javascript:void(0)" class="m-r-xs theme-color"><?php echo $item['full_name'] ?></a><small class="text-muted fz-sm"><?php echo $item['gecenSure'] ?></small></h5>
-        							<p><?php echo $item['title'] ?></p>
-        						</div>
-        					</div><!-- .sl-item -->
-        				<?php } ?>
-    
-    				</div><!-- .streamline -->
-    			</div>
-    		</div>
+				<?php foreach($duyurular as $key => $item) { ?>
+					<a href="javascript:void(0)" type="button" role="button" class="media-group-item" id="media<?php echo $key ?>">
+                    	<div class="media" style="padding: 5px;">
+                       		<div class="media-left">
+                          		<div class="avatar avatar-md avatar-circle" style="margin-top: 6px;">
+                            		<img src="<?php echo base_url("assets"); ?>/assets/images/218.jpg" alt="">
+                          		</div>
+                        	</div>
+                        	<div class="media-body">
+                          		<h5 class="media-heading m-r-xs theme-color"><?php echo $item['full_name'] ?><small class="text-muted fz-sm" style="color:#777777;margin-left:8px;font-size:12px !important"><?php echo $item['gecenSure'] ?></small>
+                              		<button
+                                        data-duyuru-id = "<?php echo $item['id'] ?>"
+                                        data-url="<?php echo base_url("announcements/get_view_announcement/".$item['id'])?>"  
+                                		data-csrf-key="<?php echo $this->security->get_csrf_token_name(); ?>" 
+                                		data-csrf-value="<?php echo $this->security->get_csrf_hash(); ?>" 
+                                        class="btn btn-sm btn-primary btn-outline viewAnnouncementBtn pull-right"
+                                        style="margin-top: 10px;">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </h5> 
+                                
+                          		<small class="media-meta"><?php echo $item['title'] ?></small>
+                          		
+                        	</div>
+                      	</div>
+                    </a><!-- .media-group-item -->
+				<?php } ?>
+			</div>
 		</div><!-- .widget -->
 	</div>
 	<div class="col-md-6 col-sm-6">
@@ -239,7 +258,13 @@
 	</div>
 </div><!-- .row -->
 
+<div class="modal fade viewAnnouncementPopup" id="viewAnnouncementPopup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<?php $this->load->view("includes/announcement_popup"); ?>
+</div>
 
+<div class="modal fade viewBlogPopup" id="viewBlogPopup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<?php $this->load->view("includes/blog_popup"); ?>
+</div>
 <script>
 	$(document).ready(function(){
 		$(".removePublishBtn").on("click",function(){
@@ -259,6 +284,7 @@
                 }
             });
     	});
+    	
     	$(".publishBtn").on("click",function(){
 			var $data_url = $(this).data("url");
 
@@ -276,5 +302,67 @@
                 }
             });
     	});
+    	
+    	$(".viewAnnouncementBtn").on("click",function(){
+    		var $url = $(this).data("url");
+    		
+    		var $data = {
+    			url : $url
+    		};
+    		
+    		var csrf_key = $(this).data("csrf-key");
+    		var csrf_value = $(this).data("csrf-value");
+    
+    		$data[csrf_key] = csrf_value;
+    		
+    		debugger;
+
+    		jQuery.ajax({
+                url: $url,
+                type: 'POST',
+                data: $data,
+                error:function(data){
+                    console.error(data);
+                },
+                success: function(data) {
+                	if(data) {
+                		$(".viewAnnouncementPopup").html(data);
+                		$('#viewAnnouncementPopup').modal('show');
+                	}
+                }
+            });
+			
+		});
+		
+		$(".viewBlogBtn").on("click",function(){
+    		var $url = $(this).data("url");
+    		
+    		var $data = {
+    			url : $url
+    		};
+    		
+    		var csrf_key = $(this).data("csrf-key");
+    		var csrf_value = $(this).data("csrf-value");
+    
+    		$data[csrf_key] = csrf_value;
+    		
+    		debugger;
+
+    		jQuery.ajax({
+                url: $url,
+                type: 'POST',
+                data: $data,
+                error:function(data){
+                    console.error(data);
+                },
+                success: function(data) {
+                	if(data) {
+                		$(".viewBlogPopup").html(data);
+                		$('#viewBlogPopup').modal('show');
+                	}
+                }
+            });
+			
+		});
 	})
 </script>

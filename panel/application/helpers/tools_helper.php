@@ -22,6 +22,17 @@ function get_readable_date($date)
     return "";
 }
 
+function get_readable_datetime($date)
+{
+    if(isset($date)) {
+        setlocale(LC_ALL, 'tr_TR.UTF-8');
+        date_default_timezone_set("Europe/Istanbul");
+        
+        return strftime('%d/%m/%Y %H:%M', strtotime($date));
+    }
+    return "";
+}
+
 function get_active_user(){
 
     $t = &get_instance();
@@ -389,3 +400,12 @@ function get_all_notifications() {
     $user_all_notifications = $t->notification_model->get_all_notifications($user->id);
     return $user_all_notifications;
 }
+
+function get_view_announcement($id) {
+    $t = &get_instance();
+    $t->load->model("announcement_model");
+    
+    $viewAnnouncement = $t->announcement_model->get_view_announcement($id);
+    return $viewAnnouncement;
+}
+

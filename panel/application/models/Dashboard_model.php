@@ -116,7 +116,8 @@ class Dashboard_model extends CI_Model
     
     public function get_announcements($user_id, $user_project_id)
     {
-        $sql = "SELECT 
+        $sql = "SELECT
+                    x.id, 
                     x.full_name,
                     x.title,
                     x.createdAt,
@@ -128,6 +129,7 @@ class Dashboard_model extends CI_Model
                     ELSE '1 dakika önce' END as gecenSure
                 FROM
                 (SELECT
+                    a.id,
                     u.full_name,
                     a.title,
                     TIMESTAMPDIFF(day,a.createdAt, CURRENT_TIMESTAMP()) as gun,

@@ -50,5 +50,21 @@ class Announcement_model extends CI_Model
         $query = $this->db->query($sql, array($user_id, $user_project_id));
         return $query->row();
     }
+    
+    public function get_view_announcement($id)
+    {
+        $sql = "select
+                    a.id,
+                    a.title,
+                    a.description,
+                    a.createdAt,
+                    u.full_name,
+                    a.project_id,
+                    a.user_id
+                from announcements a, users u
+                where a.isActive=1 and a.id = ?";
+        $query = $this->db->query($sql, array($id));
+        return $query->row();
+    }
 
 }

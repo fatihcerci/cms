@@ -322,5 +322,31 @@ class Announcements extends CI_Controller
         }
 
     }
+    
+    public function get_view_announcement($id) {
+        if($id){
+            $viewAnnouncement = $this->announcement_model->get_view_announcement(
+                array(
+                    "id"    => $id
+                )
+            );
+            
+            if($viewAnnouncement) {
+                $user = $this->user_model->get(array("id" => $viewAnnouncement->user_id));
+                if($user) {
+                    $viewAnnouncement->userName = $user->full_name;
+                } else {
+                    $viewAnnouncement->userName = "";
+                }
+            }
+            
+            $viewData = new stdClass();
+            $viewData->viewAnnouncement = $viewAnnouncement;
+            
+            $render_html = $this->load->view("includes/announcement_popup", $viewData, true);
+            
+            echo $render_html;
+        }
+    }
 
 }
