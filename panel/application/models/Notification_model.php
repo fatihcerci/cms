@@ -42,6 +42,8 @@ class Notification_model extends CI_Model
                     x.id,
                     x.description,
                     x.url,
+                    x.about,
+                    x.about_id,
                     x.full_name,
                     CASE
                         WHEN x.gun > 0 THEN CONCAT(x.gun, ' gün önce')
@@ -54,6 +56,8 @@ class Notification_model extends CI_Model
                     n.id,
                     n.description,
                     n.url,
+                    n.about,
+                    n.about_id,
                     u.full_name,
                     TIMESTAMPDIFF(day,n.createdAt, CURRENT_TIMESTAMP()) as gun,
                     MOD( TIMESTAMPDIFF(hour,n.createdAt, CURRENT_TIMESTAMP()), 24) as saat,
@@ -107,6 +111,8 @@ class Notification_model extends CI_Model
                     x.id,
                     x.description,
                     x.url,
+                    x.about,
+                    x.about_id,
                     x.full_name,
                     CASE
                         WHEN x.gun > 0 THEN CONCAT(x.gun, ' gün önce')
@@ -119,6 +125,8 @@ class Notification_model extends CI_Model
                     n.id,
                     n.description,
                     n.url,
+                    n.about,
+                    n.about_id,
                     u.full_name,
                     TIMESTAMPDIFF(day,n.createdAt, CURRENT_TIMESTAMP()) as gun,
                     MOD( TIMESTAMPDIFF(hour,n.createdAt, CURRENT_TIMESTAMP()), 24) as saat,
@@ -144,6 +152,8 @@ class Notification_model extends CI_Model
                     x.id,
                     x.description,
                     x.url,
+                    x.about,
+                    x.about_id,
                     x.full_name,
                     CASE
                         WHEN x.gun > 0 THEN CONCAT(x.gun, ' gün önce')
@@ -156,6 +166,8 @@ class Notification_model extends CI_Model
                     n.id,
                     n.description,
                     n.url,
+                    n.about,
+                    n.about_id,
                     u.full_name,
                     TIMESTAMPDIFF(day,n.createdAt, CURRENT_TIMESTAMP()) as gun,
                     MOD( TIMESTAMPDIFF(hour,n.createdAt, CURRENT_TIMESTAMP()), 24) as saat,

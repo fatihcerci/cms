@@ -146,13 +146,50 @@
 
 <?php $this->load->view("includes/notifications_popup"); ?>
 
+<div class="modal fade viewBlog" id="viewBlog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<?php $this->load->view("includes/blog_popup"); ?>
+</div>
+
 <script src="<?php echo base_url("assets"); ?>/libs/bower/jquery/dist/jquery.js"></script>
 <script src="<?php echo base_url("assets"); ?>/libs/bower/jquery-ui/jquery-ui.min.js"></script>
 
-
 	
 <script>
+	function notifDetay($about, $id) {
+		var $path = "<?php echo base_url(); ?>"
+		$path = $path + $about + "/view/" + $id;
+		var $url = $path;
+		var $data = {
+			url : $url
+		};
+		
+		debugger;
+		var csrf_key = "<?php echo $this->security->get_csrf_token_name(); ?>";
+		var csrf_value = "<?php echo $this->security->get_csrf_hash(); ?>";
+    
+		$data[csrf_key] = csrf_value;
+    		
+		debugger;
+
+		jQuery.ajax({
+            url: $url,
+            type: 'POST',
+            data: $data,
+            error:function(data){
+                console.error(data);
+            },
+            success: function(data) {
+            	debugger;
+            	if(data) {
+            		$(".viewBlog").html(data);
+            		$('#viewBlog').modal('show');
+            	}
+            }
+        });
+	}
+	
 	$(document).ready(function(){
+		
 		
 		var notifBtnClicked = false;
 

@@ -135,7 +135,9 @@ class Blogs extends CI_Controller
                             "description"   => $notif_desc,
                             "url"           => convertToSEO($this->input->post("title")),
                             "createdAt"     => date("Y-m-d H:i:s"),
-                            "user_id"       => $user->id
+                            "user_id"       => $user->id,
+                            "about"         => "blogs",
+                            "about_id"      => $insert->id
                         )
                     );
 
@@ -380,7 +382,9 @@ class Blogs extends CI_Controller
                         "url"           => convertToSEO($this->input->post("title")),
                         "createdAt"     => date("Y-m-d H:i:s"),
                         "user_id"       => $user->id,
-                        "to_user_id"    => $blog->user_id
+                        "to_user_id"    => $blog->user_id,
+                        "about"         => "blogs",
+                        "about_id"      => $id
                     )
                 );
             }
@@ -496,7 +500,7 @@ class Blogs extends CI_Controller
         redirect(base_url("dashboard"));
     }
     
-    public function viewBlog($id) {
+    public function view($id) {
         if($id){
             $blog = $this->blog_model->get(
                 array(

@@ -125,7 +125,7 @@
                                             </button> 
                                         <?php }?>
                                         <button
-                                                data-url="<?php echo base_url("blogs/viewBlog/".$item['id']); ?>"
+                                                data-url="<?php echo base_url("blogs/view/".$item['id']); ?>"
                                                 class="btn btn-sm btn-primary btn-outline viewBlogBtn pull-right"
                                                 style="margin-top: 10px;">
                                                 <i class="fa fa-search"></i>
@@ -170,7 +170,7 @@
                                             </button>
                                         <?php }?>
                                         <button
-                                            data-url="<?php echo base_url("blogs/viewBlog/".$item['id']); ?>"
+                                            data-url="<?php echo base_url("blogs/view/".$item['id']); ?>"
                                             class="btn btn-sm btn-primary btn-outline viewBlogBtn pull-right"
                                             style="margin-top: 10px;">
                                             <i class="fa fa-search"></i>
@@ -362,7 +362,6 @@
                 	}
                 }
             });
-			
 		});
 	})
 </script>
