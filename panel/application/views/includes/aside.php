@@ -166,6 +166,15 @@
                     </li>
 
                 <?php } ?>
+                
+
+                <li>
+                    <a href="<?php echo base_url("appointments"); ?>">
+                        <i class="menu-icon fa fa-calendar"></i>
+                        <span class="menu-text">Randevu</span>
+                    </a>
+                </li>
+
 
 
                 <li>
