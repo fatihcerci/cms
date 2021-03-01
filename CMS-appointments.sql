@@ -1,3 +1,5 @@
+DROP TABLE appointments
+GO
 CREATE TABLE appointments  ( 
 	id         	int(11) UNSIGNED AUTO_INCREMENT NOT NULL,
     tckn      	varchar(11) NULL DEFAULT NULL,
@@ -9,6 +11,7 @@ CREATE TABLE appointments  (
     phone       varchar(11) NULL DEFAULT NULL,
 	isActive   	tinyint(4) NULL DEFAULT NULL,
 	createdAt  	datetime NULL DEFAULT NULL,
+    appointmentDate datetime NULL DEFAULT NULL,
 	PRIMARY KEY(id)
 )
 ENGINE = InnoDB
