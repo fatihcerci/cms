@@ -52,6 +52,7 @@
                     <div class="form-group">
                         <label>Proje</label>
                         <select name="user_project_id" class="form-control" style="border-color:#ddd;" <?php if(!$isYetkili) {?> disabled <?php }?>>
+                        	<option value="null">---</option>
                             <?php foreach($projects as $project) { ?>
                                 <option value="<?php echo $project->id; ?>" <?php if($item->user_project_id == $project->id) { ?> selected="selected" <?php } ?> ><?php echo $project->title; ?> </option>
                             <?php } ?>
@@ -64,6 +65,7 @@
                     <div class="form-group">
                         <label>Unvanı</label>
                         <select name="user_title_id" class="form-control" style="border-color:#ddd;" <?php if(!$isYetkili) {?> disabled <?php }?>>
+                        	<option value="null">---</option>
                             <?php foreach($titles as $title) { ?>
                                 <option value="<?php echo $title->id; ?>" <?php if($item->user_title_id == $title->id) { ?> selected="selected" <?php } ?> ><?php echo $title->title; ?> </option>
                             <?php } ?>

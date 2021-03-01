@@ -106,7 +106,6 @@ class Users extends CI_Controller
         $this->form_validation->set_rules("birthPlace", "Doğum Yeri", "required|trim");
         $this->form_validation->set_rules("user_role_id", "Kullanıcı Rolü", "required|trim");
         $this->form_validation->set_rules("user_title_id", "Unvan", "required|trim");
-        $this->form_validation->set_rules("user_project_id", "Proje", "required|trim");
 
         $this->form_validation->set_message(
             array(
@@ -124,6 +123,8 @@ class Users extends CI_Controller
             
             $this->load->helper("string");
             $temp_password = random_string();
+            $title = $this->input->post("user_title_id") == "null" ? null : $this->input->post("user_title_id");
+            $project = $this->input->post("user_project_id") == "null" ? null : $this->input->post("user_project_id");
             
             $recruitmentDate = DateTime::createFromFormat('d/m/Y', $this->input->post("recruitmentDate"));
             $birthDate = DateTime::createFromFormat('d/m/Y', $this->input->post("birthDate"));
@@ -137,8 +138,8 @@ class Users extends CI_Controller
                     "birthDate"         => $birthDate->format('Y-m-d'),
                     "birthPlace"        => $this->input->post("birthPlace"),
                     "user_role_id"      => $this->input->post("user_role_id"),
-                    "user_title_id"      => $this->input->post("user_title_id"),
-                    "user_project_id"      => $this->input->post("user_project_id"),
+                    "user_title_id"     => $title,
+                    "user_project_id"   => $project,
                     "isActive"          => 1,
                     "createdAt"         => date("Y-m-d H:i:s")
                 )
@@ -315,7 +316,6 @@ class Users extends CI_Controller
         $this->form_validation->set_rules("birthPlace", "Doğum Yeri", "required|trim");
         $this->form_validation->set_rules("user_role_id", "Kullanıcı Rolü", "required|trim");
         $this->form_validation->set_rules("user_title_id", "Unvan", "required|trim");
-        $this->form_validation->set_rules("user_project_id", "Proje", "required|trim");
         
         $this->form_validation->set_message(
             array(
@@ -334,6 +334,8 @@ class Users extends CI_Controller
             $recruitmentDate = DateTime::createFromFormat('d/m/Y', $this->input->post("recruitmentDate"));
             $birthDate = DateTime::createFromFormat('d/m/Y', $this->input->post("birthDate"));
             
+            $title = $this->input->post("user_title_id") == "null" ? null : $this->input->post("user_title_id");
+            $project = $this->input->post("user_project_id") == "null" ? null : $this->input->post("user_project_id");
             
             $update = $this->user_model->update(
                 array("id" => $id),
@@ -344,8 +346,8 @@ class Users extends CI_Controller
                     "birthDate"             => $birthDate->format('Y-m-d'),
                     "birthPlace"            => $this->input->post("birthPlace"),
                     "user_role_id"          => $this->input->post("user_role_id"),
-                    "user_title_id"         => $this->input->post("user_title_id"),
-                    "user_project_id"         => $this->input->post("user_project_id")
+                    "user_title_id"         => $title,
+                    "user_project_id"       => $project
                 )
             );
             // TODO Alert sistemi eklenecek...
