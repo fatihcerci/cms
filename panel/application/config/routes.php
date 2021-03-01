@@ -62,3 +62,4 @@ $route["duyuru-bir-daha-gosterme"]  = "dashboard/duyuru_bir_daha_gosterme";
 $route["bildirimler-goruldu"]  = "dashboard/bildirimler_goruldu";
 $route["get-bildirim-count"]  = "dashboard/get_bildirim_count";
 $route["get-bildirim"]  = "dashboard/get_notifications";
+$route['mypdf'] = "welcome/mypdf";
