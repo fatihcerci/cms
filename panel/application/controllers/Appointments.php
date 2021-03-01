@@ -169,12 +169,14 @@ class Appointments extends CI_Controller
 
         if($validate){
 
+            $birthDate = DateTime::createFromFormat('d/m/Y', $this->input->post("birthDate"));
+            
             $data = array(
                 "tckn"          => $this->input->post("tckn"),
                 "name"          => $this->input->post("name"),
                 "surname"       => $this->input->post("surname"),
                 "gender"        => $this->input->post("gender"),
-                "birthDate"     => $this->input->post("birthDate"),
+                "birthDate"     => $birthDate->format('Y-m-d'),
                 "email"         => $this->input->post("email"),
                 "phone"         => $this->input->post("phone"),
                 "isActive"      => 1,
