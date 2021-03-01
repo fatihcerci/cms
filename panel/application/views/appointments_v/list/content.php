@@ -18,7 +18,8 @@
 
                 <table class="table table-hover table-striped table-bordered content-container">
                     <thead>
-                        <th class="w50">#id</th>
+                        <th style="display:none;">#id</th>
+                        <th>Randevu Tarihi</th>
                         <th>TCKN</th>
                         <th>Ad</th>
                         <th>Soyad</th>
@@ -33,13 +34,14 @@
                         <?php foreach($items as $item) { ?>
 
                             <tr id="ord-<?php echo $item->id; ?>">
-                                <td class="w50 text-center">#<?php echo $item->id; ?></td>
-                                <td><?php echo $item->tckn; ?></td>
-                                <td><?php echo $item->name; ?></td>
-                                <td><?php echo $item->surname; ?></td>
+                                <td style="display:none;">#<?php echo $item->id; ?></td>
+                                <td class="text-center"><?php echo get_readable_datetime($item->appointmentDate); ?></td>
+                                <td class="text-center"><?php echo $item->tckn; ?></td>
+                                <td class="text-center"><?php echo $item->name; ?></td>
+                                <td class="text-center"><?php echo $item->surname; ?></td>
                                 <td class="w200 text-center"><?php echo get_readable_date($item->birthDate); ?></td>
-                                <td><?php echo $item->email; ?></td>
-                                <td><?php echo $item->phone; ?></td>
+                                <td class="text-center"><?php echo $item->email; ?></td>
+                                <td class="text-center"><?php echo $item->phone; ?></td>
                                 <td class="text-center w100">
                                     <input
                                         data-url="<?php echo base_url("appointments/isActiveSetter/$item->id"); ?>"

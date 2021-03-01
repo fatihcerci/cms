@@ -71,18 +71,20 @@ class Appointments extends CI_Controller
         if($validate){
 
             $birthDate = DateTime::createFromFormat('d/m/Y', $this->input->post("birthDate"));
+            $appointmentDate = DateTime::createFromFormat('Y-m-d H:i', $this->input->post("appointmentDate"));
             
             $insert = $this->appointment_model->add(
                 array(
-                    "tckn"          => $this->input->post("tckn"),
-                    "name"          => $this->input->post("name"),
-                    "surname"       => $this->input->post("surname"),
-                    "gender"        => $this->input->post("gender"),
-                    "birthDate"     => $birthDate->format('Y-m-d'),
-                    "email"         => $this->input->post("email"),
-                    "phone"         => $this->input->post("phone"),
-                    "isActive"      => 1,
-                    "createdAt"     => date("Y-m-d H:i:s")
+                    "tckn"              => $this->input->post("tckn"),
+                    "name"              => $this->input->post("name"),
+                    "surname"           => $this->input->post("surname"),
+                    "gender"            => $this->input->post("gender"),
+                    "birthDate"         => $birthDate->format('Y-m-d'),
+                    "email"             => $this->input->post("email"),
+                    "phone"             => $this->input->post("phone"),
+                    "appointmentDate"   => $appointmentDate->format('Y-m-d H:i'),
+                    "isActive"          => 1,
+                    "createdAt"         => date("Y-m-d H:i:s")
                 )
             );
 
@@ -135,7 +137,10 @@ class Appointments extends CI_Controller
         );
         
         $birthDate = DateTime::createFromFormat('Y-m-d H:i:s', $item->birthDate)->format('d/m/Y');
+        $appointmentDate = DateTime::createFromFormat('Y-m-d H:i:s', $item->appointmentDate)->format('Y-m-d H:i');
+        
         $item->birthDate = $birthDate;
+        $item->appointmentDate = $appointmentDate;
         
         /** View'e gönderilecek Değişkenlerin Set Edilmesi.. */
         $viewData->viewFolder = $this->viewFolder;
@@ -170,17 +175,19 @@ class Appointments extends CI_Controller
         if($validate){
 
             $birthDate = DateTime::createFromFormat('d/m/Y', $this->input->post("birthDate"));
+            $appointmentDate = DateTime::createFromFormat('Y-m-d H:i', $this->input->post("appointmentDate"));
             
             $data = array(
-                "tckn"          => $this->input->post("tckn"),
-                "name"          => $this->input->post("name"),
-                "surname"       => $this->input->post("surname"),
-                "gender"        => $this->input->post("gender"),
-                "birthDate"     => $birthDate->format('Y-m-d'),
-                "email"         => $this->input->post("email"),
-                "phone"         => $this->input->post("phone"),
-                "isActive"      => 1,
-                "createdAt"     => date("Y-m-d H:i:s")
+                "tckn"              => $this->input->post("tckn"),
+                "name"              => $this->input->post("name"),
+                "surname"           => $this->input->post("surname"),
+                "gender"            => $this->input->post("gender"),
+                "birthDate"         => $birthDate->format('Y-m-d'),
+                "email"             => $this->input->post("email"),
+                "phone"             => $this->input->post("phone"),
+                "appointmentDate"   => $appointmentDate->format('Y-m-d H:i'),
+                "isActive"          => 1,
+                "createdAt"         => date("Y-m-d H:i:s")
             );
 
             $update = $this->appointment_model->update(array("id" => $id), $data);

@@ -10,13 +10,13 @@
 
 
 <div class="col-md-5 col-md-center">
-	<div class="widget">
-		<header class="widget-header">
-			<h4 class="widget-title text-center">Randevu Güncelle</h4>
-		</header><!-- .widget-header -->
-		<hr class="widget-separator">
+	<div class="panel panel-primary" style="min-height:421px;">
+		<div class="panel-heading " style="padding:12px !important;">
+		<span class="pull-left big-icon"></span>
+			<h4 class="panel-title text-center" style="padding-left:20px;text-transform:none !important;">Randevu Formu</h4>
+		</div>
 		<div class="widget-body">
-			<form action="<?php echo base_url("appointments/update/$item->id"); ?>" method="post" class="form-horizontal" enctype="multipart/form-data">
+			<form id="appointmentForm" action="<?php echo base_url("appointments/update/$item->id"); ?>" method="post" class="form-horizontal" enctype="multipart/form-data">
 				<div class="form-group" style="margin-bottom:7px !important">	
 					<label for="#" class="col-sm-2 col-sm-offset-2 control-label">TCKN</label>
 					<div class="col-sm-5">
@@ -98,13 +98,43 @@
 					</div>
 				</div>
 				
-				
-				<div class="row">
-					<div class="col-sm-3 col-md-center" style="margin-top:20px;">
-						<button type="submit" class="btn btn-success">Randevu Güncelle</button>
+				<div class="form-group" style="margin-bottom:7px !important">	
+					<label for="#" class="col-sm-3 col-sm-offset-1 control-label">Randevu Tarihi</label>
+					<div class="col-sm-5">
+						<div class="form-group" style="margin-bottom:7px !important">
+							<div class="col-sm-10">
+								<input type="hidden" name="appointmentDate" id="datetimepicker1" data-plugin="datetimepicker" data-options="{inline: true, viewMode: 'days', format : 'YYYY-MM-DD HH:mm'}" value="<?php echo $item->appointmentDate; ?>" />
+							</div>
+						</div>
 					</div>
 				</div>
 			</form>
+			<div class="row">
+				<div class="col-sm-3 col-md-center" style="margin-top:20px;">
+					<button type="submit" class="btn btn-success updateAppointment">Randevu Güncelle</button>
+				</div>
+			</div>
 		</div><!-- .widget-body -->
 	</div><!-- .widget -->
 </div><!-- END column -->
+
+
+<script>
+	$(document).ready(function(){
+		$(".updateAppointment").on("click",function(){
+    		swal({
+                text: 'Randevu kaydı güncellenecektir, devam etmek istiyor musunuz?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Evet',
+                cancelButtonText : "Hayır"
+            }).then(function (result) {
+                if (result.value) {
+                    $("#appointmentForm")[0].submit();
+                }
+            });
+		});
+	})
+</script>
