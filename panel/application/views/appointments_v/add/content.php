@@ -58,8 +58,8 @@
 					<div class="col-sm-5">
 						<div class="form-group" style="margin-bottom:7px !important">
 							<div class="col-sm-10">
-								<input type="radio" name="cinsiyetRadio" id="E" value="E"> Erkek
-								<input type="radio" name="cinsiyetRadio" id="K" value="K" style="margin-left:8px;"> Kadın
+								<input type="radio" name="gender" id="E" value="E"> Erkek
+								<input type="radio" name="gender" id="K" value="K" style="margin-left:8px;"> Kadın
 							</div>
 						</div>
 					</div>
@@ -81,7 +81,7 @@
 					<div class="col-sm-5">
 						<div class="form-group" style="margin-bottom:7px !important">
 							<div class="col-sm-10">
-								<input type="email" class="form-control" placeholder="E-posta adresiniz" id="email">
+								<input type="email" class="form-control" placeholder="E-posta adresiniz" id="email" name="email">
 							</div>
 						</div>
 					</div>
@@ -92,7 +92,7 @@
 					<div class="col-sm-5">
 						<div class="form-group" style="margin-bottom:7px !important">
 							<div class="col-sm-10">
-								<input type="phone" class="form-control" placeholder="Telefon" id="phone">
+								<input type="phone" class="form-control" placeholder="Telefon" id="phone" name="phone">
 							</div>
 						</div>
 					</div>

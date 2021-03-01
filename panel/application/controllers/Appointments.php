@@ -25,7 +25,7 @@ class Appointments extends CI_Controller
 
         /** Tablodan Verilerin Getirilmesi.. */
         $items = $this->appointment_model->get_all(
-            array(), "rank ASC"
+            array()
         );
 
         /** View'e gönderilecek Değişkenlerin Set Edilmesi.. */
@@ -70,66 +70,44 @@ class Appointments extends CI_Controller
 
         if($validate){
 
-            // Upload Süreci...
+            $birthDate = DateTime::createFromFormat('d/m/Y', $this->input->post("birthDate"));
+            
+            $insert = $this->appointment_model->add(
+                array(
+                    "tckn"          => $this->input->post("tckn"),
+                    "name"          => $this->input->post("name"),
+                    "surname"       => $this->input->post("surname"),
+                    "gender"        => $this->input->post("gender"),
+                    "birthDate"     => $birthDate->format('Y-m-d'),
+                    "email"         => $this->input->post("email"),
+                    "phone"         => $this->input->post("phone"),
+                    "isActive"      => 1,
+                    "createdAt"     => date("Y-m-d H:i:s")
+                )
+            );
 
-            $file_name = convertToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
+            // TODO Alert sistemi eklenecek...
+            if($insert){
 
-            $image_255x157 = upload_picture($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder",255,157, $file_name);
-            $image_1140x705 = upload_picture($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder",1140,705, $file_name);
-
-            if($image_255x157 && $image_1140x705){
-
-                $insert = $this->appointment_model->add(
-                    array(
-                        "title"         => $this->input->post("title"),
-                        "description"   => $this->input->post("description"),
-                        "url"           => convertToSEO($this->input->post("title")),
-                        "img_url"       => $file_name,
-                        "event_date"    => $this->input->post("event_date"),
-                        "rank"          => 0,
-                        "isActive"      => 1,
-                        "createdAt"     => date("Y-m-d H:i:s")
-                    )
+                $alert = array(
+                    "title" => "İşlem Başarılı",
+                    "text" => "Randevu başarılı bir şekilde oluşturuldu",
+                    "type"  => "success"
                 );
-
-                // TODO Alert sistemi eklenecek...
-                if($insert){
-
-                    $alert = array(
-                        "title" => "İşlem Başarılı",
-                        "text" => "Kayıt başarılı bir şekilde eklendi",
-                        "type"  => "success"
-                    );
-
-                } else {
-
-                    $alert = array(
-                        "title" => "İşlem Başarısız",
-                        "text" => "Kayıt Ekleme sırasında bir problem oluştu",
-                        "type"  => "error"
-                    );
-                }
 
             } else {
 
                 $alert = array(
                     "title" => "İşlem Başarısız",
-                    "text" => "Görsel yüklenirken bir problem oluştu",
+                    "text" => "Randevu oluşturma sırasında bir problem oluştu",
                     "type"  => "error"
                 );
-
-                $this->session->set_flashdata("alert", $alert);
-
-                redirect(base_url("appointments/new_form"));
-
-                die();
-
             }
 
             // İşlemin Sonucunu Session'a yazma işlemi...
             $this->session->set_flashdata("alert", $alert);
 
-            redirect(base_url("courses"));
+            redirect(base_url("appointments"));
 
         } else {
 
@@ -156,6 +134,9 @@ class Appointments extends CI_Controller
             )
         );
         
+        $birthDate = DateTime::createFromFormat('Y-m-d H:i:s', $item->birthDate)->format('d/m/Y');
+        $item->birthDate = $birthDate;
+        
         /** View'e gönderilecek Değişkenlerin Set Edilmesi.. */
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = "update";
@@ -172,8 +153,10 @@ class Appointments extends CI_Controller
 
         // Kurallar yazilir..
 
-        $this->form_validation->set_rules("title", "Başlık", "required|trim");
-        $this->form_validation->set_rules("event_date", "Eğitim Tarihi", "required|trim");
+        $this->form_validation->set_rules("tckn", "TCKN", "required|trim");
+        $this->form_validation->set_rules("name", "Ad", "required|trim");
+        $this->form_validation->set_rules("surname", "Soyad", "required|trim");
+        $this->form_validation->set_rules("birthDate", "Doğum Tarihi", "required|trim");
 
         $this->form_validation->set_message(
             array(
@@ -186,50 +169,17 @@ class Appointments extends CI_Controller
 
         if($validate){
 
-            // Upload Süreci...
-            if($_FILES["img_url"]["name"] !== "") {
-
-                $file_name = convertToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
-
-                $image_255x157 = upload_picture($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder",255,157, $file_name);
-                $image_1140x705 = upload_picture($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder",1140,705, $file_name);
-
-                if($image_255x157 && $image_1140x705){
-
-                    $data = array(
-                        "title" => $this->input->post("title"),
-                        "description" => $this->input->post("description"),
-                        "event_date"  => $this->input->post("event_date"),
-                        "url" => convertToSEO($this->input->post("title")),
-                        "img_url" => $file_name,
-                    );
-
-                } else {
-
-                    $alert = array(
-                        "title" => "İşlem Başarısız",
-                        "text" => "Görsel yüklenirken bir problem oluştu",
-                        "type" => "error"
-                    );
-
-                    $this->session->set_flashdata("alert", $alert);
-
-                    redirect(base_url("appointments/update_form/$id"));
-
-                    die();
-
-                }
-
-            } else {
-
-                $data = array(
-                    "title" => $this->input->post("title"),
-                    "description" => $this->input->post("description"),
-                    "event_date"  => $this->input->post("event_date"),
-                    "url" => convertToSEO($this->input->post("title")),
-                );
-
-            }
+            $data = array(
+                "tckn"          => $this->input->post("tckn"),
+                "name"          => $this->input->post("name"),
+                "surname"       => $this->input->post("surname"),
+                "gender"        => $this->input->post("gender"),
+                "birthDate"     => $this->input->post("birthDate"),
+                "email"         => $this->input->post("email"),
+                "phone"         => $this->input->post("phone"),
+                "isActive"      => 1,
+                "createdAt"     => date("Y-m-d H:i:s")
+            );
 
             $update = $this->appointment_model->update(array("id" => $id), $data);
 
@@ -238,7 +188,7 @@ class Appointments extends CI_Controller
 
                 $alert = array(
                     "title" => "İşlem Başarılı",
-                    "text" => "Kayıt başarılı bir şekilde güncellendi",
+                    "text"  => "Randevu başarılı bir şekilde güncellendi",
                     "type"  => "success"
                 );
 
@@ -246,7 +196,7 @@ class Appointments extends CI_Controller
 
                 $alert = array(
                     "title" => "İşlem Başarısız",
-                    "text" => "Kayıt Güncelleme sırasında bir problem oluştu",
+                    "text"  => "Randevu güncelleme sırasında bir problem oluştu",
                     "type"  => "error"
                 );
             }
@@ -254,7 +204,7 @@ class Appointments extends CI_Controller
             // İşlemin Sonucunu Session'a yazma işlemi...
             $this->session->set_flashdata("alert", $alert);
 
-            redirect(base_url("courses"));
+            redirect(base_url("appointments"));
 
         } else {
 
@@ -306,7 +256,7 @@ class Appointments extends CI_Controller
         }
 
         $this->session->set_flashdata("alert", $alert);
-        redirect(base_url("courses"));
+        redirect(base_url("appointments"));
 
 
     }
@@ -326,31 +276,6 @@ class Appointments extends CI_Controller
                 )
             );
         }
-    }
-
-    public function rankSetter(){
-
-
-        $data = $this->input->post("data");
-
-        parse_str($data, $order);
-
-        $items = $order["ord"];
-
-        foreach ($items as $rank => $id){
-
-            $this->appointment_model->update(
-                array(
-                    "id"        => $id,
-                    "rank !="   => $rank
-                ),
-                array(
-                    "rank"      => $rank
-                )
-            );
-
-        }
-
     }
 
 }

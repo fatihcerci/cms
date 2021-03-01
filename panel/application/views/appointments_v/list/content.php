@@ -18,28 +18,28 @@
 
                 <table class="table table-hover table-striped table-bordered content-container">
                     <thead>
-                        <th class="order"><i class="fa fa-reorder"></i></th>
                         <th class="w50">#id</th>
-                        <th>Başlık</th>
-                        <th>Tarih</th>
-                        <th>Görsel</th>
-                        <th>Durumu</th>
-                        <th>İşlem</th>
+                        <th>TCKN</th>
+                        <th>Ad</th>
+                        <th>Soyad</th>
+                        <th>Doğum Tarihi</th>
+                        <th>E-posta</th>
+                        <th>Telefon</th>
+                        <th>Durum</th>
+                        <th></th>
                     </thead>
-                    <tbody class="sortable" data-url="<?php echo base_url("appointments/rankSetter"); ?>">
+                    <tbody>
 
                         <?php foreach($items as $item) { ?>
 
                             <tr id="ord-<?php echo $item->id; ?>">
-                                <td class="order"><i class="fa fa-reorder"></i></td>
                                 <td class="w50 text-center">#<?php echo $item->id; ?></td>
-                                <td><?php echo $item->title; ?></td>
-                                <td class="w200 text-center"><?php echo get_readable_date($item->event_date); ?></td>
-                                <td class="text-center w100">
-                                    <img width="75"
-                                         src="<?php echo get_picture($viewFolder,$item->img_url, "255x157"); ?>"
-                                         alt="" class="img-rounded">
-                                </td>
+                                <td><?php echo $item->tckn; ?></td>
+                                <td><?php echo $item->name; ?></td>
+                                <td><?php echo $item->surname; ?></td>
+                                <td class="w200 text-center"><?php echo get_readable_date($item->birthDate); ?></td>
+                                <td><?php echo $item->email; ?></td>
+                                <td><?php echo $item->phone; ?></td>
                                 <td class="text-center w100">
                                     <input
                                         data-url="<?php echo base_url("appointments/isActiveSetter/$item->id"); ?>"
