@@ -86,7 +86,7 @@ $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'colo
 // Set some content to print
 $html = <<<EOD
 <h1>LENORA Bilişim Teknolojileri</h1>
-<table>
+<table border="1">
     <tr>    
     <thead>
         <th>Randevu Tarihi</th>
