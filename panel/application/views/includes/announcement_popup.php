@@ -1,5 +1,5 @@
 <?php 
-    if($viewAnnouncement) { ?>
+    if(!empty($viewAnnouncement)) { ?>
         <div class="modal-dialog modal-lg" role="document">
             <!--Content-->
             <div class="modal-content">

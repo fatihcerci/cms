@@ -1,5 +1,5 @@
 <?php 
-    if($blog) { ?>
+    if(!empty($blog)) { ?>
         <div class="modal-dialog modal-lg" role="document">
             <!--Content-->
             <div class="modal-content">

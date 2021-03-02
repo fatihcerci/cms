@@ -32,11 +32,22 @@
         color: #fff;
       } 
       
-    }
+      .dropdown-menu {
+        left: -350px;
+        width: 475px;
+      }
       
+        .navbar-brand .brand-icon {
+    		width: 160px;
+        	margin-left: -29px;
+        	margin-top: -6px;
+        }
+    }
     .navbar-toolbar > li > .dropdown-menu {
         width: 450px !important;
     }
+    
+        
 </style>
 
 
@@ -44,6 +55,7 @@
     $settings = get_settings();
     $notificationsCount = get_notifications_count();
 ?>
+
 
 <nav id="app-navbar" class="navbar navbar-inverse navbar-fixed-top primary">
     <!-- navbar header -->
@@ -53,16 +65,49 @@
             <span class="hamburger-box"><span class="hamburger-inner"></span></span>
         </button>
 
-        <button type="button" class="navbar-toggle navbar-toggle-right collapsed" data-toggle="collapse" data-target="#app-navbar-collapse" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="zmdi zmdi-hc-lg zmdi-more"></span>
-        </button>
+<!--         <button type="button" class="navbar-toggle navbar-toggle-right collapsed" data-toggle="collapse" data-target="#app-navbar-collapse" aria-expanded="false"> -->
+<!--             <span class="sr-only">Toggle navigation</span> -->
+<!--             <span class="zmdi zmdi-hc-lg zmdi-more"></span> -->
+<!--         </button> -->
         
 		<li class="navbar-toggle navbar-toggle-right collapsed" style = "list-style-type: none;" aria-expanded="false">
             <a href="<?php echo base_url("logout"); ?>">
                 <i class="fa fa-power-off" style="color: #fff;"></i>
             </a>
         </li>
+        
+        <li class="navbar-toggle navbar-toggle-right collapsed" style = "list-style-type: none;" aria-expanded="false">
+            <a href="<?php $user = get_active_user(); echo base_url("users/view_profile/$user->id"); ?>">
+                <i class="fa fa-user" style="color: #fff;"></i>
+            </a>
+        </li>
+        
+        <li class="dropdown navbar-toggle navbar-toggle-right collapsed" id="notif" style = "list-style-type:none;width:46px;" aria-expanded="false">
+            <a href="#" 
+				type="button"
+				data-url="bildirimler-goruldu" 
+				data-csrf-key="<?php echo $this->security->get_csrf_token_name(); ?>" 
+        		data-csrf-value="<?php echo $this->security->get_csrf_hash(); ?>" 
+        		class="dropdown-toggle notif notifbtn" 
+        		id="notifbtn"
+        		data-toggle="dropdown" 
+        		role="button" 
+        		aria-haspopup="true" 
+        		aria-expanded="false">
+				
+				<i class="zmdi zmdi-hc-lg zmdi-notifications "></i>
+				
+				
+				<span class="num" id="num" <?php if($notificationsCount == 0) { ?> style = "opacity:0" <?php }  ?> ><?php echo $notificationsCount ?></span>
+					
+				<div class="media-group dropdown-menu animated flipInY notification_bar">
+					<?php $this->load->view("includes/notification_bar"); ?>
+				</div>
+			</a>
+        </li>
+        
+        
+        
         
         <a href="<?php echo base_url(); ?>" class="navbar-brand">
             <span class="brand-icon">
@@ -144,11 +189,11 @@
     </div><!-- navbar-container -->
 </nav>
 
-<?php $this->load->view("includes/notifications_popup"); ?>
-
 <div class="modal fade viewBlog" id="viewBlog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<?php $this->load->view("includes/blog_popup"); ?>
 </div>
+
+<?php $this->load->view("includes/notifications_popup"); ?>
 
 <script src="<?php echo base_url("assets"); ?>/libs/bower/jquery/dist/jquery.js"></script>
 <script src="<?php echo base_url("assets"); ?>/libs/bower/jquery-ui/jquery-ui.min.js"></script>
