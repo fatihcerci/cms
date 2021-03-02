@@ -1,10 +1,48 @@
+<style>
+    @media (min-width: 992px) {
+      .col-md-center {
+        float: none;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+</style>
+
 <div class="row">
-    <div class="col-md-12">
-        <h4 class="m-b-lg">
+    <div class="col-md-12" >
+        <h4 class="m-b-lg text-center">
             Randevu Listesi
             <a href="<?php echo base_url("appointments/new_form"); ?>" class="btn btn-outline btn-primary btn-xs pull-right"> <i class="fa fa-plus"></i> Yeni Ekle</a>
         </h4>
     </div><!-- END column -->
+    
+    <div class="row" >
+    	<div class="col-md-12">
+            <?php if(!empty($items)) { 
+                foreach($items as $item) { ?>
+            	<div class="col-md-3">
+            		<div class="widget">
+            			<div class="widget-body text-center">
+            				<div class="big-icon m-b-md watermark"><i class="fa fa-3x <?php if($item->gender == "E") { ?> fa-male <?php } else { ?> fa-female <?php } ?>"></i></div>
+            				<h4 class="m-b-md"><?php echo $item->name." ".$item->surname ?></h4>
+            				<p class="text-muted m-b-lg">
+            					<?php echo $item->email ?> <br>
+            					<?php echo $item->phone ?> <br>
+            					<b><?php echo get_readable_datetime($item->appointmentDate); ?></b>
+            				</p>
+    	        			<hr class="widget-separator">
+            				<a href="<?php echo base_url("appointments/update_form/$item->id"); ?>" class="btn p-v-xl btn-primary" style="margin-top:15px;">Randevu Görüntüle</a>
+            			</div><!-- .widget-body -->
+            		</div><!-- .widget -->
+            	</div><!-- END column -->
+            	
+            <?php }
+            }
+            ?>
+       	</div>
+	</div>
+	
+	<!-- 
     <div class="col-md-12">
         <div class="widget p-lg">
 
@@ -70,6 +108,7 @@
 
             <?php } ?>
 
-        </div><!-- .widget -->
-    </div><!-- END column -->
+        </div>
+    </div>
+     -->
 </div>
