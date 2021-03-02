@@ -38,9 +38,9 @@
       }
       
         .navbar-brand .brand-icon {
-    		width: 160px;
-        	margin-left: -29px;
-        	margin-top: -6px;
+    		width: 130px;
+    	    margin-left: -33px;
+            margin-top: -1px;
         }
     }
     .navbar-toolbar > li > .dropdown-menu {
