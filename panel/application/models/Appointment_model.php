@@ -17,7 +17,7 @@ class Appointment_model extends CI_Model
     }
 
     /** Tüm Kayıtları bana getirecek olan metot.. */
-    public function get_all($where = array(), $order = "id ASC")
+    public function get_all($where = array(), $order = "appointmentDate ASC")
     {
         return $this->db->where($where)->order_by($order)->get($this->tableName)->result();
     }

@@ -25,7 +25,7 @@ class Appointments extends CI_Controller
 
         /** Tablodan Verilerin Getirilmesi.. */
         $items = $this->appointment_model->get_all(
-            array()
+            array("isActive" => "1")
         );
 
         /** View'e gönderilecek Değişkenlerin Set Edilmesi.. */
@@ -287,4 +287,30 @@ class Appointments extends CI_Controller
         }
     }
 
+    public function info_form($id){
+        
+        $viewData = new stdClass();
+        
+        /** Tablodan Verilerin Getirilmesi.. */
+        $item = $this->appointment_model->get(
+            array(
+                "id"    => $id,
+            )
+        );
+        
+        $birthDate = DateTime::createFromFormat('Y-m-d H:i:s', $item->birthDate)->format('d/m/Y');
+        $appointmentDate = DateTime::createFromFormat('Y-m-d H:i:s', $item->appointmentDate)->format('Y-m-d H:i');
+        
+        $item->birthDate = $birthDate;
+        $item->appointmentDate = $appointmentDate;
+        
+        /** View'e gönderilecek Değişkenlerin Set Edilmesi.. */
+        $viewData->viewFolder = $this->viewFolder;
+        $viewData->subViewFolder = "info";
+        $viewData->item = $item;
+        
+        $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
+        
+        
+    }
 }

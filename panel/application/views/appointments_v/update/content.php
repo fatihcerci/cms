@@ -109,10 +109,9 @@
 					</div>
 				</div>
 			</form>
-			<div class="row">
-				<div class="col-sm-3 col-md-center" style="margin-top:20px;">
+			<div class="col-md-6 col-md-center">
+					<button onclick="goBack()" class="btn btn-default">Geri Dön</button>
 					<button type="submit" class="btn btn-success updateAppointment">Randevu Güncelle</button>
-				</div>
 			</div>
 		</div><!-- .widget-body -->
 	</div><!-- .widget -->
@@ -120,6 +119,9 @@
 
 
 <script>
+	function goBack() {
+    	window.history.back();
+    }
 	$(document).ready(function(){
 		$(".updateAppointment").on("click",function(){
     		swal({

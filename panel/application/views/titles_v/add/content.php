@@ -19,6 +19,7 @@
                         <label>Açıklama</label>
                         <input class="form-control" placeholder="Açıklama" name="description">
                     </div>
+                    
                     <button type="submit" class="btn btn-primary btn-md btn-outline">Kaydet</button>
                     <a href="<?php echo base_url("titles"); ?>" class="btn btn-md btn-danger btn-outline">İptal</a>
                 </form>
