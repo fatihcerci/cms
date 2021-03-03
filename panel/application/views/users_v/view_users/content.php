@@ -14,7 +14,7 @@
                     		<div class="widget">
                     			<div class="widget-body text-center">
                     				<div class="avatar avatar-xl avatar-circle" style="width:130px;height:130px;margin-right:0px !important;">
-                    					<a href="javascript:void(0)">
+                    					<a href="<?php echo base_url("users/view_profile/$user->id"); ?>">
                     						<img class="img-responsive" src="<?php echo base_url("assets"); ?>/assets/images/avatar-user.png" alt="avatar"/>
                     					</a>
                     				</div><!-- .avatar -->
@@ -26,7 +26,7 @@
                     					<?php echo $user->email ?>
                     				</p>
                         			<hr class="widget-separator">
-                    				<a href="<?php echo base_url("users/view_profile/$user->id"); ?>" class="btn btn-md btn-outline btn-primary" style="margin-top:15px;"><i class="fa fa-search" style="width:50px;"></i></a>
+                    				<a href="<?php echo base_url("users/view_profile/$user->id"); ?>" class="btn btn-sm btn-outline btn-primary" style="margin-top:15px;"><i class="fa fa-search" style="width:50px;"></i></a>
                     			</div><!-- .widget-body -->
                     		</div><!-- .widget -->
                 		</div><!-- END column -->

@@ -15,7 +15,7 @@
 	<div class="panel panel-primary" style="min-height:421px;">
 		<div class="panel-heading " style="padding:12px !important;">
 			<span class="pull-left big-icon"></span>
-			<h4 class="panel-title text-center" style="padding-left:20px;text-transform:none !important;">Hasta Bilgileri</h4>
+			<h4 class="panel-title text-center" style="padding-left:20px;text-transform:none !important;">Kişi Bilgileri</h4>
 		</div>
 		
 		<div class="widget">
