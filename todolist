@@ -2,3 +2,7 @@
 2- Yönetici onay bekleyen kullanıcı hesapları ekranı
 3- Kullanıcı hesabı onay tarihi
 4- Onay sonrası mail gönderimi (Maile uygulamaya giriş linki.)
+
+
+5- Rol tipleri eklenecek (Yönetici, Developer, Çalışan)
+6- Ana sayfa rol tiplerine göre çoğaltılacak görünürlükler düzenlenecek.
