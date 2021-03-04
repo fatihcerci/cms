@@ -57,6 +57,7 @@ $route["login"]           = "userop/login";
 $route["logout"]          = "userop/logout";
 $route["sifremi-unuttum"] = "userop/forget_password";
 $route["reset-password"]  = "userop/reset_password";
+$route["kayit-ol"]        = "userop/sign_up";
 
 $route["duyuru-bir-daha-gosterme"]  = "dashboard/duyuru_bir_daha_gosterme";
 $route["bildirimler-goruldu"]  = "dashboard/bildirimler_goruldu";

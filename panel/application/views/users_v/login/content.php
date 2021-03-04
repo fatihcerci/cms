@@ -33,7 +33,7 @@
         height:15vh;
         margin-bottom:-7px; /*Fix for safari gap*/
         min-height:100px;
-        max-height:150px;
+        max-height:110px;
     }
         
     .parallax > use {
@@ -134,13 +134,14 @@
             </div><!-- #login-form -->
         
             <div class="simple-page-footer">
-                <p><a href="<?php echo base_url("sifremi-unuttum"); ?>">Şifremi Unuttum ?</a></p>
+                <p><a href="<?php echo base_url("kayit-ol"); ?>">Kayıt Ol   -     </a><a href="<?php echo base_url("sifremi-unuttum"); ?>">Şifremi Unuttum ?</a></p>
             </div><!-- .simple-page-footer -->
         
         
         </div><!-- .simple-page-wrap -->
 	</div>
 </div>
+
 <!--Waves Container-->
 <div class="footer">
     <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -156,3 +157,4 @@
         </g>
     </svg>
 </div>
+

@@ -225,11 +225,14 @@ class Users extends CI_Controller
             )
         );
         
-        $recruitmentDate = DateTime::createFromFormat('Y-m-d H:i:s', $item->recruitmentDate)->format('d/m/Y');
-        $birthDate = DateTime::createFromFormat('Y-m-d H:i:s', $item->birthDate)->format('d/m/Y');
-        
-        $item->recruitmentDate = $recruitmentDate;
-        $item->birthDate = $birthDate;
+        if(!empty($item->recruitmentDate)) {
+            $recruitmentDate = DateTime::createFromFormat('Y-m-d H:i:s', $item->recruitmentDate)->format('d/m/Y');
+            $item->recruitmentDate = $recruitmentDate;
+        }
+        if(!empty($item->birthDate)) {
+            $birthDate = DateTime::createFromFormat('Y-m-d H:i:s', $item->birthDate)->format('d/m/Y');
+            $item->birthDate = $birthDate;
+        }
 
         $viewData->user_roles = $this->user_role_model->get_all(
             array(
@@ -411,8 +414,8 @@ class Users extends CI_Controller
 
         $this->load->library("form_validation");
 
-        $this->form_validation->set_rules("password", "Şifre", "required|trim|min_length[6]|max_length[8]");
-        $this->form_validation->set_rules("re_password", "Şifre Tekrar", "required|trim|min_length[6]|max_length[8]|matches[password]");
+        $this->form_validation->set_rules("password", "Şifre", "required|trim|min_length[6]|max_length[15]");
+        $this->form_validation->set_rules("re_password", "Şifre Tekrar", "required|trim|min_length[6]|max_length[15]|matches[password]");
 
         $this->form_validation->set_message(
             array(
