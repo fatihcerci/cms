@@ -131,6 +131,14 @@
                                     </a>
                                 </li>
                             <?php } ?>
+                            
+                            <?php if(isAllowedViewModule("user_roles")) {  ?>
+                                <li>
+                                    <a href="<?php echo base_url("users/pending"); ?>">
+                                        <span class="menu-text">Bekleyen Kullanıcılar</span>
+                                    </a>
+                                </li>
+                         	<?php } ?>
                         </ul>
                     </li>
                 <?php } ?> 

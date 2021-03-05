@@ -29,7 +29,7 @@ class Users extends CI_Controller
         $user = get_active_user();
 
         if(isYetkili()){
-            $where = array();
+            $where = array("user_account_approve_date !=" => NULL);
         } else {
             $where = array(
                 "id"    => $user->id
@@ -99,11 +99,14 @@ class Users extends CI_Controller
         $this->load->library("form_validation");
 
         // Kurallar yazilir..
+        $this->form_validation->set_rules("tckn", "T.C Kimlik Numarası", "required|trim|is_unique[users.tckn]|min_length[11]|max_length[11]");
         $this->form_validation->set_rules("full_name", "Ad Soyad", "required|trim");
-        $this->form_validation->set_rules("email", "E-posta", "required|trim|valid_email|is_unique[users.email]");
-        $this->form_validation->set_rules("recruitmentDate", "İşe Giriş Tarihi", "required|trim");
+        $this->form_validation->set_rules("gender", "Cinsiyet", "required|trim");
         $this->form_validation->set_rules("birthDate", "Doğum Tarihi", "required|trim");
         $this->form_validation->set_rules("birthPlace", "Doğum Yeri", "required|trim");
+        $this->form_validation->set_rules("phone", "Telefon Numarası", "required|trim");
+        $this->form_validation->set_rules("email", "E-posta", "required|trim|valid_email|is_unique[users.email]");
+        $this->form_validation->set_rules("recruitmentDate", "İşe Giriş Tarihi", "required|trim");
         $this->form_validation->set_rules("user_role_id", "Kullanıcı Rolü", "required|trim");
         $this->form_validation->set_rules("user_title_id", "Unvan", "required|trim");
 
@@ -112,7 +115,8 @@ class Users extends CI_Controller
                 "required"    => "<b>{field}</b> alanı doldurulmalıdır",
                 "valid_email" => "Lütfen geçerli bir e-posta adresi giriniz",
                 "is_unique"   => "<b>{field}</b> alanı daha önceden kullanılmış",
-                "matches"     => "Şifreler birbirlerini tutmuyor"
+                "min_length"  => "<b>{field}</b> 11 karakterden oluşmalıdır",
+                "max_length"  => "<b>{field}</b> 11 karakterden oluşmalıdır",
             )
         );
 
@@ -131,17 +135,21 @@ class Users extends CI_Controller
             
             $insert = $this->user_model->add(
                 array(
-                    "full_name"         => $this->input->post("full_name"),
-                    "email"             => $this->input->post("email"),
-                    "password"          => md5($temp_password),
-                    "recruitmentDate"   => $recruitmentDate->format('Y-m-d'),
-                    "birthDate"         => $birthDate->format('Y-m-d'),
-                    "birthPlace"        => $this->input->post("birthPlace"),
-                    "user_role_id"      => $this->input->post("user_role_id"),
-                    "user_title_id"     => $title,
-                    "user_project_id"   => $project,
-                    "isActive"          => 1,
-                    "createdAt"         => date("Y-m-d H:i:s")
+                    "tckn"                      => $this->input->post("tckn"),
+                    "full_name"                 => $this->input->post("full_name"),
+                    "gender"                    => $this->input->post("gender"),
+                    "birthDate"                 => $birthDate->format('Y-m-d'),
+                    "birthPlace"                => $this->input->post("birthPlace"),
+                    "phone"                     => $this->input->post("phone"),
+                    "email"                     => $this->input->post("email"),
+                    "password"                  => md5($temp_password),
+                    "recruitmentDate"           => $recruitmentDate->format('Y-m-d'),
+                    "user_role_id"              => $this->input->post("user_role_id"),
+                    "user_title_id"             => $title,
+                    "user_project_id"           => $project,
+                    "isActive"                  => 1,
+                    "user_account_approve_date" => date("Y-m-d H:i:s"),
+                    "createdAt"                 => date("Y-m-d H:i:s")
                 )
             );
 
@@ -208,6 +216,18 @@ class Users extends CI_Controller
             $viewData->viewFolder = $this->viewFolder;
             $viewData->subViewFolder = "add";
             $viewData->form_error = true;
+            
+            $viewData->tckn = $this->input->post("tckn");
+            $viewData->full_name = $this->input->post("full_name");
+            $viewData->gender = $this->input->post("gender");
+            $viewData->birthDate = $this->input->post("birthDate");
+            $viewData->birthPlace = $this->input->post("birthPlace");
+            $viewData->phone = $this->input->post("phone");
+            $viewData->email = $this->input->post("email");
+            $viewData->recruitmentDate = $this->input->post("recruitmentDate");
+            $viewData->user_role_id = $this->input->post("user_role_id");
+            $viewData->user_title_id = $this->input->post("user_title_id");
+            $viewData->user_project_id = $this->input->post("user_project_id");
 
             $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
         }
@@ -313,10 +333,14 @@ class Users extends CI_Controller
             $this->form_validation->set_rules("email", "E-posta", "required|trim|valid_email|is_unique[users.email]");
         }
 
+        // Kurallar yazilir..
+        $this->form_validation->set_rules("tckn", "T.C Kimlik Numarası", "required|trim|is_unique[users.tckn]|min_length[11]|max_length[11]");
         $this->form_validation->set_rules("full_name", "Ad Soyad", "required|trim");
-        $this->form_validation->set_rules("recruitmentDate", "İşe Giriş Tarihi", "required|trim");
+        $this->form_validation->set_rules("gender", "Cinsiyet", "required|trim");
         $this->form_validation->set_rules("birthDate", "Doğum Tarihi", "required|trim");
         $this->form_validation->set_rules("birthPlace", "Doğum Yeri", "required|trim");
+        $this->form_validation->set_rules("phone", "Telefon Numarası", "required|trim");
+        $this->form_validation->set_rules("recruitmentDate", "İşe Giriş Tarihi", "required|trim");
         $this->form_validation->set_rules("user_role_id", "Kullanıcı Rolü", "required|trim");
         $this->form_validation->set_rules("user_title_id", "Unvan", "required|trim");
         
@@ -325,6 +349,8 @@ class Users extends CI_Controller
                 "required"    => "<b>{field}</b> alanı doldurulmalıdır",
                 "valid_email" => "Lütfen geçerli bir e-posta adresi giriniz",
                 "is_unique"   => "<b>{field}</b> alanı daha önceden kullanılmış",
+                "min_length"  => "<b>{field}</b> 11 karakterden oluşmalıdır",
+                "max_length"  => "<b>{field}</b> 11 karakterden oluşmalıdır",
             )
         );
 
@@ -343,11 +369,14 @@ class Users extends CI_Controller
             $update = $this->user_model->update(
                 array("id" => $id),
                 array(
+                    "tckn"                  => $this->input->post("tckn"),
                     "full_name"             => $this->input->post("full_name"),
-                    "email"                 => $this->input->post("email"),
-                    "recruitmentDate"       => $recruitmentDate->format('Y-m-d'),
+                    "gender"                => $this->input->post("gender"),
                     "birthDate"             => $birthDate->format('Y-m-d'),
                     "birthPlace"            => $this->input->post("birthPlace"),
+                    "phone"                 => $this->input->post("phone"),
+                    "email"                 => $this->input->post("email"),
+                    "recruitmentDate"       => $recruitmentDate->format('Y-m-d'),
                     "user_role_id"          => $this->input->post("user_role_id"),
                     "user_title_id"         => $title,
                     "user_project_id"       => $project
@@ -405,6 +434,19 @@ class Users extends CI_Controller
                 ), "rank ASC"
             );
 
+            
+            $viewData->tckn = $this->input->post("tckn");
+            $viewData->full_name = $this->input->post("full_name");
+            $viewData->gender = $this->input->post("gender");
+            $viewData->birthDate = $this->input->post("birthDate");
+            $viewData->birthPlace = $this->input->post("birthPlace");
+            $viewData->phone = $this->input->post("phone");
+            $viewData->email = $this->input->post("email");
+            $viewData->recruitmentDate = $this->input->post("recruitmentDate");
+            $viewData->user_role_id = $this->input->post("user_role_id");
+            $viewData->user_title_id = $this->input->post("user_title_id");
+            $viewData->user_project_id = $this->input->post("user_project_id");
+            
             $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
         }
 
@@ -627,4 +669,218 @@ class Users extends CI_Controller
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
     }
 
+    
+    public function pending(){
+        
+        $viewData = new stdClass();
+        
+        $user = get_active_user();
+        
+        if(isYetkili()){
+            $where = array();
+        } else {
+            $where = array(
+                "id"    => $user->id
+            );
+        }
+        
+        /** Tablodan Verilerin Getirilmesi.. */
+        $items = $this->user_model->get_all(
+            $where = array(
+                "isActive" => "0",
+                "user_account_approve_date =" => NULL
+            ),
+            $order = "createdAt ASC"
+        );
+        
+        /** View'e gönderilecek Değişkenlerin Set Edilmesi.. */
+        $viewData->viewFolder = $this->viewFolder;
+        $viewData->subViewFolder = "pending_list";
+        $viewData->items = $items;
+        
+        $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
+    }
+    
+    public function approve_form($id){
+        
+        $viewData = new stdClass();
+        
+        /** Tablodan Verilerin Getirilmesi.. */
+        $item = $this->user_model->get(
+            array(
+                "id"    => $id,
+            )
+        );
+        
+        if(!empty($item->birthDate)) {
+            $birthDate = DateTime::createFromFormat('Y-m-d H:i:s', $item->birthDate)->format('d/m/Y');
+            $item->birthDate = $birthDate;
+        }
+        
+        $viewData->user_roles = $this->user_role_model->get_all(
+            array(
+                "isActive"  => 1
+            )
+        );
+        
+        $viewData->titles = $this->title_model->get_all(
+            array(
+                "isActive"  => 1
+            ), "rank ASC"
+        );
+        
+        
+        $viewData->projects = $this->project_model->get_all(
+            array(
+                "isActive"  => 1
+            ), "rank ASC"
+        );
+        
+        /** View'e gönderilecek Değişkenlerin Set Edilmesi.. */
+        $viewData->viewFolder = $this->viewFolder;
+        $viewData->subViewFolder = "approve_form";
+        $viewData->item = $item;
+        
+        $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
+        
+    }
+    
+    public function approve($id){
+        
+        $this->load->library("form_validation");
+        
+        $oldUser = $this->user_model->get(
+            array(
+                "id"    => $id
+            )
+        );
+        
+        
+        if($oldUser->email != $this->input->post("email")){
+            $this->form_validation->set_rules("email", "E-posta", "required|trim|valid_email|is_unique[users.email]");
+        }
+        if($oldUser->tckn != $this->input->post("tckn")){
+            $this->form_validation->set_rules("tckn", "T.C Kimlik Numarası", "required|trim|is_unique[users.tckn]|min_length[11]|max_length[11]");
+        }
+        // Kurallar yazilir..
+        
+        $this->form_validation->set_rules("full_name", "Ad Soyad", "required|trim");
+        $this->form_validation->set_rules("gender", "Cinsiyet", "required|trim");
+        $this->form_validation->set_rules("birthDate", "Doğum Tarihi", "required|trim");
+        $this->form_validation->set_rules("birthPlace", "Doğum Yeri", "required|trim");
+        $this->form_validation->set_rules("phone", "Telefon Numarası", "required|trim");
+        $this->form_validation->set_rules("recruitmentDate", "İşe Giriş Tarihi", "required|trim");
+        $this->form_validation->set_rules("user_role_id", "Kullanıcı Rolü", "required|trim");
+        $this->form_validation->set_rules("user_title_id", "Unvan", "required|trim");
+        
+        $this->form_validation->set_message(
+            array(
+                "required"    => "<b>{field}</b> alanı doldurulmalıdır",
+                "valid_email" => "Lütfen geçerli bir e-posta adresi giriniz",
+                "is_unique"   => "<b>{field}</b> alanı daha önceden kullanılmış",
+                "min_length"  => "<b>{field}</b> 11 karakterden oluşmalıdır",
+                "max_length"  => "<b>{field}</b> 11 karakterden oluşmalıdır",
+            )
+        );
+        
+        // Form Validation Calistirilir..
+        $validate = $this->form_validation->run();
+        
+        if($validate){
+            
+            $recruitmentDate = DateTime::createFromFormat('d/m/Y', $this->input->post("recruitmentDate"));
+            $birthDate = DateTime::createFromFormat('d/m/Y', $this->input->post("birthDate"));
+            
+            $title = $this->input->post("user_title_id") == "null" ? null : $this->input->post("user_title_id");
+            $project = $this->input->post("user_project_id") == "null" ? null : $this->input->post("user_project_id");
+            
+            $update = $this->user_model->update(
+                array("id" => $id),
+                array(
+                    "tckn"                  => $this->input->post("tckn"),
+                    "full_name"             => $this->input->post("full_name"),
+                    "gender"                => $this->input->post("gender"),
+                    "birthDate"             => $birthDate->format('Y-m-d'),
+                    "birthPlace"            => $this->input->post("birthPlace"),
+                    "phone"                 => $this->input->post("phone"),
+                    "email"                 => $this->input->post("email"),
+                    "recruitmentDate"       => $recruitmentDate->format('Y-m-d'),
+                    "user_role_id"          => $this->input->post("user_role_id"),
+                    "user_title_id"         => $title,
+                    "user_project_id"       => $project,
+                    "isActive"              => "1",
+                    "user_account_approve_date" => date("Y-m-d H:i:s")
+                )
+            );
+            
+            // TODO Alert sistemi eklenecek...
+            if($update){
+                //EPOSTA GONDERILECEK
+                $alert = array(
+                    "title" => "İşlem Başarılı",
+                    "text" => "Kullanıcı kaydı başarılı bir şekilde onaylandı",
+                    "type"  => "success"
+                );
+            } else {
+                $alert = array(
+                    "title" => "İşlem Başarısız",
+                    "text" => "Kullanıcı onaylama işlemi sırasında bir problem oluştu",
+                    "type"  => "error"
+                );
+            }
+            // İşlemin Sonucunu Session'a yazma işlemi...
+            $this->session->set_flashdata("alert", $alert);
+            
+            redirect(base_url("users/pending"));
+        } else {
+            $viewData = new stdClass();
+            
+            /** View'e gönderilecek Değişkenlerin Set Edilmesi.. */
+            $viewData->viewFolder = $this->viewFolder;
+            $viewData->subViewFolder = "approve_form";
+            $viewData->form_error = true;
+            
+            /** Tablodan Verilerin Getirilmesi.. */
+            $viewData->item = $this->user_model->get(
+                array(
+                    "id"    => $id,
+                )
+            );
+            
+            $viewData->user_roles = $this->user_role_model->get_all(
+                array(
+                    "isActive"  => 1
+                )
+            );
+            
+            $viewData->titles = $this->title_model->get_all(
+                array(
+                    "isActive"  => 1
+                ),
+                "rank ASC"
+            );
+            
+            $viewData->projects = $this->project_model->get_all(
+                array(
+                    "isActive"  => 1
+                ), "rank ASC"
+            );
+            
+            
+            $viewData->tckn = $this->input->post("tckn");
+            $viewData->full_name = $this->input->post("full_name");
+            $viewData->gender = $this->input->post("gender");
+            $viewData->birthDate = $this->input->post("birthDate");
+            $viewData->birthPlace = $this->input->post("birthPlace");
+            $viewData->phone = $this->input->post("phone");
+            $viewData->email = $this->input->post("email");
+            $viewData->recruitmentDate = $this->input->post("recruitmentDate");
+            $viewData->user_role_id = $this->input->post("user_role_id");
+            $viewData->user_title_id = $this->input->post("user_title_id");
+            $viewData->user_project_id = $this->input->post("user_project_id");
+            
+            $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
+        }
+        
+    }
 }
