@@ -23,6 +23,7 @@
                     				<p class="text-muted m-b-lg">
                     					<?php echo $user->project ?> <br>
                     					<?php echo $user->title ?> <br>
+                    					<?php echo $user->phone ?> <br>
                     					<?php echo $user->email ?>
                     				</p>
                         			<hr class="widget-separator">
