@@ -4,5 +4,10 @@
 
 
 4- Onay sonrası mail gönderimi (Maile uygulamaya giriş linki.)
-5- Rol tipleri eklenecek (Yönetici, Developer, Çalışan)
-6- Ana sayfa rol tiplerine göre çoğaltılacak görünürlükler düzenlenecek.
+5- Onay sonrası hesap açıldığına dair notification. 
+6- Onay sonrası kullanıcıya özel popup - Aramıza hoşgeldin mesajı.
+7- Diğer kullanıcılara -> aramıza .... katıldı, tebrikler başarılar vs.vs. duyurusu
+
+
+8- Rol tipleri eklenecek (Yönetici, Developer, Çalışan)
+9- Ana sayfa rol tiplerine göre çoğaltılacak görünürlükler düzenlenecek.
