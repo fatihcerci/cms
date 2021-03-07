@@ -24,7 +24,7 @@
 					<div class="col-sm-5">
 						<div class="form-group" style="margin-bottom:7px !important">
 							<div class="col-sm-10">
-								<input type="text" class="form-control" placeholder="T.C Kimlik Numaranız" id="tckn" name="tckn">
+								<input type="text" class="form-control" placeholder="T.C Kimlik Numaranız" id="tckn" name="tckn" value="<?php if(!empty($tckn) && isset($form_error) && empty(form_error("tckn"))) { echo $tckn; } ?>">
 								<?php if(isset($form_error)){ ?>
                                     <small class="pull-right input-form-error"> <?php echo form_error("tckn"); ?></small>
                                 <?php } ?>
@@ -38,7 +38,10 @@
 					<div class="col-sm-5">
 						<div class="form-group" style="margin-bottom:7px !important">
 							<div class="col-sm-10">
-								<input type="text" class="form-control" placeholder="Adınız" id="name" name="name">
+								<input type="text" class="form-control" placeholder="Adınız" id="name" name="name" value="<?php if(!empty($name) && isset($form_error) && empty(form_error("name"))) { echo $name; } ?>">
+								<?php if(isset($form_error)){ ?>
+                                    <small class="pull-right input-form-error"> <?php echo form_error("name"); ?></small>
+                                <?php } ?>
 							</div>
 						</div>
 					</div>
@@ -49,7 +52,10 @@
 					<div class="col-sm-5">
 						<div class="form-group" style="margin-bottom:7px !important">
 							<div class="col-sm-10">
-								<input type="text" class="form-control" placeholder="Soyadınız" id="surname" name="surname">
+								<input type="text" class="form-control" placeholder="Soyadınız" id="surname" name="surname" value="<?php if(!empty($surname) && isset($form_error) && empty(form_error("surname"))) { echo $surname; } ?>">
+								<?php if(isset($form_error)){ ?>
+                                    <small class="pull-right input-form-error"> <?php echo form_error("surname"); ?></small>
+                                <?php } ?>
 							</div>
 						</div>
 					</div>
@@ -60,8 +66,11 @@
 					<div class="col-sm-5">
 						<div class="form-group" style="margin-bottom:7px !important">
 							<div class="col-sm-10">
-								<input type="radio" name="gender" id="E" value="E"> Erkek
-								<input type="radio" name="gender" id="K" value="K" style="margin-left:8px;"> Kadın
+								<input type="radio" name="gender" id="E" value="E" <?php if(!empty($gender) && $gender=="E" && isset($form_error) && empty(form_error("gender"))) { ?> checked <?php } ?>> Erkek
+								<input type="radio" name="gender" id="K" value="K" style="margin-left:8px;" <?php if(!empty($gender) && $gender=="K" && isset($form_error) && empty(form_error("gender"))) { ?> checked <?php } ?>> Kadın
+								<?php if(isset($form_error)){ ?>
+                                     <br><small class="pull-right input-form-error"> <?php echo form_error("gender"); ?></small>
+                                <?php } ?>
 							</div>
 						</div>
 					</div>
@@ -72,7 +81,10 @@
 					<div class="col-sm-5">
 						<div class="form-group" style="margin-bottom:7px !important">
 							<div class="col-sm-10">
-								<input type="text" id="datetimepicker5" placeholder="GG/AA/YYYY"  class="form-control" name = "birthDate" data-plugin="datetimepicker" data-options="{format : 'DD/MM/YYYY'}">
+								<input type="text" id="datetimepicker5" placeholder="GG/AA/YYYY"  class="form-control" name = "birthDate" data-plugin="datetimepicker" data-options="{format : 'DD/MM/YYYY'}" value="<?php if(!empty($birthDate) && isset($form_error) && empty(form_error("birthDate"))) { echo $birthDate; } ?>">
+								<?php if(isset($form_error)){ ?>
+                                    <small class="pull-right input-form-error"> <?php echo form_error("birthDate"); ?></small>
+                                <?php } ?>
 							</div>
 						</div>
 					</div>
@@ -83,7 +95,10 @@
 					<div class="col-sm-5">
 						<div class="form-group" style="margin-bottom:7px !important">
 							<div class="col-sm-10">
-								<input type="email" class="form-control" placeholder="E-posta adresiniz" id="email" name="email">
+								<input type="email" class="form-control" placeholder="E-posta adresiniz" id="email" name="email" value="<?php if(!empty($email) && isset($form_error) && empty(form_error("email"))) { echo $email; } ?>">
+								<?php if(isset($form_error)){ ?>
+                                    <small class="pull-right input-form-error"> <?php echo form_error("email"); ?></small>
+                                <?php } ?>
 							</div>
 						</div>
 					</div>
@@ -94,7 +109,10 @@
 					<div class="col-sm-5">
 						<div class="form-group" style="margin-bottom:7px !important">
 							<div class="col-sm-10">
-								<input type="phone" class="form-control" placeholder="Telefon" id="phone" name="phone">
+								<input type="phone" class="form-control" placeholder="Telefon" id="phone" name="phone" value="<?php if(!empty($phone) && isset($form_error) && empty(form_error("phone"))) { echo $phone; } ?>">
+								<?php if(isset($form_error)){ ?>
+                                    <small class="pull-right input-form-error"> <?php echo form_error("phone"); ?></small>
+                                <?php } ?>
 							</div>
 						</div>
 					</div>
@@ -105,7 +123,10 @@
 					<div class="col-sm-5">
 						<div class="form-group" style="margin-bottom:7px !important">
 							<div class="col-sm-10">
-								<input type="hidden" name="appointmentDate" id="datetimepicker1" data-plugin="datetimepicker" data-options="{inline: true, viewMode: 'days', format : 'YYYY-MM-DD HH:mm', defaultDate:'<?php echo date('Y-m-d 09:00',strtotime("tomorrow")); ?>' }" />
+								<input type="hidden" name="appointmentDate" id="datetimepicker1" data-plugin="datetimepicker" data-options="{inline: true, viewMode: 'days', format : 'YYYY-MM-DD HH:mm', defaultDate:'<?php echo date('Y-m-d 09:00',strtotime("tomorrow")); ?>' }" value="<?php if(!empty($appointmentDate) && isset($form_error) && empty(form_error("appointmentDate"))) { echo $appointmentDate; } ?>" />
+								<?php if(isset($form_error)){ ?>
+                                    <small class="pull-right input-form-error"> <?php echo form_error("appointmentDate"); ?></small>
+                                <?php } ?>
 							</div>
 						</div>
 					</div>

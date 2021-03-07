@@ -12,6 +12,7 @@ class Appointments extends CI_Controller
         $this->viewFolder = "appointments_v";
 
         $this->load->model("appointment_model");
+        $this->load->model("patient_model");
 
         if(!get_active_user()){
             redirect(base_url("login"));
@@ -27,6 +28,20 @@ class Appointments extends CI_Controller
         $items = $this->appointment_model->get_all(
             array("isActive" => "1")
         );
+        
+        foreach($items as $item) {
+            $patient = $this->patient_model->get(array("id" => $item->patient_id));
+            
+            if($patient) {
+                $item->name = $patient->name;
+                $item->surname = $patient->surname;
+                $item->gender = $patient->gender;
+                $item->email = $patient->email;
+                $item->phone = $patient->phone;
+            } 
+            
+            $item->tab = "tab-1";
+        }
 
         /** View'e gönderilecek Değişkenlerin Set Edilmesi.. */
         $viewData->viewFolder = $this->viewFolder;
@@ -57,7 +72,11 @@ class Appointments extends CI_Controller
         $this->form_validation->set_rules("tckn", "TCKN", "required|trim");
         $this->form_validation->set_rules("name", "Ad", "required|trim");
         $this->form_validation->set_rules("surname", "Soyad", "required|trim");
+        $this->form_validation->set_rules("gender", "Cinsiyet", "required|trim");
         $this->form_validation->set_rules("birthDate", "Doğum Tarihi", "required|trim");
+        $this->form_validation->set_rules("email", "E-posta", "required|trim");
+        $this->form_validation->set_rules("phone", "Telefon", "required|trim");
+        $this->form_validation->set_rules("appointmentDate", "Randevu Tarihi", "required|trim");
 
         $this->form_validation->set_message(
             array(
@@ -73,7 +92,7 @@ class Appointments extends CI_Controller
             $birthDate = DateTime::createFromFormat('d/m/Y', $this->input->post("birthDate"));
             $appointmentDate = DateTime::createFromFormat('Y-m-d H:i', $this->input->post("appointmentDate"));
             
-            $insert = $this->appointment_model->add(
+            $patientId = $this->patient_model->add(
                 array(
                     "tckn"              => $this->input->post("tckn"),
                     "name"              => $this->input->post("name"),
@@ -82,23 +101,40 @@ class Appointments extends CI_Controller
                     "birthDate"         => $birthDate->format('Y-m-d'),
                     "email"             => $this->input->post("email"),
                     "phone"             => $this->input->post("phone"),
-                    "appointmentDate"   => $appointmentDate->format('Y-m-d H:i'),
                     "isActive"          => 1,
                     "createdAt"         => date("Y-m-d H:i:s")
                 )
             );
 
+            
+            
             // TODO Alert sistemi eklenecek...
-            if($insert){
+            $success = 0;
+            if($patientId){
+                
+                $appointment = $this->appointment_model->add(
+                    array(
+                        "patient_id"        => $patientId,
+                        "appointmentDate"   => $appointmentDate->format('Y-m-d H:i'),
+                        "isActive"          => 1,
+                        "createdAt"         => date("Y-m-d H:i:s")
+                    )
+                );
+                
+                if($appointment){
+                    $success = 1;
+                } 
 
+            } 
+            
+            if($success == 1) {
                 $alert = array(
                     "title" => "İşlem Başarılı",
                     "text" => "Randevu başarılı bir şekilde oluşturuldu",
                     "type"  => "success"
                 );
-
-            } else {
-
+            }
+            else {
                 $alert = array(
                     "title" => "İşlem Başarısız",
                     "text" => "Randevu oluşturma sırasında bir problem oluştu",
@@ -119,6 +155,16 @@ class Appointments extends CI_Controller
             $viewData->viewFolder = $this->viewFolder;
             $viewData->subViewFolder = "add";
             $viewData->form_error = true;
+            
+            $viewData->tckn = $this->input->post("tckn");
+            $viewData->name = $this->input->post("name");
+            $viewData->surname = $this->input->post("surname");
+            $viewData->gender = $this->input->post("gender");
+            $viewData->birthDate = $this->input->post("birthDate");
+            $viewData->email = $this->input->post("email");
+            $viewData->phone = $this->input->post("phone");
+            $viewData->birthDate = $this->input->post("birthDate");
+            $viewData->appointmentDate = $this->input->post("appointmentDate");
 
             $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
         }
@@ -135,6 +181,18 @@ class Appointments extends CI_Controller
                 "id"    => $id,
             )
         );
+        
+        $patient = $this->patient_model->get(array("id" => $item->patient_id));
+        
+        if($patient) {
+            $item->tckn = $patient->tckn;
+            $item->name = $patient->name;
+            $item->surname = $patient->surname;
+            $item->gender = $patient->gender;
+            $item->birthDate = $patient->birthDate;
+            $item->email = $patient->email;
+            $item->phone = $patient->phone;
+        } 
         
         $birthDate = DateTime::createFromFormat('Y-m-d H:i:s', $item->birthDate)->format('d/m/Y');
         $appointmentDate = DateTime::createFromFormat('Y-m-d H:i:s', $item->appointmentDate)->format('Y-m-d H:i');
@@ -153,6 +211,12 @@ class Appointments extends CI_Controller
     }
 
     public function update($id){
+        
+        $item = $this->appointment_model->get(
+            array(
+                "id"    => $id,
+            )
+        );
 
         $this->load->library("form_validation");
 
@@ -161,7 +225,11 @@ class Appointments extends CI_Controller
         $this->form_validation->set_rules("tckn", "TCKN", "required|trim");
         $this->form_validation->set_rules("name", "Ad", "required|trim");
         $this->form_validation->set_rules("surname", "Soyad", "required|trim");
+        $this->form_validation->set_rules("gender", "Cinsiyet", "required|trim");
         $this->form_validation->set_rules("birthDate", "Doğum Tarihi", "required|trim");
+        $this->form_validation->set_rules("email", "E-posta", "required|trim");
+        $this->form_validation->set_rules("phone", "Telefon", "required|trim");
+        $this->form_validation->set_rules("appointmentDate", "Randevu Tarihi", "required|trim");
 
         $this->form_validation->set_message(
             array(
@@ -177,7 +245,8 @@ class Appointments extends CI_Controller
             $birthDate = DateTime::createFromFormat('d/m/Y', $this->input->post("birthDate"));
             $appointmentDate = DateTime::createFromFormat('Y-m-d H:i', $this->input->post("appointmentDate"));
             
-            $data = array(
+            
+            $patientData = array(
                 "tckn"              => $this->input->post("tckn"),
                 "name"              => $this->input->post("name"),
                 "surname"           => $this->input->post("surname"),
@@ -185,24 +254,31 @@ class Appointments extends CI_Controller
                 "birthDate"         => $birthDate->format('Y-m-d'),
                 "email"             => $this->input->post("email"),
                 "phone"             => $this->input->post("phone"),
-                "appointmentDate"   => $appointmentDate->format('Y-m-d H:i'),
-                "isActive"          => 1,
-                "createdAt"         => date("Y-m-d H:i:s")
             );
 
-            $update = $this->appointment_model->update(array("id" => $id), $data);
+            $patientUpdate = $this->patient_model->update(array("id" => $item->patient_id), $patientData);
 
             // TODO Alert sistemi eklenecek...
-            if($update){
-
+            $success = 1;
+            if($patientUpdate){
+                
+                $appointmentData = array(
+                    "appointmentDate"   => $appointmentDate->format('Y-m-d H:i'),
+                );
+                
+                $appointmentUpdate = $this->appointment_model->update(array("id" => $id), $appointmentData);
+                
+                $success = 1;
+            } 
+            
+            if($success == 1) {
                 $alert = array(
                     "title" => "İşlem Başarılı",
                     "text"  => "Randevu başarılı bir şekilde güncellendi",
                     "type"  => "success"
                 );
-
-            } else {
-
+            }
+            else {
                 $alert = array(
                     "title" => "İşlem Başarısız",
                     "text"  => "Randevu güncelleme sırasında bir problem oluştu",
@@ -286,31 +362,5 @@ class Appointments extends CI_Controller
             );
         }
     }
-
-    public function info_form($id){
-        
-        $viewData = new stdClass();
-        
-        /** Tablodan Verilerin Getirilmesi.. */
-        $item = $this->appointment_model->get(
-            array(
-                "id"    => $id,
-            )
-        );
-        
-        $birthDate = DateTime::createFromFormat('Y-m-d H:i:s', $item->birthDate)->format('d/m/Y');
-        $appointmentDate = DateTime::createFromFormat('Y-m-d H:i:s', $item->appointmentDate)->format('Y-m-d H:i');
-        
-        $item->birthDate = $birthDate;
-        $item->appointmentDate = $appointmentDate;
-        
-        /** View'e gönderilecek Değişkenlerin Set Edilmesi.. */
-        $viewData->viewFolder = $this->viewFolder;
-        $viewData->subViewFolder = "info";
-        $viewData->item = $item;
-        
-        $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
-        
-        
-    }
+    
 }

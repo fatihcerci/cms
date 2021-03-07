@@ -10,6 +10,16 @@ function convertToSEO($text)
 
 }
 
+function removeTurkishChar($text)
+{
+    
+    $turkce = array("ç", "Ç", "ğ", "Ğ", "ü", "Ü", "ö", "Ö", "ı", "İ", "ş", "Ş", ".", ",", "!", "'", "\"", " ", "?", "*", "_", "|", "=", "(", ")", "[", "]", "{", "}");
+    $convert = array("c", "C", "g", "G", "u", "U", "o", "O", "i", "I", "s", "S", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-");
+    
+    return str_replace($turkce, $convert, $text);
+    
+}
+
 
 function get_readable_date($date)
 {

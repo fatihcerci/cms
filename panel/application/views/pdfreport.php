@@ -16,6 +16,90 @@
 //               info@tecnick.com
 //============================================================+
 
+
+
+
+
+
+
+    
+// $this->load->model("patient_model");
+// $this->load->model("appointment_model");
+
+// $this->load->model("complaint_model");
+// $this->load->model("pill_model");
+
+// $viewData = new stdClass();
+
+// $id = 7;
+
+// $item = $this->appointment_model->get(
+//     array(
+//         "id"    => $id,
+//     )
+// );
+
+// $patient = $this->patient_model->get(array("id" => $item->patient_id));
+
+// if($patient) {
+//     $item->tckn = $patient->tckn;
+//     $item->name = $patient->name;
+//     $item->surname = $patient->surname;
+//     $item->gender = $patient->gender;
+//     $item->birthDate = $patient->birthDate;
+//     $item->email = $patient->email;
+//     $item->phone = $patient->phone;
+    
+//     $item->province = $patient->province;
+//     $item->district = $patient->district;
+//     $item->address = $patient->address;
+    
+//     $item->job = $patient->job;
+//     $item->height = $patient->height;
+//     $item->weight = $patient->weight;
+    
+//     $birthDate = DateTime::createFromFormat('Y-m-d H:i:s', $item->birthDate)->format('d/m/Y');
+//     $appointmentDate = DateTime::createFromFormat('Y-m-d H:i:s', $item->appointmentDate)->format('Y-m-d H:i');
+    
+//     $item->birthDate = $birthDate;
+//     $item->appointmentDate = $appointmentDate;
+    
+//     $viewData->info = $item;
+// }
+
+
+// $complaints = $this->complaint_model->get_all(
+//     array(
+//         "patient_id"    => $item->patient_id,
+//     )
+// );
+
+// $viewData->complaints = $complaints;
+
+// $pills = $this->pill_model->get_all(
+//     array(
+//         "patient_id"    => $item->patient_id,
+//     )
+//     );
+
+// $viewData->pills = $pills;
+
+
+// /** View'e gönderilecek Değişkenlerin Set Edilmesi.. */
+// $viewData->viewFolder = $this->viewFolder;
+// $viewData->subViewFolder = "info";
+// $viewData->appointmentId = $item->id;
+
+// $render_html = $this->load->view("patient/info_regions/summary", $viewData, true);
+
+
+
+
+
+
+
+
+
 /**
  * Creates an example PDF TEST document using TCPDF
  * @package com.tecnick.tcpdf
@@ -84,26 +168,9 @@ $pdf->AddPage();
 $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196,196,196), 'opacity'=>1, 'blend_mode'=>'Normal'));
 
 // Set some content to print
+
 $html = <<<EOD
-<h1>LENORA Bilişim Teknolojileri</h1>
-<table border="1">
-    <tr>    
-    <thead>
-        <th>Randevu Tarihi</th>
-        <th>TCKN</th>
-        <th>Ad</th>
-        <th>Soyad</th>
-    </tr>
-    </thead>
-    <tbody>
-            <tr id="ord-1">
-                <td>03/03/2021 09:00</td>
-                <td>37927282684</td>
-                <td>Fatih</td>
-                <td>Çerçi</td>
-            </tr>
-    </tbody>
-</table>
+    $render_html
 EOD;
 
 // Print text using writeHTMLCell()

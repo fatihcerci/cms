@@ -34,7 +34,7 @@
                 				</p>
                     			<hr class="widget-separator">
                 				<a href="<?php echo base_url("appointments/update_form/$item->id"); ?>" class="btn btn-sm btn-outline btn-primary" style="margin-top:15px;">Randevu Görüntüle</a>
-                				<a href="<?php echo base_url("appointments/info_form/$item->id"); ?>" class="btn btn-sm btn-outline btn-primary" style="margin-top:15px; width:135px;">Kişi Bilgileri</a>
+                				<a href="<?php echo base_url("patient/info_form/$item->id".'_'."$item->tab"); ?>" class="btn btn-sm btn-outline btn-primary" style="margin-top:15px; width:135px;">Hasta Bilgileri</a>
                 			</div><!-- .widget-body -->
                 		</div><!-- .widget -->
             		</div><!-- END column -->
