@@ -125,7 +125,7 @@
                     <td style="display:none;">#<?php echo $complaint->id; ?></td>
                     <td class="w200 text-center"><?php echo $complaint->description; ?></td>
                     <td class="w200 text-center">
-                    	<div class="col-sm-10" style="margin-top:5px">
+                    	<div class="col-sm-12" style="margin-top:5px">
                             <input type="radio" disabled name="<?php echo "violence-".$complaint->id; ?> id="H" value="0" <?php if($complaint->violence=="0") { ?> checked <?php } ?>> Hafif
         					<input type="radio" disabled name="<?php echo "violence-".$complaint->id; ?> id="O" value="1" <?php if($complaint->violence=="1") { ?> checked <?php } ?> style="margin-left:8px;"> Orta
         					<input type="radio" disabled name="<?php echo "violence-".$complaint->id; ?> id="A" value="2" <?php if($complaint->violence=="2") { ?> checked <?php } ?> style="margin-left:8px;"> Ağır
